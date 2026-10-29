@@ -28,10 +28,11 @@ rek/                 Python: fetch + normalize only (hexagonal: core/ models, po
 tests/               pytest, fixture = one real Naver page
 .claude-plugin/      plugin manifest (the repository root is the plugin)
 skills/rek/          the agent loop; references/ holds one brief per worker
-agents/              worker agents (opus, effort max); scripts are reached via ${CLAUDE_PLUGIN_ROOT}
-runs/<post_id>/      post.md, meta.json, images/, prior/<id>/ (author's earlier posts the post reuses),
-                     claims.md, sources.md, research-path.md, reconstruction.md, verification.md
-profiles/<author>/   writing-method.md (rule ledger with evidence), SKILL.md (writer skill)
+agents/              rek (orchestrator) + worker agents (opus, effort max); scripts are reached via ${CLAUDE_PLUGIN_ROOT}
+runs/<post_id>/      post.md, meta.json, images/, prior/<id>/ (author's earlier posts), claims.md, sources.md,
+                     research-path.md, units.md (development units + start info), status.md,
+                     repro/<n>/ (research.md, post.md, log.md, profile_hash.txt, verification.md)
+profiles/<author>/   research-method.md (rule ledger with evidence), writing-structure.md (optional), SKILL.md
 ```
 
 ## Install (the repository is both the plugin and its marketplace)
@@ -53,8 +54,16 @@ workers are `rek:rek-source-tracer`, `rek:rek-method-analyst`, `rek:rek-research
 ```bash
 uv sync                      # inside the repository, for development
 uv run pytest
-uv run rek fetch https://blog.naver.com/<blog>/<post_id>
+uv run rek fetch https://blog.naver.com/<blog>/<post_id>   # one post → runs/<post_id>/
+uv run rek prior runs/<post_id>                              # the author's earlier posts it reuses
+uv run rek stats runs/<post_id>/post.md                      # form statistics
+uv run rek verify-summary runs/                              # pass/fail over every run (exit 0 = all pass)
 ```
+
+Pass line, computed by `rek verify-summary` from each run's latest `repro/<n>/verification.md`: development units
+re-found ≥ 90 %, rare sources re-found ≥ 80 %, every upstream base source (author's own posts excluded) re-found,
+fabricated facts = 0. The reproduction agent sees only the main topic, one trigger sentence and the date, and may
+not read the author's blog or anything published after that date.
 
 From any project folder, in Claude Code: `/rek:rek <url> [<url> ...]`, or spawn the `rek:rek` agent and hand it
 the URLs. Results are written to `runs/<post_id>/` and `profiles/<author>/` under the current working folder.

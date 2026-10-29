@@ -33,7 +33,7 @@
 ## 상태 기록
 
 한 run을 다루는 워커는 단계가 바뀔 때마다 `runs/<id>/status.md`에 한 줄을 덧붙인다(파일이 없으면 만든다).
-프로필을 쓰는 워커(방법 분석가, rek-style-analyst)는 `profiles/<author>/status.md`에 쓴다. 형식:
+프로필을 쓰는 워커(방법 분석가, rek-method-analyst)는 `profiles/<author>/status.md`에 쓴다. 형식:
 
 ```
 <ISO 시각> | <워커> | <단계> | <한 줄 설명>
