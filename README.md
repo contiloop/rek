@@ -42,12 +42,12 @@ profiles/<author>/   research-method.md (rule ledger with evidence), writing-str
 ## Install (the repository is both the plugin and its marketplace)
 
 ```bash
-claude plugin validate /Users/inertia/Desktop/REK          # manifest + layout check
-claude plugin marketplace add /Users/inertia/Desktop/REK   # once
+claude plugin validate <path-to-this-repo>          # manifest + layout check
+claude plugin marketplace add <path-to-this-repo>   # once
 claude plugin install rek@rek                              # user scope: every session, every project
 ```
 
-For development without installing, load it for one session: `claude --plugin-dir /Users/inertia/Desktop/REK`
+For development without installing, load it for one session: `claude --plugin-dir <path-to-this-repo>`
 (after edits run `/reload-plugins`). Installed copies are refreshed with `claude plugin update rek@rek`.
 
 Plugin components are namespaced: the skill is `/rek:rek`, the orchestrator agent is `rek:rek`, and the

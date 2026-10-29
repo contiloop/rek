@@ -4,15 +4,15 @@
 
 ```bash
 # Requires: uv (it downloads Python 3.12+), git, Claude Code
-cd /Users/inertia/Desktop/REK
+cd <path-to-this-repo>
 uv sync                                   # creates .venv with pytest
 uv run pytest -q                          # all tests must pass
 claude plugin validate .                  # plugin layout check
-claude plugin marketplace add /Users/inertia/Desktop/REK   # the repository is its own marketplace
+claude plugin marketplace add <path-to-this-repo>   # the repository is its own marketplace
 claude plugin install rek@rek             # /rek:rek and the rek:rek-* agents appear in every session
 ```
 
-To use the plugin in one session without installing it, run `claude --plugin-dir /Users/inertia/Desktop/REK`. After editing files, run `/reload-plugins`. For an installed copy, run `claude plugin update rek@rek`.
+To use the plugin in one session without installing it, run `claude --plugin-dir <path-to-this-repo>`. After editing files, run `/reload-plugins`. For an installed copy, run `claude plugin update rek@rek`.
 
 ## Commands
 
