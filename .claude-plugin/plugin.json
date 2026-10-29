@@ -1,0 +1,7 @@
+{
+  "name": "rek",
+  "description": "Reverse Engineering Knowledge: trace how a published text was researched and written, distill the author's research procedure, and verify that a fresh agent reaches the same development from the topic alone.",
+  "version": "0.2.0",
+  "keywords": ["research", "provenance", "reverse-engineering", "writing", "agent-loop"],
+  "author": { "name": "inertia" }
+}

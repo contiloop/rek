@@ -1,0 +1,7 @@
+{
+  "name": "rek",
+  "owner": { "name": "inertia" },
+  "plugins": [
+    { "name": "rek", "source": "./", "description": "Reverse Engineering Knowledge: research-procedure reverse engineering and verification loop." }
+  ]
+}
