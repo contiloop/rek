@@ -13,6 +13,7 @@ from rek.core import prior, verify_summary
 from rek.core.profile_hash import profile_hash
 from rek.core.run_dir import write_run
 from rek.core.repro_stats import as_dict as repro_as_dict, compute as repro_compute
+from rek.core.source_sites import parse_sources, render as render_sites
 from rek.core.stats import as_dict, compute
 
 SOURCES = [NaverBlogSource()]
@@ -132,6 +133,20 @@ def cmd_repro_stats(args) -> int:
     return 0
 
 
+def cmd_source_sites(args) -> int:
+    import glob
+    import os
+
+    sites: dict = {}
+    for run_dir in sorted(glob.glob(os.path.join(args.runs_dir, "*"))):
+        path = os.path.join(run_dir, "sources.md")
+        if os.path.isfile(path):
+            with open(path, encoding="utf-8") as fh:
+                parse_sources(fh.read(), os.path.basename(run_dir), sites)
+    print(render_sites(sites), end="")
+    return 0
+
+
 def cmd_profile_hash(args) -> int:
     try:
         print(profile_hash(args.profile_dir))
@@ -162,6 +177,9 @@ def main(argv: list[str] | None = None) -> int:
     vs = sub.add_parser("verify-summary", help="table of the latest verification.md of every run; exit 1 unless all pass")
     vs.add_argument("runs_dir")
     vs.set_defaults(func=cmd_verify_summary)
+    ss = sub.add_parser("source-sites", help="registered-domain ledger from every runs/<id>/sources.md")
+    ss.add_argument("runs_dir")
+    ss.set_defaults(func=cmd_source_sites)
     ph = sub.add_parser("profile-hash", help="sha256[:12] of SKILL.md + research-method.md in a profile folder")
     ph.add_argument("profile_dir")
     ph.set_defaults(func=cmd_profile_hash)
