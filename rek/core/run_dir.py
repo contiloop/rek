@@ -17,7 +17,10 @@ def write_run(post: Post, raw: str, out_dir: str, images: ImageStore | None) -> 
     saved = []
     for img in post.images:
         path = os.path.join(out_dir, "images", f"img_{img.index:02d}.png")
-        size = images.save(img.url, path) if images else 0
+        if images is not None:
+            size = images.save(img.url, path)
+        else:
+            size = os.path.getsize(path) if os.path.exists(path) else 0  # --no-images keeps what is there
         saved.append({"index": img.index, "url": img.url, "uploaded_on": img.uploaded_on, "uploaded_at": img.uploaded_at, "caption": img.caption, "bytes": size})
     meta = {
         "source_url": post.source_url,
