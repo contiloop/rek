@@ -4,8 +4,8 @@ import pytest
 
 from rek.adapters.naver_blog import decode_upload_date, decode_upload_time, full_size, parse, parse_post_url
 
-FIXTURE = os.path.join(os.path.dirname(__file__), "fixtures", "naver_224456106651.html")
-URL = "https://blog.naver.com/ranto28/224456106651"
+FIXTURE = os.path.join(os.path.dirname(__file__), "fixtures", "naver_post_sample.html")
+URL = "https://blog.naver.com/sampleblog/224456106651"
 
 
 @pytest.fixture(scope="module")
@@ -15,16 +15,16 @@ def post():
 
 
 def test_url_forms():
-    assert parse_post_url(URL) == ("ranto28", "224456106651")
-    assert parse_post_url("https://m.blog.naver.com/ranto28/224456106651") == ("ranto28", "224456106651")
-    assert parse_post_url("https://blog.naver.com/PostView.naver?blogId=ranto28&logNo=224456106651") == ("ranto28", "224456106651")
+    assert parse_post_url(URL) == ("sampleblog", "224456106651")
+    assert parse_post_url("https://m.blog.naver.com/sampleblog/224456106651") == ("sampleblog", "224456106651")
+    assert parse_post_url("https://blog.naver.com/PostView.naver?blogId=sampleblog&logNo=224456106651") == ("sampleblog", "224456106651")
     with pytest.raises(ValueError):
         parse_post_url("https://example.com/x")
 
 
 def test_title_author_date(post):
-    assert post.title == "이란이 한국 장금상선에 조치를 취하겠다고 경고한 이유"
-    assert post.author and "네이버" not in post.author  # the author display name, not the platform badge
+    assert post.title == "샘플 글 제목"
+    assert post.author == "샘플작성자"  # the display name, not the platform badge
     assert post.published_at.startswith("2026. 10. 28.")
 
 
@@ -36,9 +36,9 @@ def test_body_in_reading_order(post):
 
 
 def test_images_with_upload_dates(post):
-    assert len(post.images) == 8
+    assert len(post.images) == 2
     # the first five images were uploaded 2026-09-02, i.e. reused from an earlier post
-    assert [i.uploaded_on for i in post.images][:5] == ["2026-09-02"] * 5
+    assert [i.uploaded_on for i in post.images] == ["2026-09-02", "2026-10-28"]
     assert all(i.url.endswith("?type=w966") for i in post.images)
 
 
@@ -53,7 +53,7 @@ def test_upload_date_decoder():
 def test_markdown_has_images_in_place(post):
     md = post.to_markdown()
     assert "![img_01 (uploaded 2026-09-02T06:30:26+09:00)" in md
-    assert md.index("# 이란이") < md.index("![img_01")
+    assert md.index("# 샘플 글 제목") < md.index("![img_01")
 
 
 def test_caption_inside_se_module_div():

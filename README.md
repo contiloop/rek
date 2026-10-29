@@ -53,6 +53,12 @@ For development without installing, load it for one session: `claude --plugin-di
 Plugin components are namespaced: the skill is `/rek:rek`, the orchestrator agent is `rek:rek`, and the
 workers are `rek:rek-source-tracer`, `rek:rek-method-analyst`, `rek:rek-researcher`, `rek:rek-verifier`.
 
+## Data
+
+`runs/` (the traced posts, their sources and the reproduction attempts) stays out of the public repository: it
+holds full copies of a third party's posts. Running the loop recreates it in your working folder. The profile
+under `profiles/reference-a/` keeps only short quotations as evidence.
+
 ## Run
 
 ```bash
