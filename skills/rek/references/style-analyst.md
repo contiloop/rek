@@ -32,7 +32,7 @@ layers the posts demand and drop any with no evidence:
    rules that matter most for reproduction; derive them by imagining the generic draft and diffing.
 
 Mark each rule `[observed]` with ≥ 2 posts, `[inferred]` with 1. Quantify with
-`cd <project root> && uv run rek stats runs/<id>/post.md runs/<id>/prior/<pid>/post.md ...`
+`uv run --project "${CLAUDE_PLUGIN_ROOT}" rek stats runs/<id>/post.md runs/<id>/prior/<pid>/post.md ...`
 (sentences, numbered items and gaps, mean sentence chars, `~임/~함/~됨` share, `~다` share, share
 of sentences carrying a number, images, one-liner length) and state the numbers per post in the rule
 that depends on them. Two registers exist (numbered `~임` posts and plain `~다` posts); find what

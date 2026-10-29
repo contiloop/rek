@@ -25,7 +25,7 @@ Correspondence that must hold (REA → REK):
 ## 1. Route and fetch
 
 ```bash
-uv run rek fetch <url>            # → runs/<post_id>/{post.md, meta.json, images/, raw.html}
+uv run --project "${CLAUDE_PLUGIN_ROOT}" rek fetch <url>            # → runs/<post_id>/{post.md, meta.json, images/, raw.html}
 ```
 
 `meta.json.images[].uploaded_on` is decoded from the image host's URL. An image uploaded long
@@ -73,4 +73,4 @@ Success thresholds (a run below them is reported as not done, with the failing s
 | reconstruction: writing-method rules passed | ≥ 90 % |
 
 Form numbers (sentence count, numbered items, register share, images, one-liner) always come from
-`uv run rek stats <post.md> [...]`, never from reading by eye, so profile and verification agree.
+`uv run --project "${CLAUDE_PLUGIN_ROOT}" rek stats <post.md> [...]`, never from reading by eye, so profile and verification agree.
