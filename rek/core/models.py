@@ -9,8 +9,8 @@ class Image:
     index: int  # 1-based order of appearance
     url: str  # full-size URL
     uploaded_on: str | None  # YYYY-MM-DD decoded from the host's URL, if the host encodes it
-    uploaded_at: str | None = None  # ISO timestamp with offset, when the host encodes the exact time
     caption: str | None
+    uploaded_at: str | None = None  # ISO timestamp with offset, when the host encodes the exact time
 
 
 @dataclass(frozen=True)
