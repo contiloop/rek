@@ -2,7 +2,7 @@ import os
 
 import pytest
 
-from rek.adapters.naver_blog import decode_upload_date, full_size, parse, parse_post_url
+from rek.adapters.naver_blog import decode_upload_date, decode_upload_time, full_size, parse, parse_post_url
 
 FIXTURE = os.path.join(os.path.dirname(__file__), "fixtures", "naver_224456106651.html")
 URL = "https://blog.naver.com/ranto28/224456106651"
@@ -45,10 +45,12 @@ def test_images_with_upload_dates(post):
 def test_upload_date_decoder():
     assert decode_upload_date("https://postfiles.pstatic.net/MjAyNTAyMTBfNTYg/MDAx.png?type=w80") == "2025-02-10"
     assert decode_upload_date("https://example.com/a.png") is None
+    assert decode_upload_time("https://postfiles.pstatic.net/MjAyNjA5MDJfMTgz/MDAxNzg4Mjk4MjI2ODA5.aJ.png") == "2026-09-02T06:30:26+09:00"
+    assert decode_upload_time("https://example.com/a.png") is None
     assert full_size("https://x.pstatic.net/a/b.png?type=w80_blur_webp") == "https://x.pstatic.net/a/b.png?type=w966"
 
 
 def test_markdown_has_images_in_place(post):
     md = post.to_markdown()
-    assert "![img_01 (uploaded 2026-09-02)" in md
+    assert "![img_01 (uploaded 2026-09-02T06:30:26+09:00)" in md
     assert md.index("# 이란이") < md.index("![img_01")

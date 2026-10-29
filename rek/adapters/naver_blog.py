@@ -7,6 +7,7 @@ the rendered body directly. Why regex, not an HTML parser: the body is a flat se
 from __future__ import annotations
 
 import base64
+import datetime as dt
 import html
 import re
 from urllib.parse import urlparse
@@ -27,7 +28,8 @@ _OGLINK = re.compile(r'<a[^>]+class="[^"]*se-oglink[^"]*"[^>]+href="([^"]+)"', r
 _TITLE = re.compile(r"<title>(.*?)</title>", re.S)
 _DATE = re.compile(r'class="blog_date"[^>]*>.*?<span class="txt">(.*?)</span>\s*</p>', re.S)
 _AUTHOR = re.compile(r'class="blog_author"[^>]*>.*?<strong[^>]*>(.*?)</strong>', re.S)
-_UPLOAD_DATE = re.compile(r"pstatic\.net/([A-Za-z0-9]+)/")
+_UPLOAD_DATE = re.compile(r"pstatic\.net/([A-Za-z0-9]+)/([A-Za-z0-9]+)\.")
+_KST = dt.timezone(dt.timedelta(hours=9))
 
 
 def parse_post_url(url: str) -> tuple[str, str]:
@@ -43,19 +45,29 @@ def _clean(fragment: str) -> str:
     return re.sub(r"[ \t]+", " ", text).strip()
 
 
+def _b64(token: str) -> str | None:
+    try:
+        return base64.b64decode(token + "=" * (-len(token) % 4)).decode("ascii")
+    except Exception:
+        return None
+
+
 def decode_upload_date(image_url: str) -> str | None:
     """Naver image paths start with base64('YYYYMMDD_n'). Returns YYYY-MM-DD or None."""
     m = _UPLOAD_DATE.search(image_url)
-    if not m:
-        return None
-    token = m.group(1)
-    try:
-        raw = base64.b64decode(token + "=" * (-len(token) % 4)).decode("ascii")
-    except Exception:
-        return None
-    if len(raw) < 8 or not raw[:8].isdigit():
+    raw = _b64(m.group(1)) if m else None
+    if not raw or len(raw) < 8 or not raw[:8].isdigit():
         return None
     return f"{raw[:4]}-{raw[4:6]}-{raw[6:8]}"
+
+
+def decode_upload_time(image_url: str) -> str | None:
+    """The second path segment is base64 of the upload epoch in milliseconds. Returns ISO time in KST."""
+    m = _UPLOAD_DATE.search(image_url)
+    raw = _b64(m.group(2)) if m else None
+    if not raw or not raw.isdigit():
+        return None
+    return dt.datetime.fromtimestamp(int(raw) / 1000, _KST).replace(microsecond=0).isoformat()
 
 
 def full_size(image_url: str) -> str:
@@ -104,6 +116,7 @@ def parse(document: str, source_url: str) -> Post:
                             index=img_index,
                             url=full_size(url),
                             uploaded_on=decode_upload_date(url),
+                            uploaded_at=decode_upload_time(url),
                             caption=caption or None,
                         ),
                     )

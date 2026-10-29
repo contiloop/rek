@@ -9,6 +9,7 @@ class Image:
     index: int  # 1-based order of appearance
     url: str  # full-size URL
     uploaded_on: str | None  # YYYY-MM-DD decoded from the host's URL, if the host encodes it
+    uploaded_at: str | None = None  # ISO timestamp with offset, when the host encodes the exact time
     caption: str | None
 
 
@@ -53,7 +54,7 @@ class Post:
                 lines.append("")
             elif b.kind == "image" and b.image:
                 cap = f" — {b.image.caption}" if b.image.caption else ""
-                up = f" (uploaded {b.image.uploaded_on})" if b.image.uploaded_on else ""
+                up = f" (uploaded {b.image.uploaded_at or b.image.uploaded_on})" if b.image.uploaded_on else ""
                 lines.append(f"![img_{b.image.index:02d}{up}{cap}](images/img_{b.image.index:02d}.png)")
                 lines.append("")
             elif b.kind == "quote":
