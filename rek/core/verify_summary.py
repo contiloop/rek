@@ -18,8 +18,32 @@ _INT_KEYS = KEYS[:9]
 UNITS_MIN = 0.90
 RARE_MIN = 0.80
 INCOMPLETE = "미실행/불완전"
+OWN_SOURCES_MIN = 20
+OWN_PRIMARY_MIN = 5
+_INVALID = re.compile(r"^\s*무효\s*[:：]")
 _FENCE = re.compile(r"^\s*```(?:yaml|yml)?\s*$")
 _LINE = re.compile(r"^\s*([A-Za-z_][A-Za-z0-9_]*)\s*:\s*(.*?)\s*$")
+
+
+def is_invalid(text: str) -> bool:
+    """True when the verifier wrote a `무효:` line after the yaml block."""
+    return any(_INVALID.match(l) for l in text.splitlines())
+
+
+def evaluate_own(d: dict, invalid: bool, stats: dict | None) -> "Result":
+    """The project's own pass line: a valid attempt, no fabricated fact, a chain with backward, main and
+    forward units, and enough sources (OWN_SOURCES_MIN, OWN_PRIMARY_MIN of them primary). The author
+    thresholds (units/rare/upstream) are reported but not required."""
+    reported = d.get("verifier_verdict")
+    if "fabricated" not in d:
+        return Result(INCOMPLETE, {}, "키 누락", reported, False)
+    dirs = (stats or {}).get("units_by_direction", {})
+    chain_ok = all(dirs.get(k, 0) >= 1 for k in ("뒤쪽", "본 주제", "앞쪽"))
+    sources_ok = (stats or {}).get("sources", 0) >= OWN_SOURCES_MIN and (stats or {}).get("primary", 0) >= OWN_PRIMARY_MIN
+    checks = {"valid": not invalid, "fabricated": d["fabricated"] == 0, "chain": chain_ok, "sources": sources_ok}
+    reasons = [name for name, ok in (("무효", not invalid), ("날조", d["fabricated"] == 0), ("사슬 불완전", chain_ok), ("출처 부족", sources_ok)) if not ok]
+    verdict = "pass" if all(checks.values()) else "fail"
+    return Result(verdict, checks, ", ".join(reasons), reported, False)
 
 
 def parse_front_matter(text: str) -> dict:
@@ -102,18 +126,31 @@ def latest_verification(run_dir: str) -> str | None:
     return None
 
 
-def summarize(runs_dir: str) -> tuple[list[Row], bool]:
+def summarize(runs_dir: str, criteria: str = "author") -> tuple[list[Row], bool]:
+    """criteria: "author" = the reference author's thresholds; "own" = evaluate_own."""
+    from rek.core.repro_stats import as_dict as _stats_dict, compute as _stats
+
     rows = []
     for name in sorted(os.listdir(runs_dir)):
         run_dir = os.path.join(runs_dir, name)
         if not os.path.isfile(os.path.join(run_dir, "meta.json")):
             continue
         path = latest_verification(run_dir)
-        data = {}
+        data, invalid, stats = {}, False, None
         if path:
             with open(path, encoding="utf-8") as f:
-                data = parse_front_matter(f.read())
-        rows.append(Row(name, data, evaluate(data), path))
+                text = f.read()
+            data, invalid = parse_front_matter(text), is_invalid(text)
+            repro_dir = os.path.dirname(path)
+            research = os.path.join(repro_dir, "research.md")
+            if os.path.isfile(research):
+                log = os.path.join(repro_dir, "log.md")
+                with open(research, encoding="utf-8") as f:
+                    r_text = f.read()
+                l_text = open(log, encoding="utf-8").read() if os.path.isfile(log) else ""
+                stats = _stats_dict(_stats(r_text, l_text))
+        result = evaluate_own(data, invalid, stats) if criteria == "own" else evaluate(data)
+        rows.append(Row(name, data, result, path))
     return rows, bool(rows) and all(r.result.passed for r in rows)
 
 

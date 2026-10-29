@@ -41,3 +41,9 @@ def test_counts():
 def test_sources_only_counted_inside_section():
     s = compute("| S99 | x | y | 1차 | z |\n## 출처 목록\n| S01 | u | d | 2차 | p |\n", "")
     assert s.sources == 1 and s.secondary == 1
+
+
+def test_unnumbered_url_list_counts_as_sources():
+    research = "## 출처 목록 (URL, 발행일)\n\n1차\n- https://a.example/x | 2025-01-01 | 1차 | 검색\n- https://b.example/y | 2026-02-02 | 2차 | 검색\n"
+    s = compute(research, "")
+    assert s.sources == 2 and s.primary == 1 and s.secondary == 1

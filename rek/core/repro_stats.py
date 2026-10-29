@@ -10,8 +10,9 @@ from __future__ import annotations
 import re
 from dataclasses import asdict, dataclass
 
-_UNIT = re.compile(r"^\|\s*(R\d{2,3})\s*\|(.*)$")
-_SOURCE = re.compile(r"^\|\s*(S\d{2,3})\s*\|(.*)$")
+_UNIT = re.compile(r"^\|?\s*(R\d{2,3})\s*\|(.*)$")
+_SOURCE = re.compile(r"^(?:\|\s*|-\s*|\*\s*)?(S\d{2,3})\b\s*[|—–:-]?(.*)$")
+_SOURCE_URL = re.compile(r"^(?:\|\s*|-\s*|\*\s*)(https?://\S+)(.*)$")  # unnumbered list: one URL per line
 _DIRECTIONS = ("뒤쪽", "본 주제", "앞쪽", "계기")
 _LOG = re.compile(r"^\[(검색|열람|크롬|접촉)\]")
 
@@ -39,17 +40,18 @@ def compute(research_md: str, log_md: str) -> ReproStats:
     in_sources = False
     for line in research_md.splitlines():
         if line.startswith("## "):
-            in_sources = line.strip() == "## 출처 목록"
+            in_sources = line.strip().startswith("## 출처 목록")
         m = _UNIT.match(line)
         if m and m.group(1) not in units:
             cells = _cells(m.group(2))
             direction = next((d for d in _DIRECTIONS if any(c.startswith(d) for c in cells)), "기타")
             units[m.group(1)] = direction
             continue
-        m = _SOURCE.match(line)
+        m = _SOURCE.match(line) or (_SOURCE_URL.match(line) if in_sources else None)
         if m and in_sources and m.group(1) not in sources:
             cells = _cells(m.group(2))
-            kind = "1차" if any(c.startswith("1차") for c in cells) else ("2차" if any(c.startswith("2차") for c in cells) else "미상")
+            text = " ".join(cells)
+            kind = "1차" if re.search(r"(?<![\w가-힣])1차", text) else ("2차" if re.search(r"(?<![\w가-힣])2차", text) else "미상")
             sources[m.group(1)] = kind
     by_dir = {d: sum(1 for v in units.values() if v == d) for d in _DIRECTIONS + ("기타",)}
     counts = {"검색": 0, "열람": 0, "크롬": 0, "접촉": 0}

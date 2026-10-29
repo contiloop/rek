@@ -126,3 +126,16 @@ def test_mismatch_is_displayed(tmp_path, capsys):
     (run / "repro" / "2" / "verification.md").write_text(read_fixture().replace("fabricated: 0", "fabricated: 1"))
     assert main(["verify-summary", str(tmp_path)]) == 1
     assert "불일치" in capsys.readouterr().out
+
+
+def test_own_criteria():
+    from rek.core.verify_summary import evaluate_own, is_invalid
+
+    good = {"fabricated": 0, "verifier_verdict": "fail"}
+    stats = {"units_by_direction": {"뒤쪽": 3, "본 주제": 2, "앞쪽": 4}, "sources": 30, "primary": 8}
+    assert evaluate_own(good, False, stats).verdict == "pass"
+    assert evaluate_own(good, True, stats).reason == "무효"
+    assert evaluate_own({"fabricated": 2}, False, stats).reason == "날조"
+    assert "사슬 불완전" in evaluate_own(good, False, {"units_by_direction": {"뒤쪽": 1}, "sources": 30, "primary": 8}).reason
+    assert "출처 부족" in evaluate_own(good, False, {"units_by_direction": {"뒤쪽": 1, "본 주제": 1, "앞쪽": 1}, "sources": 5, "primary": 1}).reason
+    assert is_invalid("```yaml\nfabricated: 0\n```\n무효: 저자 블로그 열람\n") and not is_invalid("```yaml\n```\n본문")

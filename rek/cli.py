@@ -116,7 +116,7 @@ def cmd_prior(args) -> int:
 
 
 def cmd_verify_summary(args) -> int:
-    rows, all_pass = verify_summary.summarize(args.runs_dir)
+    rows, all_pass = verify_summary.summarize(args.runs_dir, criteria=args.criteria)
     print(verify_summary.render(rows, all_pass), end="")
     return 0 if all_pass else 1
 
@@ -176,6 +176,7 @@ def main(argv: list[str] | None = None) -> int:
     pr.set_defaults(func=cmd_prior)
     vs = sub.add_parser("verify-summary", help="table of the latest verification.md of every run; exit 1 unless all pass")
     vs.add_argument("runs_dir")
+    vs.add_argument("--criteria", choices=["author", "own"], default="author", help="author = reference-author thresholds (90/80/upstream/0); own = valid, no fabrication, full chain, enough sources")
     vs.set_defaults(func=cmd_verify_summary)
     ss = sub.add_parser("source-sites", help="registered-domain ledger from every runs/<id>/sources.md")
     ss.add_argument("runs_dir")
