@@ -54,11 +54,13 @@ Write it in this order:
 **units.md**: The list of development units (the definition is in evidence.md). Read the body from the start and cut at each point where the topic changes. 8 to 20 units is typical (adjustable). Fix them before the reproduction runs, and do not change them after you see the reproduction result. Write only three fields in the file header. The orchestrator passes these three lines as they are to the reproduction worker, so do not put in the title, the outlet, source names, or URLs.
 
 - `main_topic:` One phrase for the post's topic. It is not the title (for example: "알래스카 LNG 프로젝트").
+- `excluded_domains:` The domains and paths of the post's author (the blog, its mobile address, any social account found in the trace), comma-separated. Only the verifier reads this line; the orchestrator never passes it to the reproduction worker, who is told nothing about the author.
 - `trigger:` One sentence for the trigger event. No outlet, source name, or URL. `none` if there is no trigger.
 - `date:` The original's publication time (`published_at` in `meta.json`).
 
 ```
 main_topic: 알래스카 LNG 프로젝트
+excluded_domains: blog.example.com/<blog_id>, m.blog.example.com/<blog_id>
 trigger: 미국 정부가 한국에 알래스카 LNG 프로젝트 참여를 공식 요청했다
 date: 2026-10-28 11:00 KST
 

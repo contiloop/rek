@@ -22,11 +22,11 @@ uv run --project "${CLAUDE_PLUGIN_ROOT}" rek prior runs/<id>      # → runs/<id
 
 ## 2. Trace (parallel per post): `rek-source-tracer`, brief `references/source-tracer.md`
 
-Launch it with the run directory. Outputs: `claims.md`, `sources.md` (each source has a `표시:` (mark) line with `희귀` (rare) or `바탕` (base), plus a `## 평범한 검색` (ordinary search) section), `research-path.md`, `units.md` (the development units; its header has `main_topic:`, `trigger:`, `date:`), `status.md`. If the first three files already exist, the worker runs in supplement mode and only adds `units.md` and the marks. `units.md` is fixed before the reproduction and is not changed afterward.
+Launch it with the run directory. Outputs: `claims.md`, `sources.md` (each source has a `표시:` (mark) line with `희귀` (rare) or `바탕` (base), plus a `## 평범한 검색` (ordinary search) section), `research-path.md`, `units.md` (the development units; its header has `main_topic:`, `trigger:`, `date:`, and `excluded_domains:` for the verifier), `status.md`. If the first three files already exist, the worker runs in supplement mode and only adds `units.md` and the marks. `units.md` is fixed before the reproduction and is not changed afterward.
 
 ## 3. Extract the procedure (once per author): `rek-method-analyst`, brief `references/method-analyst.md`
 
-Launch it with all of that author's run directories and the author's name. Outputs: `profiles/<author>/research-method.md` (its header has `excluded_domains:`, the reproduction worker's forbidden list), `writing-structure.md` (optional), `SKILL.md` (the procedure for new topics), `status.md`. Rebuild the whole profile every time the number of runs grows.
+Launch it with all of that author's run directories and the author's name. Outputs: `profiles/<author>/research-method.md` (its header has `author:` and `built_from:`), `writing-structure.md` (optional), `SKILL.md` (the procedure for new topics), `status.md`. Rebuild the whole profile every time the number of runs grows.
 
 ## 4. Reproduce (parallel per post): `rek-researcher`, brief `references/researcher.md`
 
@@ -35,7 +35,7 @@ Before launching, the orchestrator prepares the following:
 2. Write the output of `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek profile-hash profiles/<author>` to `repro/<n>/profile_hash.txt`.
 3. Copy the three lines `main_topic:`, `trigger:`, `date:` from the header of `units.md` exactly as they are, and add a fourth line `language:` with the language of the original post (read it from `post.md`; e.g. `language: Korean`). Do not pass the title, sources, URLs, or units.
 
-Put only these in the prompt: the four lines, the profile folder path, the `repro/<n>/` path, and the brief path. The worker does not read the author's blog (`excluded_domains`), any material dated after `date:`, or any other file in the run. Outputs: `research.md`, `post.md`, `log.md`.
+Put only these in the prompt: the four lines, the profile folder path, the `repro/<n>/` path, and the brief path. The worker is told nothing about the author; the verifier checks its log against the `excluded_domains:` line of `units.md`. It does not read any material dated after `date:`, or any other file in the run. Outputs: `research.md`, `post.md`, `log.md`.
 
 ## 5. Verify (parallel per post): `rek-verifier`, brief `references/verifier.md`
 

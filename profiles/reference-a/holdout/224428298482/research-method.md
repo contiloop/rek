@@ -1,5 +1,4 @@
 author: reference-a
-excluded_domains: blog.naver.com/ranto28, m.blog.naver.com/ranto28, blog.naver.com/PostView.naver?blogId=ranto28, m.blog.naver.com/PostView.naver?blogId=ranto28, threads.com/@mer.info, threads.net/@mer.info
 built_from: 224450743987, 224456106651
 holdout: 224428298482
 
@@ -10,7 +9,6 @@ holdout: 224428298482
 - The header runs through the fourth line: `holdout:` is the id of the post that this variant removed from its evidence for the test [observed].
 - The evidence of this variant is only the materials of the two runs in `built_from:`. It contains no unit numbers, source numbers, quotations, numbers, proper nouns, outlet names, queries, or format statistics from the holdout post [observed].
 - The replication worker does not open profile files outside this folder. Opening one invalidates the holdout test [inferred: test design].
-- The blog address forms in `excluded_domains:` are the forms seen in the raw.html and sources.md of the two remaining runs (blog.naver.com/ranto28/<id>, m.blog.naver.com/PostView.naver?blogId=ranto28&logNo=<id>) and the requested form [observed]. I confirmed the Threads account @mer.info from the post address "https://www.threads.com/@mer.info/post/De6qC8THwjX" in section 5 of the 224450743987 sources.md [observed]. threads.net is the old domain of the same service, so I added it as a mirror [inferred].
 - The address of another subscription channel (for example, 네이버 프리미엄콘텐츠 (Naver Premium Content)) is not in the materials of the remaining runs, so none was added [unknown: searched, not found]. The replication worker also does not open any other channel that shows the author's name ('the reference author' (Mer)) or the blog name (researcher.md read ban) [observed].
 - The evidence notation `224456106651 D14·S01` means unit D14 and source S01 of that post [observed]. Quotations are verbatim from post.md or from that run's tracking files, and are 40 words or fewer [observed].
 - The label on a rule title line is the number of posts that supported the rule: [observed] for 2 posts, [inferred] for 1 post [observed]. The label on an evidence line is how the fact on that line was confirmed [observed].

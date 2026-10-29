@@ -41,7 +41,7 @@ REK/
 
 - Every worker statement carries `[observed]`, `[inferred]` or `[unknown]` as `skills/rek/references/evidence.md` defines; a
   source that was not opened and matched is never `[observed]`.
-- The reproduction worker never reads the author's blog, the original post, files of its run folder, or the content of
+- The reproduction worker is told nothing about the author; it never reads the original post, files of its run folder, or the content of
   pages published after `date:`; every fact in its post must trace to a source in its `research.md`.
 - `units.md` is fixed before a reproduction starts and never edited afterwards; it is the denominator of every score.
 - Pass/fail is computed by `rek verify-summary`, never read from a worker's opinion; any deterministic count is code.

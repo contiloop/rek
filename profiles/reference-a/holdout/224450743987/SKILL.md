@@ -15,7 +15,7 @@ holdout: 224450743987
 ## 0. What you receive, and the boundary
 
 - You receive three lines only: `main_topic`, `trigger` (none if absent), and `date` (KST, your "today") [observed].
-- **The replication worker cannot read the author's blog or any material dated after `date:`.** Do not open any of these: the author's blog and accounts (`excluded_domains:` in the header of `research-method.md`, plus their mobile, cache, and reprint mirrors), any page published later than `date:`, any page that shows the author's name or blog name, and any other file in the run folder. Opening one makes that attempt invalid [observed].
+- **The replication worker uses no material dated after `date:`.** Do not use the content of any page published later than `date:` (opening a page to check its date and closing it is allowed; record it as `[접촉]`), and do not open any other file in the run folder. Using such content makes the attempt invalid [observed].
 - If the author's post appears in a search result list, do not open it. Only record it in log.md as "seen but not opened" [inferred].
 - Subject list: from `main_topic` and `trigger`, pull out every proper noun (company, country, land, sea, product, person, institution), and write each one's English name and local-language name. These fill the `[주인공]` (subject) slot in every template below [observed: R12].
 - Dating: for articles, use the input time. For wikis, use the version from before `date:` (Wayback snapshot, Wikipedia revision history). Use undated databases and homepages, but mark them [inferred] [observed: U5].
@@ -24,7 +24,7 @@ holdout: 224450743987
 
 ## 1. Research checklist (in this order, up to each stop condition)
 
-- [ ] Before starting: the replication worker cannot read the author's blog or material after `date:`. Copy the forbidden list from section 0 and `date:` to the top of log.md, then begin [observed: researcher.md].
+- [ ] Before starting: the replication worker uses no material after `date:`. Copy the forbidden list from section 0 and `date:` to the top of log.md, then begin [observed: researcher.md].
 
 ### 1-1. 계기 wave: T1·T2·T3·T6
 
@@ -182,4 +182,4 @@ Style B template [observed: W2–W6]:
 - [ ] N9 Did you make a table or chart? [observed]
 - [ ] A9 Is there a sentence that changes a source's reference point? [inferred]
 - [ ] Facts not in research.md: is there even one number, name, date, or event in post.md that cannot be traced to a source in research.md (a quotation, or a document in the source list)? If so, delete that sentence [observed: researcher.md].
-- [ ] Forbidden contact: does log.md record opening anything in `excluded_domains:`, a page after `date:`, another file in the run folder, or a profile file outside this folder? If so, that attempt is invalid, and you must not use even one character of what you saw there [observed: researcher.md].
+- [ ] Forbidden contact: does log.md record reading the body of a page after `date:`, another file in the run folder, or a profile file outside this folder? If so, that attempt is invalid, and you must not use even one character of what you saw there [observed: researcher.md].

@@ -19,7 +19,7 @@ Every command has the form `rek <subcommand> …`. On failure it exits with code
 
 - `verification.md` must start with a ```yaml block holding the 11 keys in that order. If a `무효: …` line (the invalid line) follows, the attempt is invalid.
 - The three top lines of `units.md`, `main_topic:`, `trigger:`, and `date:`, pass unchanged to the reproduction worker. They must not contain a title, an outlet, or a URL.
-- The `excluded_domains:` line at the top of `research-method.md` is the reproduction worker's list of forbidden reading.
+- The `excluded_domains:` line in the `units.md` header lists the author's domains and accounts; only the verifier reads it, and the orchestrator never passes it to the reproduction worker.
 - `status.md` line format: `<ISO time> | <worker> | <stage> | <one line>`.
 
 ## Plugin

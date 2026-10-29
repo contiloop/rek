@@ -26,7 +26,7 @@
 
 ## Reproduction rules
 
-- Forbidden to read: the author's whole blog and account (`excluded_domains:` in `research-method.md`, plus mirrors, caches, and reposts), pages that quote or summarize the original, any other file in that post's run folder, and traces of other runs in the profile.
+- The reproduction worker is told nothing about the author. It may not read any other file in that post's run folder or any profile file beyond the three it is given. The verifier marks the attempt invalid if the log shows a page on the author's domains (the `excluded_domains:` line in the `units.md` header, plus mirrors, caches and reposts) or a page that quotes the original was read down to the body.
 - The **content** of pages dated after `date:` may not be used. Opening such a page to check its date and then closing it is allowed. Record it as `[접촉]` (contact).
 - Every number, name, date, and event in the reproduced post must reach a source in `research.md`. The same holds for the descriptions of image placeholders.
 - Do not put labels or evidence marks in the post body. The mapping from sentences to sources lives only in `research.md`.

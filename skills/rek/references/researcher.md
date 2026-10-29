@@ -10,15 +10,13 @@ Goal: Without having seen the author's post, use only the starting info and that
 
 ## Forbidden reads (if you break one, this attempt is invalid)
 
-- The author's whole blog or account: the domains and paths listed in `excluded_domains:` at the top of `research-method.md`, and their mirrors (including mobile addresses, cached copies, and republished copies). Even if one shows up in search results, do not open it and do not quote it.
 - The content of any page published after `date:`. Opening a page to check its date and then closing it is allowed. Record it in `log.md` as `[접촉]` (contact). If you did read the body, do not use any fact you saw there (the verification worker checks that every fact in the post reaches a source dated before the date). For a page with no date, judge by date clues in the body. If you cannot judge, do not use it.
-- A page that quotes or summarizes the original (if you see the author's name or the blog's name, close it).
-- Any other file under `runs/<id>/` (`post.md`, `claims.md`, `sources.md`, `research-path.md`, `units.md`, `images/`, `prior/`, `meta.json`) and any trace of other runs in `profiles/<author>/`.
-- If you read an author-domain page or a page quoting the original through to the body, this attempt is invalid. If you opened a forbidden item, record it in `log.md` as `[접촉]` immediately, and do not use a single character of what you saw there.
+- Any other file under `runs/<id>/` (`post.md`, `claims.md`, `sources.md`, `research-path.md`, `units.md`, `images/`, `prior/`, `meta.json`) and any file in the profile folder other than `SKILL.md`, `research-method.md` and `writing-structure.md`.
+- If you opened a forbidden item, record it in `log.md` as `[접촉]` immediately, and do not use a single character of what you saw there.
 
 ## Allowed
 
-Web search and fetch. For pages that need a login, follow the Chrome rules in evidence.md (lock, read only). Any material written by someone other than the author (wikis, articles, reports, statistics, databases, original social posts). If you can open a primary source directly, open it.
+Web search and fetch. For pages that need a login, follow the Chrome rules in evidence.md (lock, read only). Any public material (wikis, articles, reports, statistics, databases, original social posts). If you can open a primary source directly, open it.
 
 ## Procedure
 
