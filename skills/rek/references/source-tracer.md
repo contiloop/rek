@@ -1,65 +1,114 @@
-# Brief: rek-source-tracer
+# 브리프: rek-source-tracer
 
-Goal: for one post, find where every claim came from and reconstruct the order in which the
-author gathered them. Output three files into the run directory. Read `evidence.md` first.
+목표: 글 한 편의 모든 주장이 어디서 왔는지 찾고, 저자가 그것들을 모은 순서를 재구성한다. run 디렉터리에
+네 파일을 쓴다: `claims.md`, `sources.md`, `research-path.md`, `units.md`. 먼저 `evidence.md`를 읽는다
+(라벨, 크롬 규칙, 상태 기록, 전개 단위·희귀·바탕의 정의가 거기 있다).
 
-Inputs in the run directory: `post.md` (body with images in place), `meta.json` (dates, image
-upload dates), `images/` (read each one), `prior/<id>/` (the author's earlier posts that this post
-reuses; compare their text and images with this post).
+두 모드가 있다. 프롬프트에 모드가 없으면 run 디렉터리를 보고 고른다.
+- **전체 모드**: `claims.md`·`sources.md`·`research-path.md`가 없다. 1~4단계를 모두 한다.
+- **보강 모드**: 세 파일이 이미 있다. 추적을 다시 하지 않는다. 아래 "보강 모드" 절을 따른다.
 
-## Step 1 — claims.md: inventory before search
+입력(run 디렉터리): `post.md`(이미지가 제자리에 있는 본문), `meta.json`(발행 시각, 이미지 업로드 시각),
+`images/`(모두 읽는다), `prior/<id>/`(이 글이 재사용한 저자의 이전 글; 글과 이미지를 이 글과 대조한다).
 
-Split the body into atomic claims in reading order. One line per claim:
+상태 기록: 시작할 때, 단계가 끝날 때마다(`claims`, `sources`, `research-path`, `units`, `marks`), 끝날 때
+`runs/<id>/status.md`에 evidence.md의 형식으로 한 줄씩 덧붙인다.
+
+## 1단계 — claims.md: 검색 전 인벤토리
+
+본문을 읽는 순서대로 원자 주장으로 쪼갠다. 한 줄에 주장 하나:
 
 ```
 C07 | number | "EU의 1인당 고등어 소비량은 연 0.67kg" | para 7
 ```
 
-Types: `number`, `date`, `name` (person, company, ship, law), `quote` (someone's words), `event`,
-`causal` (X because Y), `opinion` (the author's own view), `self-reference` (restates an earlier
-post). Mark every claim that already appears, verbatim or near-verbatim, in a `prior/` post as
-`self-reference` with the prior post id. This step takes no web access; finish it before searching.
+유형: `number`, `date`, `name`(사람·회사·선박·법), `quote`(누군가의 말), `event`, `causal`(X 때문에 Y),
+`opinion`(저자의 의견), `self-reference`(이전 글을 되풀이). `prior/` 글에 그대로 또는 거의 그대로 있는
+주장은 `self-reference`로 표시하고 이전 글 id를 적는다. 이 단계는 웹을 쓰지 않는다. 검색 전에 끝낸다.
 
-## Step 2 — sources.md: trace each non-self-reference claim
+## 2단계 — sources.md: self-reference가 아닌 주장마다 출처 추적
 
-Group claims that would share a source (the same article usually carries several numbers).
-Search in both languages: the author writes in Korean, so first look for a Korean article
-published within 10 days before `published_at` that contains the same numbers; then find the
-primary (FT, Bloomberg, Reuters, Lloyd's List, Forbes, a government or industry statistics page,
-an X post). Fetch, match, label. Format per source:
+한 출처를 공유할 주장을 묶는다(기사 하나가 보통 숫자 여럿을 담는다). 두 언어로 찾는다: 저자가 한국어로
+쓰므로 먼저 `published_at` 전 10일 안에 나온, 같은 숫자를 담은 한국 기사를 찾고, 그다음 1차 출처(FT,
+Bloomberg, Reuters, Lloyd's List, Forbes, 정부·업계 통계 페이지, X 게시물)를 찾는다. 열고, 대조하고, 라벨을
+단다. 로그인이 필요한 페이지는 evidence.md의 크롬 규칙대로 연다. 출처마다 형식:
 
 ```
 ## S03 — Lloyd's List, "..." (2026-10-21) [observed]
 URL: ...
 Claims: C21, C22
-Match: "9월 호르무즈 VLCC 통항의 47%" ↔ "47% of VLCC transits in September" (quote both)
-Probably reached via: Korean article S02 cites it / direct / unknown
+Match: "9월 호르무즈 VLCC 통항의 47%" ↔ "47% of VLCC transits in September" (양쪽을 인용)
+Probably reached via: 한국 기사 S02가 인용 / direct / unknown
+표시: -
 ```
 
-Also record, per image: what it is, what source it names in its pixels, and whether
-`uploaded_on` predates the post (then name the prior post it came from).
+`표시:` 줄은 4단계에서 채운다. 저자 이전 글(`prior/`)도 출처 항목 하나로 적는다(self-reference 주장 목록).
+이미지마다 적는다: 무엇인지, 픽셀 안에 어떤 출처가 있는지, `uploaded_on`이 발행일보다 이른지(그러면 어느
+이전 글에서 왔는지).
 
-Stop condition: every `number`, `date`, `name`, `quote`, `event` claim has a source line or an
-explicit `[unknown]` line with the queries you tried. Do not stop at 80%.
+멈춤 조건: 모든 `number`·`date`·`name`·`quote`·`event` 주장에 출처 줄이 있거나, 시도한 검색어를 적은
+`[unknown]` 줄이 있다. 80%에서 멈추지 않는다.
 
-## Step 3 — research-path.md: reconstruct the process
+## 3단계 — research-path.md: 과정 재구성
 
-Write, in this order:
-1. **Trigger** — the event or article that made this post exist, with its date and time relative to
-   `published_at`. (The author often publishes within 24 hours of a news event.)
-2. **Timeline** — every source by publication date, then the post. Point out any source dated after
-   the post (then it cannot be the source; find the earlier one).
-3. **Reuse** — which paragraphs and images came from `prior/` posts, and what changed between the
-   prior text and this one (added numbers, dropped sentences, softened/strengthened claims).
-4. **Probable reading order** — the order the author read things, argued from dates, from which
-   numbers appear only in which sources, and from the post's own paragraph order.
-5. **What the author added** — computations (ratios, conversions), analogies, opinions, the
-   closing one-liner; label each `opinion` claim's basis if any.
-6. **Tools the author plausibly used** — only what the evidence supports (e.g., a MarineTraffic
-   screenshot implies MarineTraffic; a Korean wire-service phrasing implies a Naver news search).
-7. **Coverage** — counts: claims total / observed / inferred / unknown / self-reference.
-8. **Unknowns** — what you could not settle and what evidence would settle it.
+이 순서로 쓴다:
+1. **Trigger** — 이 글이 생긴 계기가 된 사건·기사. 날짜와 `published_at`과의 시간 차(저자는 흔히 사건 뒤
+   24시간 안에 올린다).
+2. **Timeline** — 모든 출처를 발행일 순으로, 그다음 글. 글보다 뒤 날짜의 출처는 지적한다(출처일 수 없으니
+   더 이른 것을 찾는다).
+3. **Reuse** — 어느 문단과 이미지가 `prior/`에서 왔고, 이전 글과 무엇이 달라졌는지(숫자 추가, 문장 삭제,
+   주장의 완화·강화).
+4. **Probable reading order** — 저자가 읽은 순서. 날짜, 어떤 숫자가 어떤 출처에만 있는지, 글의 문단 순서로
+   논증한다.
+5. **What the author added** — 계산(비율, 환산), 비유, 의견, 마지막 한 줄. `opinion` 주장마다 근거가 있으면
+   적는다.
+6. **Tools the author plausibly used** — 증거가 뒷받침하는 것만(예: MarineTraffic 캡처 → MarineTraffic,
+   한국 통신사 문체 → 네이버 뉴스 검색).
+7. **Coverage** — 집계: 전체 / observed / inferred / unknown / self-reference.
+8. **Unknowns** — 풀지 못한 것과 무엇이 있으면 풀리는지.
 
-Language: write the three files in Korean; keep quoted source passages in their original language.
-Do not rewrite or judge the post's content; this is provenance, not fact-checking (note a claim the
-sources contradict, but do not chase it).
+## 4단계 — units.md와 희귀·바탕 표시
+
+**units.md** — 전개 단위 목록(정의는 evidence.md). 본문을 처음부터 읽으며 화제가 넘어가는 지점마다 끊는다.
+8~20개가 보통이다(조정 가능). 재현 실행 전에 확정하며, 재현 결과를 본 뒤에는 바꾸지 않는다. 파일 머리에는
+세 필드만 적는다. 오케스트레이터가 이 세 줄을 그대로 재현 워커에 넘기므로 제목·매체·출처 이름·URL을 넣지
+않는다.
+
+- `main_topic:` 글의 주제 한 구절. 제목이 아니다(예: "알래스카 LNG 프로젝트").
+- `trigger:` 계기 사건 한 문장. 매체·출처 이름·URL 없이. 계기가 없으면 `none`.
+- `date:` 원문 발행 시각(`meta.json`의 `published_at`).
+
+```
+main_topic: 알래스카 LNG 프로젝트
+trigger: 미국 정부가 한국에 알래스카 LNG 프로젝트 참여를 공식 요청했다
+date: 2026-10-28 11:00 KST
+
+| 번호 | 이름 | 범위 | 뒷받침 출처 | 저자 이전 글 재사용 |
+|---|---|---|---|---|
+| D01 | 1970년대 구상과 좌초 | para 1 문장 1 – para 2 문장 3 (C01–C05) | S01, S02 | 아니오 |
+| D02 | 가스관 노선과 비용 | para 2 문장 4 – para 3 끝 (C06–C09) | S03 | 예 (prior <id> para 2) |
+```
+
+범위는 claims.md와 같은 para 번호를 쓰고, 그 단위에 들어가는 주장 번호를 괄호에 적는다. 뒷받침 출처는
+`sources.md`의 번호다(없으면 `-`). 단위 표 아래에 `## unknowns`를 두고 경계가 애매했던 곳을 적는다.
+
+**평범한 검색** — `sources.md` 끝에 `## 평범한 검색` 절을 덧붙인다. `main_topic`으로 웹 검색 도구를 한국어
+1회, 영어 1회 돌리고, 검색어 두 개와 각 상위 10개 결과의 URL, 거기서 뽑은 등록 도메인 집합(최대 20개)을
+적는다. 검색일시도 적는다.
+
+**표시** — 출처 항목마다 `표시:` 줄을 채운다. 값은 `희귀`, `바탕`, `바탕(저자 글)`을 쉼표로 잇고, 해당 없으면
+`-`. 판정 기준은 evidence.md의 정의를 따른다: 희귀는 `[observed]` 출처 중 등록 도메인이 집합에 없는 것,
+바탕은 연속한 단위 3개 이상을 뒷받침하거나 전체 주장의 4분의 1 이상을 댄 출처. 저자 이전 글은
+`바탕(저자 글)`. 판정 근거(단위 번호 또는 주장 수/전체 수, 도메인)를 `표시:` 줄 뒤 괄호에 적는다.
+
+## 보강 모드
+
+`claims.md`·`sources.md`·`research-path.md`가 이미 있을 때. 세 파일과 `post.md`를 읽고 추적은 다시 하지
+않는다. 출처 번호·주장 번호를 그대로 쓴다. 하는 일:
+1. `units.md`를 새로 쓴다(위 형식).
+2. `sources.md`에 `## 평범한 검색` 절을 덧붙이고, 출처 항목마다 `표시:` 줄을 넣는다(없던 항목에는 줄을
+   추가한다). 그 밖의 내용은 한 글자도 바꾸지 않는다. 제자리 편집이며 파일을 새로 만들지 않는다.
+3. `status.md`에 시작·`units`·`marks`·완료 줄을 덧붙인다.
+
+언어: 네 파일 모두 한국어로 쓴다. 인용한 출처 구절은 원문 언어 그대로 둔다. 글의 내용을 고치거나 판단하지
+않는다. 이것은 출처 추적이지 사실 검증이 아니다(출처와 어긋나는 주장은 적되 쫓지 않는다).
