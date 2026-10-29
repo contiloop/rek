@@ -3,21 +3,27 @@ a plan out. The CLI wires the post-list adapter and the fetching.
 
 Two routes, as the spec states them:
 - date route: every image the author reused from an earlier post (upload date before this post was written)
-  points at the days around that upload; take every post dated within ±2 days, no title condition.
-- title route: content words of the title (the generic stop list below removed); take every post whose title
-  contains one of them.
+  points at the days around that upload; every post dated within ±2 days is a candidate, no title condition.
+  A candidate is confirmed only when its page carries one of those image files (`confirm`), so a busy
+  posting day does not drag in unrelated posts.
+- title route: content words of the title (the generic stop list below removed); a post matches when one of
+  its own title tokens equals one of them. Only recent matches are kept, newest first.
 """
 from __future__ import annotations
 
 import datetime as dt
 import re
 from dataclasses import dataclass, field
+from urllib.parse import urlparse
 
 from rek.core.models import PostSummary
 
 WINDOW_DAYS = 2
 # An image uploaded this close before publication was uploaded while writing this post, not an earlier one.
 WRITING_WINDOW_HOURS = 24
+# Title route: posts older than this before publication are not fetched, and at most TITLE_KEEP of the rest.
+TITLE_MAX_AGE_DAYS = 730
+TITLE_KEEP = 10
 
 # Common title words that name no topic. Generic Korean blog vocabulary only; nothing author-specific.
 STOP_WORDS = frozenset(
@@ -67,18 +73,42 @@ def earliest_needed(meta: dict) -> dt.date | None:
     return min(dates) - dt.timedelta(days=WINDOW_DAYS) if dates else None
 
 
-def title_words(title: str) -> list[str]:
-    """Content words of a title in order, each once: ≥2 Hangul/Latin letters, trailing particle stripped,
-    stop words removed."""
+def image_path(url: str) -> str:
+    """The image file's path on its host, without the size query: the same file keeps it across posts."""
+    return urlparse(url).path.lstrip("/")
+
+
+def reused_image_paths(meta: dict) -> dict[str, list[int]]:
+    out: dict[str, list[int]] = {}
+    for image in reused_images(meta):
+        if image.get("url"):
+            out.setdefault(image_path(image["url"]), []).append(image["index"])
+    return out
+
+
+def confirm(page: str, paths: dict[str, list[int]]) -> list[int]:
+    """Indexes of the reused images whose file appears on the candidate's page."""
+    return sorted(i for path, indexes in paths.items() if path in page for i in indexes)
+
+
+def title_tokens(title: str) -> list[str]:
+    """Title tokens in order: ≥2 Hangul/Latin letters, trailing particle stripped."""
     out: list[str] = []
     for token in re.split(r"[^가-힣A-Za-z0-9]+", title):
         if not _WORD.match(token):
             continue
         if token.endswith(_PARTICLES) and len(token) > 2:
             token = token[:-1]
-        if token.casefold() in _STOP or token in out:
-            continue
         out.append(token)
+    return out
+
+
+def title_words(title: str) -> list[str]:
+    """Content words of a title: its tokens minus stop words, each once."""
+    out: list[str] = []
+    for token in title_tokens(title):
+        if token.casefold() not in _STOP and token not in out:
+            out.append(token)
     return out
 
 
@@ -100,12 +130,12 @@ class PriorPlan:
     candidates: list[Candidate] = field(default_factory=list)
 
     def as_record(self) -> dict:
-        """The `prior_search` block for meta.json (fetch status is added by the CLI)."""
+        """The `prior_search` block for meta.json (confirmation and fetch status are added by the CLI)."""
         return {
             "published_on": self.published_on.isoformat() if self.published_on else None,
             "writing_window_hours": WRITING_WINDOW_HOURS,
-            "date_route": self.date_route,
-            "title_route": self.title_route,
+            "date_route": {**self.date_route, "window_days": WINDOW_DAYS},
+            "title_route": {**self.title_route, "max_age_days": TITLE_MAX_AGE_DAYS, "keep": TITLE_KEEP},
             "candidates": [
                 {"post_id": c.post.post_id, "title": c.post.title, "date": c.post.date.isoformat(), "routes": c.routes}
                 for c in self.candidates
@@ -131,20 +161,24 @@ def plan(meta: dict, posts: list[PostSummary]) -> PriorPlan:
         matches = [p.post_id for p in pool if lo <= p.date <= hi]
         windows.append({"uploaded_on": uploaded_on, "image_indexes": sorted(indexes), "from": lo.isoformat(), "to": hi.isoformat(), "matches": matches})
     in_window = {m for w in windows for m in w["matches"]}
-    date_found = [p.post_id for p in pool if p.post_id in in_window]  # list order (newest first), each once
+    date_candidates = [p.post_id for p in pool if p.post_id in in_window]  # list order (newest first), each once
 
     words = title_words(meta.get("title", ""))
-    by_word = {w: [p.post_id for p in pool if w.casefold() in p.title.casefold()] for w in words}
+    tokens = {p.post_id: {t.casefold() for t in title_tokens(p.title)} for p in pool}
+    by_word = {w: [p.post_id for p in pool if w.casefold() in tokens[p.post_id]] for w in words}
     title_found = [p.post_id for p in pool if any(p.post_id in ids for ids in by_word.values())]
+    oldest = published_on - dt.timedelta(days=TITLE_MAX_AGE_DAYS) if published_on else None
+    recent = sorted((p for p in pool if p.post_id in title_found and (oldest is None or p.date >= oldest)), key=lambda p: p.date, reverse=True)
+    title_kept = [p.post_id for p in recent[:TITLE_KEEP]]
 
     candidates = []
     for p in pool:
-        routes = [name for name, found in (("date", date_found), ("title", title_found)) if p.post_id in found]
+        routes = [name for name, found in (("date", date_candidates), ("title", title_kept)) if p.post_id in found]
         if routes:
             candidates.append(Candidate(post=p, routes=routes))
     return PriorPlan(
         published_on=published_on,
-        date_route={"windows": windows, "found": date_found},
-        title_route={"title": meta.get("title", ""), "words": words, "matches": by_word, "found": title_found},
+        date_route={"windows": windows, "candidates": date_candidates},
+        title_route={"title": meta.get("title", ""), "words": words, "matches": by_word, "found": title_found, "kept": title_kept},
         candidates=candidates,
     )

@@ -65,17 +65,39 @@ def cmd_prior(args) -> int:
     record["searched_at"] = dt.datetime.now().astimezone().replace(microsecond=0).isoformat()
     record["list_size"] = len(posts)
     record["list_until"] = until.isoformat() if until else None
+    record["date_route"]["confirmed"] = []
+    record["date_route"]["rejected"] = []
+    paths = prior.reused_image_paths(meta)
     images = None if args.no_images else UrllibImageStore()
     for entry, candidate in zip(record["candidates"], plan.candidates):
         out = os.path.join(args.run_dir, "prior", candidate.post_id)
-        if os.path.isfile(os.path.join(out, "meta.json")):
-            entry["status"] = "present"
-            continue
+        present = os.path.isfile(os.path.join(out, "meta.json"))
         url = source.post_url(blog_id, candidate.post_id)
+        page = None  # (post, raw) once fetched
         try:
-            post, raw = source.fetch(url)
-            write_run(post, raw, out, images)
-            entry["status"] = "fetched"
+            if "date" in candidate.routes:
+                raw_on_disk = os.path.join(out, "raw.html")
+                if present and os.path.isfile(raw_on_disk):
+                    with open(raw_on_disk, encoding="utf-8") as f:
+                        html = f.read()
+                else:
+                    page = source.fetch(url)
+                    html = page[1]
+                matched = prior.confirm(html, paths)
+                if matched:
+                    record["date_route"]["confirmed"].append({"post_id": candidate.post_id, "image_indexes": matched})
+                else:
+                    record["date_route"]["rejected"].append({"post_id": candidate.post_id, "title": candidate.post.title, "date": candidate.post.date.isoformat(), "reason": "none of the reused image files is on the page"})
+                    if "title" not in candidate.routes:
+                        entry["status"] = "rejected"
+                        print(f"{candidate.post_id} rejected [date] {candidate.post.date} {candidate.post.title}")
+                        continue
+            if present:
+                entry["status"] = "present"
+            else:
+                post, raw = page or source.fetch(url)
+                write_run(post, raw, out, images)
+                entry["status"] = "fetched"
         except Exception as e:  # one bad post must not lose the record of the others
             entry["status"] = "failed"
             entry["error"] = f"{type(e).__name__}: {e}"
@@ -85,8 +107,9 @@ def cmd_prior(args) -> int:
     current["prior_search"] = record
     with open(meta_path, "w", encoding="utf-8") as f:
         json.dump(current, f, ensure_ascii=False, indent=1)
-    counts = {s: sum(1 for c in record["candidates"] if c["status"] == s) for s in ("fetched", "present", "failed")}
-    print(f"{args.run_dir}: list={len(posts)} date_route={len(record['date_route']['found'])} title_route={len(record['title_route']['found'])} words={words} {counts}")
+    counts = {s: sum(1 for c in record["candidates"] if c["status"] == s) for s in ("fetched", "present", "rejected", "failed")}
+    dr, tr = record["date_route"], record["title_route"]
+    print(f"{args.run_dir}: list={len(posts)} date_route={len(dr['candidates'])} candidates/{len(dr['confirmed'])} confirmed; title_route={len(tr['found'])} found/{len(tr['kept'])} kept, words={words}; {counts}")
     return 0 if counts["failed"] == 0 else 1
 
 
