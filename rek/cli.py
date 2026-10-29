@@ -12,6 +12,7 @@ from rek.adapters.naver_blog import NaverBlogSource, NaverPostList
 from rek.core import prior, verify_summary
 from rek.core.profile_hash import profile_hash
 from rek.core.run_dir import write_run
+from rek.core.repro_stats import as_dict as repro_as_dict, compute as repro_compute
 from rek.core.stats import as_dict, compute
 
 SOURCES = [NaverBlogSource()]
@@ -119,6 +120,18 @@ def cmd_verify_summary(args) -> int:
     return 0 if all_pass else 1
 
 
+def cmd_repro_stats(args) -> int:
+    import json
+    import os
+
+    with open(os.path.join(args.repro_dir, "research.md"), encoding="utf-8") as fh:
+        research = fh.read()
+    log_path = os.path.join(args.repro_dir, "log.md")
+    log = open(log_path, encoding="utf-8").read() if os.path.exists(log_path) else ""
+    print(json.dumps(repro_as_dict(repro_compute(research, log)), ensure_ascii=False, indent=1))
+    return 0
+
+
 def cmd_profile_hash(args) -> int:
     try:
         print(profile_hash(args.profile_dir))
@@ -136,6 +149,9 @@ def main(argv: list[str] | None = None) -> int:
     f.add_argument("--out", help="run directory (default runs/<post_id>)")
     f.add_argument("--no-images", action="store_true")
     f.set_defaults(func=cmd_fetch)
+    rs = sub.add_parser("repro-stats", help="counts for one repro/<n> folder (units, sources, log markers)")
+    rs.add_argument("repro_dir")
+    rs.set_defaults(func=cmd_repro_stats)
     st = sub.add_parser("stats", help="form statistics of one or more post markdown files")
     st.add_argument("paths", nargs="+")
     st.set_defaults(func=cmd_stats)
