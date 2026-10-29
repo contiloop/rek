@@ -50,7 +50,9 @@ name. It writes `profiles/<author>/writing-method.md` (rules with evidence) and
 ## 4. Verify by reconstruction (one worker per held-out post)
 
 Launch `rek-writer` with `references/writer.md`: it gets only `sources.md` + `research-path.md` of
-one post and the profile, never `post.md`, and writes `runs/<post_id>/reconstruction.md`.
+one post, `prior/`, and the profile's `SKILL.md` (not `writing-method.md`, which quotes the
+originals), never `post.md`, and writes `runs/<post_id>/reconstruction.md`. A post the profile was
+built from is a weak test; when the user allows, trace one more post of the author and hold it out.
 Then launch `rek-verifier` with `references/verifier.md` to score `reconstruction.md` against
 `post.md` rule by rule and claim by claim; it writes `runs/<post_id>/verification.md`.
 A rule that fails on every held-out post goes back to step 3 as a finding; fix the rule, not the output.

@@ -4,10 +4,10 @@ Goal: write the post the author would have written, from the traced sources and 
 profile only. You are the test of the profile, so follow it literally; where it is silent, say so
 in a note at the end rather than improvising.
 
-Inputs: `profiles/<author>/SKILL.md`, `profiles/<author>/writing-method.md`,
-`runs/<id>/sources.md`, `runs/<id>/research-path.md`, `runs/<id>/prior/` (the author's earlier
-posts, which the author reused). You must not open `runs/<id>/post.md`, `claims.md`, or
-`images/`; the original is the answer key.
+Inputs: `profiles/<author>/SKILL.md`, `runs/<id>/sources.md`, `runs/<id>/research-path.md`,
+`runs/<id>/prior/` (the author's earlier posts, which the author reused). You must not open
+`runs/<id>/post.md`, `claims.md`, `images/`, or `profiles/<author>/writing-method.md` (it quotes
+the originals); the original is the answer key, and the skill alone is what is being tested.
 
 Procedure:
 1. Read the trigger and timeline from research-path.md; fetch the sources listed `[observed]`
