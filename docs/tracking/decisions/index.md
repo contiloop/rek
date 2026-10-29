@@ -8,3 +8,4 @@
 | 0004 | A Claude Code plugin (skill + subagents), with no direct API calls | 2026-10-30 |
 | 0005 | Block the use of pages after the date, not the viewing | 2026-10-30 |
 | 0006 | Change the goal from "reproducing the author" to "our research loop", and stop | 2026-10-30 |
+| 0007 | The product is `/rek:research`; tracing and the reproduction test are the learning side | 2026-10-30 |

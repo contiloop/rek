@@ -1,7 +1,7 @@
 # Structure
 
 REK has two layers. The lower layer is a Python command (`rek`). It does only the work that has a single correct answer: fetching, format statistics, and aggregation.
-The upper layer is Claude Code agents (1 orchestrator, 4 workers). They do the work that needs judgment: source tracing, method extraction, reproduction, and scoring.
+The upper layer is Claude Code agents (1 orchestrator, 6 workers). They do the work that needs judgment: source tracing, method extraction, reproduction, and scoring.
 The two layers connect only through files in the working folder (`runs/`, `profiles/`). Workers do not talk to each other directly.
 
 ## Flow (one post)
@@ -13,6 +13,13 @@ The two layers connect only through files in the working folder (`runs/`, `profi
 5. The orchestrator creates `repro/<n>/`, writes `profile_hash.txt` with `rek profile-hash`, then starts the reproduction worker (`rek-researcher`), passing only the four lines at the top of `units.md` → `research.md`, `post.md`, `log.md`. One worker per post, in parallel.
 6. The verification worker (`rek-verifier`) compares `units.md` and `sources.md` with `repro/<n>/` and writes `verification.md` (11 yaml keys at the very top).
 7. `rek verify-summary runs/` reads the `verification.md` with the highest number and prints the table and the pass/fail result. Only code makes the verdict.
+
+## Flow (new topic, the product use)
+
+1. The orchestrator (`skills/research/SKILL.md`) runs `rek research-init` → `research/<date>-<slug>/topic.md` (five start lines) and `profile_hash.txt`.
+2. The topic researcher (`rek-topic-researcher`) reads `topic.md` and the profile, researches, and writes `research.md`, `post.md`, `log.md`.
+3. The topic checker (`rek-topic-checker`) reads the folder and writes `check.md` (fabricated facts, sources after the date, weak links).
+4. `rek research-summary research/<name>` prints the pass line: full chain, enough sources, no fabrication, no late source.
 
 ## Components and dependency direction
 

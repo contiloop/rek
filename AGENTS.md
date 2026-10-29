@@ -5,6 +5,7 @@ its sources, reconstructs how the author researched the piece, distills that int
 run, and tests the procedure by giving a fresh agent only the topic, one trigger sentence and the date. Python does only
 the deterministic part (fetch, counts, pass/fail); every judgment runs in an Opus worker with a written brief. One reference
 author (a Korean economics blogger, profile `reference-a`) has been traced so far; the loop itself knows no author.
+The product use is `/rek:research`: a new topic, researched with that profile and written up, checked by the project's own criteria.
 
 ## Project structure
 
@@ -12,19 +13,21 @@ author (a Korean economics blogger, profile `reference-a`) has been traced so fa
 REK/
 ├── CLAUDE.md / AGENTS.md           → this entry point (identical)
 ├── .claude-plugin/                 → plugin.json, marketplace.json (the repository is its own marketplace)
+├── skills/research/SKILL.md        → product entry: research a new topic with a learned profile and write the post
 ├── skills/rek/
-│   ├── SKILL.md                    → orchestrator procedure: the six stages
+│   ├── SKILL.md                    → orchestrator procedure: the six stages (learning a profile from an author)
 │   ├── AGENTS.md                   → scope and invariants of the agent loop (briefs, markers, isolation)
 │   └── references/                 → one brief per worker + evidence.md (labels, Chrome lock, status lines, definitions)
-├── agents/                         → rek (orchestrator) and four workers, all `model: opus`, `effort: max`
+├── agents/                         → rek (orchestrator) and six workers, all `model: opus`, `effort: max`
 ├── rek/
 │   ├── AGENTS.md                   → scope and invariants of the Python package
 │   ├── core/                       → pure models, statistics, prior-post selection, pass/fail, hashes, site ledger
 │   ├── ports/                      → PostSource, PostList, ImageStore protocols
 │   ├── adapters/                   → Naver blog (mobile page parser, post-list API), urllib HTTP
-│   └── cli.py                      → `rek fetch | prior | stats | repro-stats | profile-hash | source-sites | verify-summary`
+│   └── cli.py                      → `rek fetch | prior | stats | repro-stats | profile-hash | source-sites | verify-summary | research-init | research-summary`
 ├── tests/                          → pytest; fixtures are real saved pages
 ├── runs/<post_id>/                 → data: post, trace files, units, repro/<n>/ attempts and their verification
+├── research/<date>-<slug>/         → data: one new-topic research (topic.md, research.md, post.md, log.md, check.md)
 ├── profiles/<author>/              → data: research-method, writing-structure, SKILL, holdout/<post_id>/ variants
 └── docs/
     ├── architecture.md             → the two layers and how a post flows through the six stages
@@ -44,7 +47,7 @@ REK/
 - The reproduction worker is told nothing about the author; it never reads the original post, files of its run folder, or the content of
   pages published after `date:`; every fact in its post must trace to a source in its `research.md`.
 - `units.md` is fixed before a reproduction starts and never edited afterwards; it is the denominator of every score.
-- Pass/fail is computed by `rek verify-summary`, never read from a worker's opinion; any deterministic count is code.
+- Pass/fail is computed by `rek verify-summary` (learning) or `rek research-summary` (new topic), never read from a worker's opinion; any deterministic count is code.
 - No author-specific name or rule outside `profiles/<author>/`; workers are `model: opus`, `effort: max`.
 
 ## Before you work

@@ -1,4 +1,4 @@
-"""`rek fetch`, `rek stats`, `rek prior`, `rek verify-summary`, `rek profile-hash`. Wiring only: adapters in, core logic called."""
+"""`rek fetch`, `rek stats`, `rek prior`, `rek verify-summary`, `rek profile-hash`, `rek research-init`, `rek research-summary`. Wiring only: adapters in, core logic called."""
 from __future__ import annotations
 
 import argparse
@@ -10,7 +10,7 @@ import sys
 
 from rek.adapters.http import UrllibImageStore
 from rek.adapters.naver_blog import NaverBlogSource, NaverPostList
-from rek.core import prior, verify_summary
+from rek.core import prior, research, verify_summary
 from rek.core.profile_hash import profile_hash
 from rek.core.run_dir import write_run
 from rek.core.repro_stats import as_dict as repro_as_dict, compute as repro_compute
@@ -161,6 +161,30 @@ def cmd_profile_hash(args) -> int:
     return 0
 
 
+def cmd_research_init(args) -> int:
+    now = dt.datetime.now(dt.timezone.utc)
+    if not os.path.isdir(args.profile) or not os.path.isfile(os.path.join(args.profile, "SKILL.md")):
+        print(f"no profile at {args.profile}", file=sys.stderr)
+        return 2
+    out = args.out or os.path.join("research", research.folder_name(args.topic, now.astimezone(dt.timezone(dt.timedelta(hours=9)))))
+    if os.path.exists(os.path.join(out, "topic.md")):
+        print(f"{out}/topic.md already exists", file=sys.stderr)
+        return 2
+    os.makedirs(out, exist_ok=True)
+    with open(os.path.join(out, "topic.md"), "w", encoding="utf-8") as f:
+        f.write(research.topic_lines(args.topic, args.trigger, args.date or research.default_date(now), args.language, os.path.abspath(args.profile)))
+    with open(os.path.join(out, "profile_hash.txt"), "w", encoding="utf-8") as f:
+        f.write(profile_hash(args.profile) + "\n")
+    print(out)
+    return 0
+
+
+def cmd_research_summary(args) -> int:
+    v = research.summarize(args.research_dir)
+    print(research.render(args.research_dir, v), end="")
+    return 0 if v.passed else 1
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="rek")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -189,6 +213,17 @@ def main(argv: list[str] | None = None) -> int:
     ph = sub.add_parser("profile-hash", help="sha256[:12] of SKILL.md + research-method.md in a profile folder")
     ph.add_argument("profile_dir")
     ph.set_defaults(func=cmd_profile_hash)
+    ri = sub.add_parser("research-init", help="create research/<date>-<slug>/ with topic.md (five start lines) and profile_hash.txt")
+    ri.add_argument("topic")
+    ri.add_argument("--trigger", default="none", help="one sentence for the trigger event; default none")
+    ri.add_argument("--date", help="'YYYY-MM-DD HH:MM KST'; default now")
+    ri.add_argument("--language", default="Korean")
+    ri.add_argument("--profile", required=True, help="profile folder holding SKILL.md and research-method.md")
+    ri.add_argument("--out", help="output folder (default research/<YYYYMMDD>-<slug>)")
+    ri.set_defaults(func=cmd_research_init)
+    rsu = sub.add_parser("research-summary", help="pass line of one research folder (chain, sources, fabricated, late sources); exit 1 unless pass")
+    rsu.add_argument("research_dir")
+    rsu.set_defaults(func=cmd_research_summary)
     args = p.parse_args(argv)
     return args.func(args)
 

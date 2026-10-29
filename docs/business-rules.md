@@ -41,6 +41,12 @@
 - Two sets of pass thresholds. **Reference-author criteria** (`--criteria author`): units at least 90%, rare at least 80%, all foundation sources except the author's posts, fabrication 0. **Our criteria** (`--criteria own`): a valid attempt, fabrication 0, at least one unit each in the backward (`뒤쪽`), main-topic, and forward (`앞쪽`) directions, and at least 20 sources (at least 5 primary). The current pass condition is our criteria. The reference-author criteria are reported only.
 - For each failure, record the responsible stage. No original source, or only a guess → source tracing. The method has no search framework → method extraction. The framework exists but was not run, was found but not used, or the result is fabrication → reproduction. The fix goes in that stage, not in the output.
 
+## New-topic research rules
+
+- A research folder receives five lines (`main_topic`, `trigger`, `date`, `language`, `profile`) and the profile folder. There is no original and no exclusion list; the content of pages after `date:` is still off limits.
+- Pass (`rek research-summary`): at least one unit in each of `뒤쪽`, `본 주제`, `앞쪽`; at least 20 sources with at least 5 primary; `fabricated` 0; `late_sources` 0. The checker's opinion is shown next to it and never decides.
+- Fabrication and late-source failures go back to the researcher on the same folder; chain and source failures are profile gaps and go back to `/rek:rek` (method extraction).
+
 ## When a new post arrives
 
 Reproduce and score a new post first with the current profile (hold-out). Then trace it and feed it into profile re-extraction. The profile is rebuilt every time from all runs of that author. The profile used for scoring is recorded as `profile_hash` (the first 12 characters of the sha256 of SKILL.md + research-method.md). When testing a post with a profile built from that same post, use the variant `profiles/<author>/holdout/<post_id>/`, which has the traces of that post removed.
