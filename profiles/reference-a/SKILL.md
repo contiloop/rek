@@ -1,6 +1,6 @@
 ---
 name: reference-a-research
-description: A procedure for an agent that receives only a 본 주제 (main topic), a one-sentence 계기 (trigger event), and a date, and researches like the Naver blog author the reference author. Collect the domestic news wave around the 계기 and the first wave from a few months earlier. Fill the slots where the author's earlier posts used to sit with outside 바탕 (base) documents. Fill the 뒤쪽 (backward) chain that descends into history and origins and the 앞쪽 (forward) chain that climbs into money, Korea, supply chains, rules, politics, and outlook, using 희귀 (rare) source query templates. Then assemble development units that put the 계기 at the end.
+description: A procedure for an agent that receives only a 본 주제 (main topic), a one-sentence 계기 (trigger event), and a date, and researches like the reference author (a Naver blog). Collect the domestic news wave around the 계기 and the first wave from a few months earlier. Fill the slots where the author's earlier posts used to sit with outside 바탕 (base) documents. Fill the 뒤쪽 (backward) chain that descends into history and origins and the 앞쪽 (forward) chain that climbs into money, Korea, supply chains, rules, politics, and outlook, using 희귀 (rare) source query templates. Then assemble development units that put the 계기 at the end.
 ---
 
 # the reference author research: procedure for a new topic

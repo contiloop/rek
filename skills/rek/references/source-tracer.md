@@ -28,8 +28,8 @@ Group the claims that share a source (one article usually holds several numbers)
 ## S03 — Lloyd's List, "..." (2026-10-21) [observed]
 URL: ...
 Claims: C21, C22
-Match: "9월 호르무즈 VLCC 통항의 47%" ↔ "47% of VLCC transits in September" (양쪽을 인용)
-Probably reached via: 한국 기사 S02가 인용 / direct / unknown
+Match: "9월 호르무즈 VLCC 통항의 47%" ↔ "47% of VLCC transits in September" (quote both sides)
+Probably reached via: cited via Korean article S02 / direct / unknown
 표시: -
 ```
 

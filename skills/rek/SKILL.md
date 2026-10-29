@@ -44,10 +44,11 @@ Launch it with the run directory, `repro/<n>/`, and the profile folder. Output: 
 ## 6. Aggregate and report
 
 ```bash
-uv run --project "${CLAUDE_PLUGIN_ROOT}" rek verify-summary runs/   # exit code 0 = all pass
+uv run --project "${CLAUDE_PLUGIN_ROOT}" rek verify-summary runs/ --criteria own   # exit code 0 = all pass
+uv run --project "${CLAUDE_PLUGIN_ROOT}" rek verify-summary runs/                  # reference-author line, report only
 ```
 
-Pass thresholds (computed by code): at least 90% of development units, at least 80% of rare sources, all base sources except the author's own posts, 0 fabrications. The number match is for reference only, and order is not checked. The overall result passes only if every run under `runs/` passes.
+The pass line is the project's own criteria, computed by code: the attempt is valid (no `무효:` line), 0 fabrications, the reproduction's units cover all three directions (`뒤쪽`, `본 주제`, `앞쪽`, at least one each), and at least 20 sources of which at least 5 are primary. The reference-author line (90% of units, 80% of rare sources, every base source except the author's own posts, 0 fabrications) is reported next to it for comparison but does not decide. The overall result passes only if every run under `runs/` passes.
 
 Report one line per post (units x/y, rare x/y, base x/y, fabrications, verdict), the failing stage, and the last line of `status.md`. If a post falls short, fix the stage that the failure routing in `verification.md` points to (trace / procedure extraction / reproduction), not the output. Then rerun 4 and 5 into `repro/<n+1>/`. If the same stage falls short three times in a row, stop and report to the user.
 

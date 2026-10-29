@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import urllib.error
 import datetime as dt
 import json
 import os
@@ -31,7 +32,11 @@ def cmd_fetch(args) -> int:
     source = _source_for(args.url)
     if source is None:
         return 2
-    post, raw = source.fetch(args.url)
+    try:
+        post, raw = source.fetch(args.url)
+    except (LookupError, urllib.error.URLError) as e:  # no such post, or the site refused
+        print(f"fetch failed for {args.url}: {e}", file=sys.stderr)
+        return 1
     out = args.out or f"runs/{post.post_id}"
     meta = write_run(post, raw, out, None if args.no_images else UrllibImageStore())
     print(f"{out}: '{meta['title']}' ({meta['published_at']}), blocks={meta['block_counts']}, images={len(meta['images'])}")

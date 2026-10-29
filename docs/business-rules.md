@@ -2,7 +2,7 @@
 
 ## Terms
 
-- **Post (run)**: one traced post. `runs/<글 id>/`. Fetching the same URL again overwrites it.
+- **Post (run)**: one traced post. `runs/<post_id>/`. Fetching the same URL again overwrites it.
 - **Prior post (prior)**: an earlier post by the same author from which the target post reused sentences or images. Source tracing uses it. Reproduction cannot see it.
 - **Claim**: an atomic unit of the body text (number, date, name, quote, event, cause and effect, opinion, reuse of the author's own post).
 - **Source**: the document a claim came from. It has a publication time, a URL, a primary or secondary type, a label (observed/inferred/unknown), and a mark (`희귀` (rare) or `바탕` (foundation)).
@@ -43,4 +43,4 @@
 
 ## When a new post arrives
 
-Reproduce and score a new post first with the current profile (hold-out). Then trace it and feed it into profile re-extraction. The profile is rebuilt every time from all runs of that author. The profile used for scoring is recorded as `profile_hash` (the first 12 characters of the sha256 of SKILL.md + research-method.md). When testing a post with a profile built from that same post, use the variant `profiles/<저자>/holdout/<글 id>/`, which has the traces of that post removed.
+Reproduce and score a new post first with the current profile (hold-out). Then trace it and feed it into profile re-extraction. The profile is rebuilt every time from all runs of that author. The profile used for scoring is recorded as `profile_hash` (the first 12 characters of the sha256 of SKILL.md + research-method.md). When testing a post with a profile built from that same post, use the variant `profiles/<author>/holdout/<post_id>/`, which has the traces of that post removed.

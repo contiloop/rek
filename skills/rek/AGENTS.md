@@ -15,7 +15,7 @@ Fetching or counting (the `rek` commands do that); storing knowledge about a spe
   elsewhere, reads a forbidden file or runs git is a brief defect, not a worker quirk.
 - Paths in briefs and agent bodies are `${CLAUDE_PLUGIN_ROOT}/skills/rek/...` and
   `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek ...`; never a working-folder-relative or absolute path.
-- The reproduction brief gives the worker only the three start lines, the profile folder and the output folder, and
+- The reproduction brief gives the worker only the four start lines, the profile folder and the output folder, and
   forbids the author's domains, the original post, the run's other files and the content of pages after `date:`.
 - The verifier brief's example yaml block is byte-identical to `tests/fixtures/verification_example.md`.
 - Counts come from `rek stats` / `rek repro-stats`; a brief never asks a worker to count by hand.

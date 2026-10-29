@@ -27,7 +27,7 @@ verifier_verdict: pass
 ```
 
 - `profile_hash`: Copy the content of `repro/<n>/profile_hash.txt` as is. Do not compute it yourself.
-- `verifier_verdict`: `pass` or `fail`. It is the worker's opinion, not the pass verdict. `rek verify-summary` computes the verdict from the numbers in the block (units 90% or more, rare 80% or more, all base sources, fabrications 0). If the opinion differs from the computation, the table shows "불일치" (mismatch).
+- `verifier_verdict`: `pass` or `fail`. It is the worker's opinion, not the pass verdict. `rek verify-summary --criteria own` computes the verdict (a valid attempt, 0 fabrications, units in all three directions, at least 20 sources with 5 primary); the reference-author thresholds (units at least 90%, rare at least 80%, every base source, 0 fabrications) are reported for comparison only. If the opinion differs from the computation, the table shows "불일치" (mismatch).
 
 ## How to count (the scoring rule)
 

@@ -16,14 +16,14 @@
 | gcaptain.com | 1 | 3 | 3 | 0 | Bloomberg(Alex Longley, Bloomberg(Weilun Soon), gCaptain | https://gcaptain.com/iran-says-it-will-take-action-against-sinokor-ships-in-hormuz/ |
 | adn.com | 1 | 2 | 2 | 0 | Anchorage Daily News(Iris Samuels), Anchorage Daily News(Iri | https://www.adn.com/business-economy/energy/2026/09/30/trump-to-announce-south-korean-investment-in-alaska-natural-gas-pipeline/ |
 | alaskapublic.org | 1 | 2 | 2 | 0 | Alaska Public Media(Eric Stone) | https://alaskapublic.org/news/politics/2026-09-30/trump-claims-south-korea-will-invest-50-billion-in-alaska-gas-pipeline-but-offers-few-details |
-| archive.org | 1 | 2 | 2 | 2 | 나무위키 「고등어」(분리 문서 「망치고등어」 포함) (관찰한 판: 2022-08-30 수정판 | https://web.archive.org/web/20220903043552/https://namu.wiki/w/%EA%B3%A0%EB%93%B1%EC%96%B4 |
+| archive.org | 1 | 2 | 2 | 2 | 나무위키 「고등어」(분리 문서 「망치고등어」 포함) (관찰한 판: 2022-08-30 수정판 | https://web.archive.org/web/20260527071453/https://namu.wiki/w/%EA%B3%A0%EB%93%B1%EC%96%B4 |
 | fao.org | 1 | 2 | 2 | 0 | FAO, FAO GLOBEFISH | https://www.fao.org/in-action/globefish/news-events/news/news-detail/high-mackerel-prices-redirect-asian-small-pelagic-trade/en |
 | insight.co.kr | 1 | 2 | 2 | 0 | 인사이트 | https://www.insight.co.kr/news/422280 |
 | kmi.re.kr | 1 | 2 | 2 | 0 | KMI 해양수산해외산업정보포털 | https://www.kmi.re.kr/globalnews/posts/view.do?rbsIdx=1&key=%EB%8C%80%EC%84%9C%EC%96%91%EA%B3%A0%EB%93%B1%EC%96%B4&idx=25827 |
 | mt.co.kr | 1 | 2 | 2 | 0 | 머니투데이(김도균), 머니투데이(백소희) | https://www.mt.co.kr/world/2026/10/01/2026100111255324674 |
 | mtn.co.kr | 1 | 2 | 2 | 0 | MTN(김나윤), 머니투데이방송 MTN(나은수) | https://news.mtn.co.kr/news-detail/2026032708532792036 |
 | ogj.com | 1 | 2 | 2 | 0 | Oil & Gas Journal | https://ogj.com/pipelines-transportation/lng/article/55299980/glenfarne-ptt-to-cooperate-on-alaska-lng-development-2-million-tpy-to-thailand |
-| sinokor.co.kr | 1 | 2 | 2 | 0 | 장금상선 홈페이지 | https://www.sinokor.co.kr/kr/History.html |
+| sinokor.co.kr | 1 | 2 | 2 | 0 | 장금상선 홈페이지 | https://www.sinokor.co.kr/kr/Intro.html |
 | wikitree.co.kr | 1 | 2 | 2 | 0 | 위키트리, 위키트리 김현정 기자 | https://www.wikitree.co.kr/articles/1062204 |
 | europa.eu | 1 | 3 | 1 | 0 | EUMOFA | https://fishery-aquaculture-market-observatory.ec.europa.eu/en/publications/price-structure-analyses/mackerel-in-the-eu |
 | 270towin.com | 1 | 1 | 1 | 0 | 270toWin | https://www.270towin.com/2026-senate-election-predictions/ |

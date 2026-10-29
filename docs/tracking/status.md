@@ -22,6 +22,8 @@
 
 Failure responsibility (round 1 total): method extraction 54, reproduction 38, source tracing 1. Round 2 total: method extraction 77, reproduction 43, source tracing 2.
 
+Round-2 `profile_hash` values (41bef398f6a9, e2d6a98b6492, f81f88df16ab) identify the Korean profile files at commit 3c96656; the English rewrite changed the hashes afterwards.
+
 Final verdict (`rek verify-summary runs --criteria own`, round 2): 2 of 3 runs pass; the whole set fails on the one fabricated image description. Under the reference-author criteria all three fail. The round 1 to round 2 drop (9→4, 10→7, 8→3 units) measures how much the un-held-out profile had leaked; round 2 is the honest baseline. The remaining gaps are mostly questions and search templates the procedure does not yet contain (method extraction) and documents the worker had but did not attach to a link (reproduction).
 
 ## Remaining (in priority order)

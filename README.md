@@ -1,30 +1,34 @@
 # REK — Reverse Engineering Knowledge
 
-Given a published text, REK traces where each claim came from, reconstructs how the author
-researched and wrote it, distills that into a writing-method profile, and proves the profile by
-regenerating a post and diffing it against the original.
+Given the URL of a published post, REK traces every claim to its sources, reconstructs how the
+author researched the piece, distills that into a research procedure another agent can run, and
+tests the procedure: a fresh agent gets only the main topic, one trigger sentence and the date,
+researches on its own, and its result is scored against the original's chain of development units
+and hard-to-find sources. The goal is a research loop that finds the backward links (history,
+origins) and the forward links (money, politics, the local angle) of a topic with every fact traced
+to a source; the reference author's posts are the material the procedure was learned from and the
+yardstick it is compared with.
 
-The loop is adapted from [morluto/rea](https://github.com/morluto/rea) (reverse engineering of
-binaries): route the target → summary-first inventory → evidence ledger whose every line is
-`observed`, `inferred` or `unknown` → verified reconstruction. The orchestration shape (one
-orchestrator, independent workers, an independent gate, intent before execution) follows the
-dryforge `ready` skill. See `skills/rek/SKILL.md` for the correspondence table.
+The investigation loop is adapted from [morluto/rea](https://github.com/morluto/rea) (reverse
+engineering of binaries): route the target → summary-first inventory → evidence ledger whose every
+line is `observed`, `inferred` or `unknown` → residual unknowns → reconstruction verified against a
+finite list. See `skills/rek/SKILL.md` for the correspondence table.
 
 ## What was taken from each reference
 
 | reference | taken | depth | not taken |
 |---|---|---|---|
 | morluto/rea | investigation loop: route → inventory → evidence with observed/inferred/unknown → residual unknowns → reconstruction verified against a finite claim list; parallel workers with distinct scopes returning sources, conclusions, gaps | principle, rebuilt for text | its MCP tools, binary formats, Evidence IDs and hashing |
-| dryforge `ready` | one orchestrator, workers only for independent checks, an independent gate that must find nothing, findings routed to the stage that owns them, user approves before the costly run | principle | the 3-doc format, the elicitation dialogue stages |
+| a spec-first agent harness the user already uses | one orchestrator, workers only for independent checks, an independent reviewer that should find nothing, failures routed to the stage that owns them, the user approves before the costly run | principle | its document formats and dialogue stages |
 | OneSpiral/ghost-writer and similar style cloners | a style profile is many named dimensions, each with evidence | principle | their dimension list (ours is derived from the posts) |
 | ProjectJang guidelines | hexagonal layout, tests before each slice, real data for verification, fix upstream not output, delete leftovers | copy | — |
 
 ## Layout
 
 ```
-rek/                 Python: fetch + normalize only (hexagonal: core/ models, ports/, adapters/)
-  adapters/naver_blog.py   Naver mobile page → Post; decodes image upload dates from image URLs
-  cli.py                   `rek fetch <url>` → runs/<post_id>/
+rek/                 Python, standard library only (hexagonal: core/ pure logic, ports/, adapters/)
+  adapters/naver_blog.py   Naver mobile page → Post; post-list API; decodes image upload times from image URLs
+  cli.py                   fetch · prior · stats · repro-stats · profile-hash · source-sites · verify-summary
 tests/               pytest, fixture = one real Naver page
 .claude-plugin/      plugin manifest (the repository root is the plugin)
 skills/rek/          the agent loop; references/ holds one brief per worker
@@ -69,5 +73,5 @@ From any project folder, in Claude Code: `/rek:rek <url> [<url> ...]`, or spawn 
 the URLs. Results are written to `runs/<post_id>/` and `profiles/<author>/` under the current working folder.
 Scripts run as `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek …`, so the Python side needs `uv` only.
 
-Only `rek fetch` is code. Everything after it is judgment, so it runs in Opus workers with their
-briefs; the briefs are the specification.
+Only the deterministic steps are code (fetching, counting, hashing, pass/fail). Everything that
+needs judgment runs in Opus workers with their briefs; the briefs are the specification.

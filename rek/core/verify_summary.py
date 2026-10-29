@@ -35,15 +35,18 @@ def evaluate_own(d: dict, invalid: bool, stats: dict | None) -> "Result":
     forward units, and enough sources (OWN_SOURCES_MIN, OWN_PRIMARY_MIN of them primary). The author
     thresholds (units/rare/upstream) are reported but not required."""
     reported = d.get("verifier_verdict")
-    if "fabricated" not in d:
-        return Result(INCOMPLETE, {}, "키 누락", reported, False)
+    if any(k not in d for k in KEYS):
+        return Result(INCOMPLETE, {}, "missing keys", reported, False)
+    if stats is None:
+        return Result(INCOMPLETE, {}, "no research.md", reported, False)
     dirs = (stats or {}).get("units_by_direction", {})
     chain_ok = all(dirs.get(k, 0) >= 1 for k in ("뒤쪽", "본 주제", "앞쪽"))
     sources_ok = (stats or {}).get("sources", 0) >= OWN_SOURCES_MIN and (stats or {}).get("primary", 0) >= OWN_PRIMARY_MIN
     checks = {"valid": not invalid, "fabricated": d["fabricated"] == 0, "chain": chain_ok, "sources": sources_ok}
-    reasons = [name for name, ok in (("무효", not invalid), ("날조", d["fabricated"] == 0), ("사슬 불완전", chain_ok), ("출처 부족", sources_ok)) if not ok]
+    reasons = [name for name, ok in (("invalid", not invalid), ("fabricated", d["fabricated"] == 0), ("chain incomplete", chain_ok), ("too few sources", sources_ok)) if not ok]
+    detail = f"chain {dirs.get('뒤쪽', 0)}/{dirs.get('본 주제', 0)}/{dirs.get('앞쪽', 0)}, sources {(stats or {}).get('sources', 0)} ({(stats or {}).get('primary', 0)} primary)"
     verdict = "pass" if all(checks.values()) else "fail"
-    return Result(verdict, checks, ", ".join(reasons), reported, False)
+    return Result(verdict, checks, (", ".join(reasons) + "; " if reasons else "") + detail, reported, False)
 
 
 def parse_front_matter(text: str) -> dict:
@@ -173,5 +176,5 @@ def render(rows: list[Row], all_pass: bool) -> str:
     widths = [max(len(row[i]) for row in table) for i in range(len(header))]
     lines = ["  ".join(cell.ljust(widths[i]) for i, cell in enumerate(row)).rstrip() for row in table]
     n_pass = sum(1 for r in rows if r.result.passed)
-    lines.append(f"전체: {'합격' if all_pass else '불합격'} ({n_pass}/{len(rows)} 합격)")
+    lines.append(f"overall: {'pass' if all_pass else 'fail'} ({n_pass}/{len(rows)} pass)")
     return "\n".join(lines) + "\n"

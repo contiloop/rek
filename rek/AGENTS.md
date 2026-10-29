@@ -10,7 +10,7 @@ Reading the web for research (workers do that), writing any file under `runs/<id
 `images/`, `raw.html`, `prior/`, and `meta.json.prior_search`; writing anything under `profiles/`.
 
 ## Invariants
-- `core/` imports nothing from `adapters/` and knows no URL, path or site name; `ports/` holds the protocols; `cli.py` is
+- `core/` imports nothing from `adapters/` and knows no URL or site name, and reads or writes files only in `run_dir.py`, `profile_hash.py` and `verify_summary.summarize`; `ports/` holds the protocols; `cli.py` is
   the only place that wires adapters to core.
 - Standard library only.
 - Thresholds in `core/verify_summary.py`: author criteria units ≥ 0.90, rare ≥ 0.80 (or rare_total 0), upstream_found ==

@@ -24,7 +24,7 @@ def test_url_forms():
 
 def test_title_author_date(post):
     assert post.title == "이란이 한국 장금상선에 조치를 취하겠다고 경고한 이유"
-    assert post.author == "메르"
+    assert post.author and "네이버" not in post.author  # the author display name, not the platform badge
     assert post.published_at.startswith("2026. 10. 28.")
 
 

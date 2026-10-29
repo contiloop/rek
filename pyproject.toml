@@ -1,6 +1,6 @@
 [project]
 name = "rek"
-version = "0.1.0"
+version = "0.2.0"
 description = "Reverse Engineering Knowledge: trace how a published text was researched and written, then reproduce the method."
 requires-python = ">=3.12"
 dependencies = []

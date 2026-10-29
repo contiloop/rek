@@ -92,7 +92,7 @@ def test_summarize_tree(tmp_path):
     assert all_pass is False
     text = render(rows, all_pass)
     assert "111" in text and "11/12" in text and "ab12cd34ef56" in text and "미실행/불완전" in text
-    assert text.rstrip().splitlines()[-1].startswith("전체:")
+    assert text.rstrip().splitlines()[-1].startswith("overall:")
 
 
 def test_summarize_all_pass(tmp_path):
@@ -131,11 +131,17 @@ def test_mismatch_is_displayed(tmp_path, capsys):
 def test_own_criteria():
     from rek.core.verify_summary import evaluate_own, is_invalid
 
-    good = {"fabricated": 0, "verifier_verdict": "fail"}
+    good = {k: 0 for k in ("units_total", "units_found", "rare_total", "rare_found", "upstream_total", "upstream_found", "fabricated", "numbers_total", "numbers_exact")}
+    good.update({"profile_hash": "abc", "verifier_verdict": "fail"})
     stats = {"units_by_direction": {"뒤쪽": 3, "본 주제": 2, "앞쪽": 4}, "sources": 30, "primary": 8}
     assert evaluate_own(good, False, stats).verdict == "pass"
-    assert evaluate_own(good, True, stats).reason == "무효"
-    assert evaluate_own({"fabricated": 2}, False, stats).reason == "날조"
-    assert "사슬 불완전" in evaluate_own(good, False, {"units_by_direction": {"뒤쪽": 1}, "sources": 30, "primary": 8}).reason
-    assert "출처 부족" in evaluate_own(good, False, {"units_by_direction": {"뒤쪽": 1, "본 주제": 1, "앞쪽": 1}, "sources": 5, "primary": 1}).reason
+    assert evaluate_own(good, True, stats).reason.startswith("invalid")
+    assert evaluate_own({**good, "fabricated": 2}, False, stats).reason.startswith("fabricated")
+    assert "chain incomplete" in evaluate_own(good, False, {"units_by_direction": {"뒤쪽": 1}, "sources": 30, "primary": 8}).reason
+    assert "too few sources" in evaluate_own(good, False, {"units_by_direction": {"뒤쪽": 1, "본 주제": 1, "앞쪽": 1}, "sources": 5, "primary": 1}).reason
+    edge = {"units_by_direction": {"뒤쪽": 1, "본 주제": 1, "앞쪽": 1}, "sources": 20, "primary": 5}
+    assert evaluate_own(good, False, edge).verdict == "pass"  # thresholds include equality
+    assert evaluate_own(good, False, {**edge, "sources": 19}).verdict == "fail"
+    assert evaluate_own(good, False, None).verdict == "미실행/불완전"
+    assert evaluate_own({"fabricated": 0}, False, stats).verdict == "미실행/불완전"
     assert is_invalid("```yaml\nfabricated: 0\n```\n무효: 저자 블로그 열람\n") and not is_invalid("```yaml\n```\n본문")
