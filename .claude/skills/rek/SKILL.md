@@ -60,3 +60,15 @@ A rule that fails on every held-out post goes back to step 3 as a finding; fix t
 Summarize per post: claims traced (observed / inferred / unknown counts), the reconstructed
 research path in five lines, and the verification score. Keep unknowns visible; never present an
 inferred source as observed.
+
+Success thresholds (a run below them is reported as not done, with the failing stage named):
+
+| measure | threshold |
+|---|---|
+| number/date/name/quote/event claims with a source line that is observed or inferred | ≥ 80 % |
+| reconstruction: original number claims reproduced exactly (`hit`) | ≥ 70 % |
+| reconstruction: fabricated facts | 0 |
+| reconstruction: writing-method rules passed | ≥ 90 % |
+
+Form numbers (sentence count, numbered items, register share, images, one-liner) always come from
+`uv run rek stats <post.md> [...]`, never from reading by eye, so profile and verification agree.

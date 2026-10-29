@@ -31,9 +31,12 @@ layers the posts demand and drop any with no evidence:
 8. **Anti-rules** — things a generic LLM would do that this author never does. These are the
    rules that matter most for reproduction; derive them by imagining the generic draft and diffing.
 
-Mark each rule `[observed]` with ≥ 2 posts, `[inferred]` with 1. Quantify where possible
-(sentences per post, numbered items per post, images per post, mean sentence length in characters,
-share of sentences ending in `~임/~함/~됨`), computed from post.md files, and state the counts.
+Mark each rule `[observed]` with ≥ 2 posts, `[inferred]` with 1. Quantify with
+`cd <project root> && uv run rek stats runs/<id>/post.md runs/<id>/prior/<pid>/post.md ...`
+(sentences, numbered items and gaps, mean sentence chars, `~임/~함/~됨` share, `~다` share, share
+of sentences carrying a number, images, one-liner length) and state the numbers per post in the rule
+that depends on them. Two registers exist (numbered `~임` posts and plain `~다` posts); find what
+decides which one a post gets.
 
 ## Output 2 — profiles/<author>/SKILL.md
 

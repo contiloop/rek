@@ -14,8 +14,8 @@ Write `runs/<id>/verification.md`:
 2. **Fabrication check** — every number, name, date in the reconstruction that is in neither
    sources.md nor prior/: list each as `fabricated`.
 3. **Rule compliance** — for each rule id in writing-method.md: `pass` / `fail` with one quoted
-   example from the reconstruction. Compute the same quantities the profile states (numbered items,
-   sentence length, register share, images) for both texts and show them side by side.
+   example from the reconstruction. Run `uv run rek stats runs/<id>/post.md runs/<id>/reconstruction.md` and show the two
+   rows side by side; judge the profile's quantitative rules from those numbers only.
 4. **Order** — does the reconstruction present facts in the same macro order (trigger → background
    → present → implication → one-liner)? Describe the divergence if any.
 5. **Verdict and routing** — one line: reproduced / partly / not. Then list each failure with the

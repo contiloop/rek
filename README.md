@@ -10,6 +10,15 @@ binaries): route the target → summary-first inventory → evidence ledger whos
 orchestrator, independent workers, an independent gate, intent before execution) follows the
 dryforge `ready` skill. See `.claude/skills/rek/SKILL.md` for the correspondence table.
 
+## What was taken from each reference
+
+| reference | taken | depth | not taken |
+|---|---|---|---|
+| morluto/rea | investigation loop: route → inventory → evidence with observed/inferred/unknown → residual unknowns → reconstruction verified against a finite claim list; parallel workers with distinct scopes returning sources, conclusions, gaps | principle, rebuilt for text | its MCP tools, binary formats, Evidence IDs and hashing |
+| dryforge `ready` | one orchestrator, workers only for independent checks, an independent gate that must find nothing, findings routed to the stage that owns them, user approves before the costly run | principle | the 3-doc format, the elicitation dialogue stages |
+| OneSpiral/ghost-writer and similar style cloners | a style profile is many named dimensions, each with evidence | principle | their dimension list (ours is derived from the posts) |
+| ProjectJang guidelines | hexagonal layout, tests before each slice, real data for verification, fix upstream not output, delete leftovers | copy | — |
+
 ## Layout
 
 ```
