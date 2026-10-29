@@ -9,11 +9,12 @@ from __future__ import annotations
 import base64
 import datetime as dt
 import html
+import json
 import re
-from urllib.parse import urlparse
+from urllib.parse import unquote_plus, urlparse
 
 from rek.adapters import http
-from rek.core.models import Block, Image, Post
+from rek.core.models import Block, Image, Post, PostSummary
 
 _POST_URL = re.compile(r"^https?://(?:m\.)?blog\.naver\.com/([A-Za-z0-9_\-]+)/(\d+)")
 _POST_URL_QUERY = re.compile(r"blogId=([A-Za-z0-9_\-]+).*?logNo=(\d+)")
@@ -147,6 +148,12 @@ class NaverBlogSource:
     def supports(self, url: str) -> bool:
         return urlparse(url).netloc.endswith("blog.naver.com")
 
+    def blog_of(self, url: str) -> str:
+        return parse_post_url(url)[0]
+
+    def post_url(self, blog_id: str, post_id: str) -> str:
+        return f"https://blog.naver.com/{blog_id}/{post_id}"
+
     def fetch(self, url: str) -> tuple[Post, str]:
         blog_id, post_id = parse_post_url(url)
         mobile = f"https://m.blog.naver.com/{blog_id}/{post_id}"
@@ -154,3 +161,71 @@ class NaverBlogSource:
         if "errorType=noPost" in document:
             raise LookupError(f"no post at {mobile} (check the post id)")
         return parse(document, url), document
+
+
+# --- post list -----------------------------------------------------------------------------
+
+_LIST_URL = "https://blog.naver.com/PostTitleListAsync.naver?blogId={blog}&currentPage={page}&countPerPage=30&categoryNo=0&parentCategoryNo="
+_ABS_DATE = re.compile(r"^(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})\.?$")
+_REL_DATE = re.compile(r"^(\d+)\s*(초|분|시간|일)\s*전$")
+
+
+def _list_date(text: str, today: dt.date) -> dt.date | None:
+    """addDate is "2026. 10. 24." for older posts and "12시간 전" / "방금 전" / "3일 전" for recent ones."""
+    text = text.strip()
+    m = _ABS_DATE.match(text)
+    if m:
+        return dt.date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+    m = _REL_DATE.match(text)
+    if m:
+        return today - dt.timedelta(days=int(m.group(1))) if m.group(2) == "일" else today
+    if text.endswith("전"):  # "방금 전" and any other relative wording: today
+        return today
+    return None
+
+
+def parse_post_list(body: str, today: dt.date) -> list[PostSummary]:
+    """One page of PostTitleListAsync.naver. The body escapes single quotes as \\' which JSON does not allow."""
+    data = json.loads(body.replace("\\'", "'"))
+    posts = []
+    for item in data.get("postList") or []:
+        date = _list_date(str(item.get("addDate", "")), today)
+        if date is None:
+            continue
+        title = html.unescape(unquote_plus(str(item.get("title", "")))).strip()
+        posts.append(PostSummary(post_id=str(item["logNo"]), title=title, date=date))
+    return posts
+
+
+class NaverPostList:
+    """Pages the blog's post list newest-first; pages are cached for the life of the object (one run)."""
+
+    def __init__(self, fetch_page=None):
+        self._fetch_page = fetch_page or self._http_page
+        self._pages: dict[tuple[str, int], list[PostSummary]] = {}
+
+    @staticmethod
+    def _http_page(blog_id: str, page: int) -> str:
+        url = _LIST_URL.format(blog=blog_id, page=page)
+        return http.get(url, referer=f"https://blog.naver.com/{blog_id}", user_agent=http.DESKTOP_UA).decode("utf-8", errors="replace")
+
+    def page(self, blog_id: str, page: int) -> list[PostSummary]:
+        key = (blog_id, page)
+        if key not in self._pages:
+            self._pages[key] = parse_post_list(self._fetch_page(blog_id, page), today=dt.datetime.now(_KST).date())
+        return self._pages[key]
+
+    def list_posts(self, blog_id: str, until: dt.date | None) -> list[PostSummary]:
+        out: list[PostSummary] = []
+        seen: set[str] = set()
+        page = 1
+        while True:
+            rows = [r for r in self.page(blog_id, page) if r.post_id not in seen]
+            if not rows:  # empty page, or a page that only repeats what came before: the end
+                break
+            out.extend(rows)
+            seen.update(r.post_id for r in rows)
+            if until is not None and any(r.date < until for r in rows):
+                break
+            page += 1
+        return out
