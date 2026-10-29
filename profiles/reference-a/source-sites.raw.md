@@ -80,7 +80,7 @@
 | xindemarinenews.com | 1 | 1 | 1 | 0 | Xinde Marine News | https://www.xindemarinenews.com/news/2086616381299904514 |
 | yna.co.kr | 1 | 1 | 1 | 0 | 연합뉴스(김보경) | https://www.yna.co.kr/view/AKR20250121121700003 |
 | ytn.co.kr | 1 | 1 | 1 | 0 | YTN(앵커리포트) | https://www.ytn.co.kr/_ln/0104_202609020903233551 |
-| naver.com | 1 | 6 | 0 | 0 | 메르 블로그 223784816464 「트럼프, 메르 블로그 224058494349 「백악관이 트럼프의 한국  | https://blog.naver.com/ranto28/224199817821 |
+| naver.com | 1 | 6 | 0 | 0 | the reference author 블로그 223784816464 「트럼프, the reference author 블로그 224058494349 「백악관이 트럼프의 한국  | https://blog.naver.com/ranto28/224199817821 |
 | busan.com | 1 | 3 | 0 | 0 | 부산일보, 부산일보 박홍규 기자, 부산일보 이대성 기자 | https://www.busan.com/view/busan/view.php?code=20131214000002 |
 | sbs.co.kr | 1 | 3 | 0 | 0 | SBS Biz, SBS Biz 「"호르무즈 원유량 60% 수준 회복… AIS 끄고 운항 중가"」 (2026- | https://news.sbs.co.kr/english/article.do?news_id=N1008812189 |
 | seafood.no | 1 | 2 | 0 | 0 | NSC, Norwegian Seafood Council(NSC) | https://en.seafood.no/news-and-media/news-archive/price-growth-for-wild-fish-and-increased-salmon-volume-resulted-in-record-value-for-norwegian-seafood-exports-in-2025-/ |

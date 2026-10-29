@@ -3,7 +3,7 @@ import os
 
 from rek.adapters.naver_blog import parse_post_list
 
-FIXTURE = os.path.join(os.path.dirname(__file__), "fixtures", "naver_postlist_ranto28_p1.json")
+FIXTURE = os.path.join(os.path.dirname(__file__), "fixtures", "naver_postlist_p1.json")
 TODAY = dt.date(2026, 10, 29)
 
 

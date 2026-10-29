@@ -16,11 +16,13 @@
 | 고등어 (Godeungeo) | Round 1 | 9/18 | 11/32 | 1/1 | 2 | Fail | Fail (fabrication: image descriptions) |
 | 장금상선 (Janggeum Sangseon) | Round 1 | 10/17 | 19/33 | 0/0 | 0 | Fail | Pass |
 | 알래스카 (Alaska) | Round 1 | 8/20 | 12/39 | 0/1 | 0 | Fail | (summary format unsupported) |
-| 고등어 | Round 2 | Fill in from the round 2 scoring | | | | | |
-| 장금상선 | Round 2 | | | | | | |
-| 알래스카 | Round 2 | | | | | | |
+| 고등어 | Round 2 (hold-out) | 4/18 | 5/32 | 1/1 | 1 | Fail | Fail (fabrication: one image description) |
+| 장금상선 | Round 2 (hold-out) | 7/17 | 16/33 | 0/0 | 0 | Fail | Pass |
+| 알래스카 | Round 2 (hold-out) | 3/20 | 4/39 | 0/1 | 0 | Fail | Pass |
 
-Failure responsibility (round 1 total): method extraction 54, reproduction 38, source tracing 1.
+Failure responsibility (round 1 total): method extraction 54, reproduction 38, source tracing 1. Round 2 total: method extraction 77, reproduction 43, source tracing 2.
+
+Final verdict (`rek verify-summary runs --criteria own`, round 2): 2 of 3 runs pass; the whole set fails on the one fabricated image description. Under the reference-author criteria all three fail. The round 1 to round 2 drop (9→4, 10→7, 8→3 units) measures how much the un-held-out profile had leaked; round 2 is the honest baseline. The remaining gaps are mostly questions and search templates the procedure does not yet contain (method extraction) and documents the worker had but did not attach to a link (reproduction).
 
 ## Remaining (in priority order)
 

@@ -2,7 +2,7 @@
 2026-10-29T23:53:45+09:00 | rek-method-analyst | read | 세 run 전부(post·meta·images 34장·claims·sources·research-path·units·status·prior 22편)와 옛 writing-method.md·SKILL.md 읽음; rek stats 25편, 보조 측정(숫자·단위 띄어쓰기, 한줄 길이, 이미지 위치) 완료 [observed]
 2026-10-29T23:58:15+09:00 | rek-method-analyst | research-method | research-method.md 작성: 규칙 64(T6·B7·F11·R13·U7·A9·N11), observed 51·inferred 13, 인용 원문 대조 통과 [observed]
 2026-10-30T00:00:21+09:00 | rek-method-analyst | writing-structure | writing-structure.md 작성(optional: true): W1–W18, 모순 다섯 결정(이미지=단위 경계, 숫자·단위 붙임 82%, 한줄 110~220자, 틀 문장 우선, 새 자료는 제자리·계기만 끝) [observed]
-2026-10-30T00:04:54+09:00 | rek-method-analyst | skill | SKILL.md 덮어씀(name: mer-research, 188줄): 체크리스트 1-1~1-6(T·U·B·F·R·A) → 전개 단위 → 틀(선택) → 자기 점검(N·사실 금지·금지 접촉); 저자 문장·숫자·이름 없음(grep 확인) [observed]
+2026-10-30T00:04:54+09:00 | rek-method-analyst | skill | SKILL.md 덮어씀(name: reference-a-research, 188줄): 체크리스트 1-1~1-6(T·U·B·F·R·A) → 전개 단위 → 틀(선택) → 자기 점검(N·사실 금지·금지 접촉); 저자 문장·숫자·이름 없음(grep 확인) [observed]
 2026-10-30T00:04:54+09:00 | rek-method-analyst | done | 완료: research-method.md 64규칙(T6·B7·F11·R13·U7·A9·N11), writing-structure.md W1–W18, SKILL.md; 옛 writing-method.md는 대체되어 삭제(git 19dcd6a에서 복구 가능); profile_hash dc24163de5a7 [observed]
 2026-10-30T01:10:37+09:00 | rek-method-analyst | holdout-start | 조정자 후속 요청: holdout 변형 3벌(224450743987·224456106651·224428298482) 작성 시작; 원본 세 파일은 그대로 둠; 그 글의 prior/ 글도 그 run에서 온 흔적으로 보고 함께 뺌 [observed]
 2026-10-30T01:30:31+09:00 | rek-method-analyst | holdout-224450743987 | holdout/224450743987/ 3파일: 규칙 64→60(T4·B6·R9·R11 삭제, R4·R5·U1·A1·A9 inferred로 낮춤), 표 행 11개 삭제(개관 1·R 종류 2·R13 틀 2·U6 2·측정표 4), SKILL 185줄; profile_hash e2d6a98b6492 [observed]
