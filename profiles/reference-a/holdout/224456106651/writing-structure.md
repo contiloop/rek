@@ -5,7 +5,7 @@ holdout: 224456106651
 
 - This file is optional. The replication scoring (verifier.md) does not look at style or structure. It counts only development units, 희귀 (rare), 바탕 (base), and fabrication [observed].
 - `holdout:` is the id of the post removed from the evidence for the test. That post and the earlier (prior) posts of its run are left out of all statistics and evidence below [observed].
-- The figures were measured with `uv run --project /Users/inertia/Desktop/REK rek stats` (the 2 remaining tracked posts + 11 prior posts from those runs) [observed]. Things that rek stats does not measure (spacing between numbers and units, image position) were measured with a temporary script and are marked as such [observed].
+- The figures were measured with `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek stats` (the 2 remaining tracked posts + 11 prior posts from those runs) [observed]. Things that rek stats does not measure (spacing between numbers and units, image position) were measured with a temporary script and are marked as such [observed].
 - The rule ids are W1–W18. The research rule ids (T·B·F·R·U·A·N) are in research-method.md in the same folder [observed]. Examples use only bracket templates [observed].
 
 ## 0. Measurement table (rek stats)
