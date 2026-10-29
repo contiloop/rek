@@ -2,6 +2,6 @@
 __pycache__/
 *.pyc
 .pytest_cache/
-runs/*/images/
-runs/*/raw.html
+runs/**/images/
+runs/**/raw.html
 .dryforge/

@@ -1,6 +1,7 @@
 """Domain objects. No I/O, no HTML, no network."""
 from __future__ import annotations
 
+import datetime as dt
 from dataclasses import dataclass, field
 
 
@@ -11,6 +12,15 @@ class Image:
     uploaded_on: str | None  # YYYY-MM-DD decoded from the host's URL, if the host encodes it
     caption: str | None
     uploaded_at: str | None = None  # ISO timestamp with offset, when the host encodes the exact time
+
+
+@dataclass(frozen=True)
+class PostSummary:
+    """One row of a blog's post list: enough to decide whether a post is worth fetching."""
+
+    post_id: str
+    title: str
+    date: dt.date
 
 
 @dataclass(frozen=True)

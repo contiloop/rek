@@ -16,6 +16,7 @@ _NOUN_END = re.compile(r"(임|함|됨|것임|이었음|했음|있음|없음|같�
 _DA_END = re.compile(r"(다|까)\s*[.!?]?$")
 _NUMBER = re.compile(r"\d[\d,.]*\s*(?:%|kg|km|톤|달러|억|만|천|배럴|척|석|년|월|일|㎥|cm)?")
 _ONE_LINER = re.compile(r"^\s*한\s*줄\s*코멘트")
+NOTES_HEADING = "## 작성 노트"  # the writer's notes after the body: never part of the form statistics
 
 
 @dataclass(frozen=True)
@@ -34,34 +35,60 @@ class FormStats:
     first_line: str
 
 
-def body_lines(markdown: str) -> list[str]:
-    out = []
-    for line in markdown.splitlines():
-        if not line.strip() or _META.match(line):
+def body_text(markdown: str) -> str:
+    """The body alone: everything before the writer's notes heading."""
+    lines = markdown.splitlines()
+    for i, line in enumerate(lines):
+        if line.strip() == NOTES_HEADING:
+            lines = lines[:i]
+            break
+    return "\n".join(lines)
+
+
+def paragraphs(markdown: str) -> list[list[str]]:
+    """Body lines grouped by blank-line-separated paragraph, metadata lines dropped."""
+    out: list[list[str]] = []
+    current: list[str] = []
+    for line in body_text(markdown).splitlines():
+        if not line.strip():
+            if current:
+                out.append(current)
+            current = []
             continue
-        out.append(line.rstrip())
+        if _META.match(line):
+            continue
+        current.append(line.rstrip())
+    if current:
+        out.append(current)
     return out
 
 
-def sentences_of(lines: list[str]) -> list[str]:
+def body_lines(markdown: str) -> list[str]:
+    return [line for para in paragraphs(markdown) for line in para]
+
+
+def sentences_of(paras: list[list[str]]) -> list[str]:
     sents: list[str] = []
-    for line in lines:
-        if _IMAGE.match(line):
-            continue
-        if _ONE_LINER.match(line):
-            sents.append(line.strip())  # the closing one-liner is one unit however many periods it has
-            continue
-        line = _NUMBERED.sub(r"\2", line)  # "12. text" → "text", so the number is not a sentence
-        for s in _SPLIT.split(line):
-            s = s.strip()
-            if s:
-                sents.append(s)
+    for para in paras:
+        for i, line in enumerate(para):
+            if _IMAGE.match(line):
+                continue
+            if _ONE_LINER.match(line):
+                # the closing one-liner is one unit however many periods or lines it has: it runs to the end of its paragraph
+                sents.append("\n".join(l.strip() for l in para[i:]))
+                break
+            line = _NUMBERED.sub(r"\2", line)  # "12. text" → "text", so the number is not a sentence
+            for s in _SPLIT.split(line):
+                s = s.strip()
+                if s:
+                    sents.append(s)
     return sents
 
 
 def compute(markdown: str) -> FormStats:
-    lines = body_lines(markdown)
-    sents = sentences_of(lines)
+    paras = paragraphs(markdown)
+    lines = [line for para in paras for line in para]
+    sents = sentences_of(paras)
     numbers = [int(m.group(1)) for line in lines if (m := _NUMBERED.match(line))]
     max_n = max(numbers) if numbers else 0
     gaps = sorted(set(range(1, max_n + 1)) - set(numbers)) if numbers else []

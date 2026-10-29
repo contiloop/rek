@@ -33,3 +33,17 @@ def test_counts_and_register():
 def test_empty():
     s = compute("# t\n")
     assert s.sentences == 0 and s.numbered_items == 0 and s.numbering_gaps == []
+
+
+def test_stops_at_writing_notes():
+    md = SAMPLE + "\n## 작성 노트\n\n1. 이 글은 테스트임.\n2. 둘째 메모임.\n\n세 번째 문장이다.\n"
+    assert compute(md) == compute(SAMPLE)
+    s = compute(SAMPLE + "\n## 작성 노트\n")
+    assert s.numbered_items == 3 and s.sentences == 6
+
+
+def test_one_liner_paragraph_is_one_unit_across_lines():
+    md = "# t\n\n첫 문장임.\n\n한줄 코멘트. 첫째 문장임. 둘째 문장임.\n셋째 줄도 이어짐. 넷째 문장임.\n\n이건 다른 문단이다.\n"
+    s = compute(md)
+    assert s.sentences == 3
+    assert s.has_one_liner and s.one_liner_chars == len("한줄 코멘트. 첫째 문장임. 둘째 문장임.\n셋째 줄도 이어짐. 넷째 문장임.")
