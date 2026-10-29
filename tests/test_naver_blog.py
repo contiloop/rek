@@ -54,3 +54,15 @@ def test_markdown_has_images_in_place(post):
     md = post.to_markdown()
     assert "![img_01 (uploaded 2026-09-02T06:30:26+09:00)" in md
     assert md.index("# 이란이") < md.index("![img_01")
+
+
+def test_caption_inside_se_module_div():
+    doc = (
+        '<title>t : 네이버 블로그</title><div class="se-main-container">'
+        '<div class="se-component se-image se-l-default"><img class="se-image-resource" '
+        'data-lazy-src="https://postfiles.pstatic.net/MjAyNjEwMjNfMjI1/MDAxNzkyNjgxOTg0MzY1.x.png?type=w80"/>'
+        '<div class="se-module se-module-text se-caption"><p class="se-text-paragraph"><span>© CoolPubilcDomains, 출처 OGQ</span></p></div>'
+        '</div></div>'
+    )
+    post = parse(doc, "https://blog.naver.com/x/1")
+    assert post.images[0].caption == "© CoolPubilcDomains, 출처 OGQ"

@@ -22,7 +22,7 @@ _TAG = re.compile(r"<[^>]+>")
 _PARAGRAPH = re.compile(r'<p class="se-text-paragraph[^"]*"[^>]*>(.*?)</p>', re.S)
 _IMG = re.compile(r'<img[^>]+class="[^"]*se-image-resource[^"]*"[^>]*>', re.S)
 _SRC = re.compile(r'(?:data-lazy-src|src)="([^"]+)"')
-_CAPTION = re.compile(r'<p class="se-caption[^"]*"[^>]*>(.*?)</p>|<div class="se-caption[^"]*"[^>]*>(.*?)</div>', re.S)
+_CAPTION = re.compile(r'class="[^"]*\bse-caption\b[^"]*"[^>]*>(.*?)</div>', re.S)
 _SOURCE = re.compile(r'<a[^>]+class="[^"]*se-image-source[^"]*"[^>]*>(.*?)</a>|<span[^>]+class="[^"]*se-image-source[^"]*"[^>]*>(.*?)</span>', re.S)
 _OGLINK = re.compile(r'<a[^>]+class="[^"]*se-oglink[^"]*"[^>]+href="([^"]+)"', re.S)
 _TITLE = re.compile(r"<title>(.*?)</title>", re.S)
@@ -105,7 +105,7 @@ def parse(document: str, source_url: str) -> Post:
                 src_m = _SOURCE.search(inner)
                 caption = None
                 if cap_m:
-                    caption = _clean(cap_m.group(1) or cap_m.group(2) or "")
+                    caption = _clean(cap_m.group(1))
                 if src_m:
                     attribution = _clean(src_m.group(1) or src_m.group(2) or "")
                     caption = f"{caption} | {attribution}" if caption else attribution
