@@ -1,54 +1,33 @@
-# 브리프: rek-researcher (재현 — 합격 시험의 피시험자)
+# Brief: rek-researcher (reproduction: the test subject of the pass test)
 
-목표: 저자의 글을 본 적 없는 상태에서, 출발 정보와 그 저자의 리서치 절차(`profiles/<저자>/SKILL.md`)만으로
-같은 주제를 조사해 전개 단위를 찾고 글로 담는다. 네가 찾아낸 전개와 출처가 원문과 얼마나 겹치는지가 절차의
-점수다. 먼저 `evidence.md`를 읽는다(라벨, 크롬 규칙, 상태 기록, 전개 단위·희귀·바탕의 정의).
+Goal: Without having seen the author's post, use only the starting info and that author's research procedure (`profiles/<author>/SKILL.md`) to investigate the same topic, find the development units, and put them into a post. How closely the development and sources you find overlap with the original is the procedure's score. First read `evidence.md` (labels, Chrome rules, status records, definitions of development unit, rare source, and base source).
 
-## 받는 것 (이것뿐이다)
+## What you receive (only this)
 
-- 출발 정보 세 줄: `main_topic:`(본 주제 한 구절), `trigger:`(계기 사건 한 문장, 없으면 `none`),
-  `date:`(원문 발행 시각 = 네 "오늘"). 제목·출처·URL·전개 단위는 받지 않는다.
-- `profiles/<저자>/SKILL.md`(실행 절차), `research-method.md`(규칙 장부), `writing-structure.md`(선택).
-- 쓸 폴더: `runs/<id>/repro/<n>/`. 그 안의 `profile_hash.txt`는 오케스트레이터가 미리 써 둔다. 손대지 않는다.
+- Four starting-info lines: `main_topic:` (one phrase for the main topic), `trigger:` (one sentence for the trigger event, `none` if there is none), `date:` (the original's publication time = your "today"), `language:` (the language to write `post.md` in). You do not receive the title, sources, URLs, or development units.
+- `profiles/<author>/SKILL.md` (execution procedure), `research-method.md` (rule ledger), `writing-structure.md` (optional).
+- The folder to write in: `runs/<id>/repro/<n>/`. The orchestrator writes `profile_hash.txt` there in advance. Do not touch it.
 
-## 읽기 금지 (어기면 이 시도는 무효)
+## Forbidden reads (if you break one, this attempt is invalid)
 
-- 저자의 블로그·계정 전체: `research-method.md` 머리의 `author_domains:`에 적힌 도메인·경로와 그 미러
-  (모바일 주소, 캐시본, 전재본 포함). 검색 결과에 보여도 열지 않고 인용하지 않는다.
-- `date:` 이후에 나온 페이지의 내용. 날짜를 확인하려고 열었다가 닫은 것은 허용이며 `log.md`에 `[접촉]`으로 적는다.
-  본문을 읽었더라도 거기서 본 사실을 쓰지 않으면 된다(검증 워커가 글의 모든 사실이 날짜 이전 출처에 닿는지
-  대조한다). 날짜가 없는 페이지는 본문의 날짜 단서로 판단하고, 판단이 안 서면 쓰지 않는다.
-- 원문을 인용하거나 요약한 페이지(저자 이름이나 블로그 이름이 보이면 닫는다).
-- `runs/<id>/` 아래의 다른 파일(`post.md`, `claims.md`, `sources.md`, `research-path.md`, `units.md`,
-  `images/`, `prior/`, `meta.json`)과 `profiles/<저자>/`의 다른 run 흔적.
-- 저자 도메인이나 원문 인용 페이지를 본문까지 읽었다면 그 시도는 무효다. 금지 항목을 열었다면 그 즉시
-  `log.md`에 `[접촉]`으로 적고, 거기서 본 내용은 한 글자도 쓰지 않는다.
+- The author's whole blog or account: the domains and paths listed in `excluded_domains:` at the top of `research-method.md`, and their mirrors (including mobile addresses, cached copies, and republished copies). Even if one shows up in search results, do not open it and do not quote it.
+- The content of any page published after `date:`. Opening a page to check its date and then closing it is allowed. Record it in `log.md` as `[접촉]` (contact). If you did read the body, do not use any fact you saw there (the verification worker checks that every fact in the post reaches a source dated before the date). For a page with no date, judge by date clues in the body. If you cannot judge, do not use it.
+- A page that quotes or summarizes the original (if you see the author's name or the blog's name, close it).
+- Any other file under `runs/<id>/` (`post.md`, `claims.md`, `sources.md`, `research-path.md`, `units.md`, `images/`, `prior/`, `meta.json`) and any trace of other runs in `profiles/<author>/`.
+- If you read an author-domain page or a page quoting the original through to the body, this attempt is invalid. If you opened a forbidden item, record it in `log.md` as `[접촉]` immediately, and do not use a single character of what you saw there.
 
-## 허용
+## Allowed
 
-웹 검색·가져오기, 로그인이 필요한 페이지는 evidence.md의 크롬 규칙대로(잠금, 읽기만), 저자가 아닌 사람이
-쓴 모든 자료(위키, 기사, 보고서, 통계, DB, 소셜 원문). 1차 출처를 직접 열 수 있으면 연다.
+Web search and fetch. For pages that need a login, follow the Chrome rules in evidence.md (lock, read only). Any material written by someone other than the author (wikis, articles, reports, statistics, databases, original social posts). If you can open a primary source directly, open it.
 
-## 절차
+## Procedure
 
-1. `status.md`(`runs/<id>/status.md`)에 시작 줄을 쓴다. `log.md`를 열고 이후 모든 검색어·연 URL·크롬
-   사용·금지 접촉을 시간 순으로 적는다. 줄은 반드시 이 네 표시 중 하나로 시작한다: `[검색] <시각> <검색어>`,
-   `[열람] <시각> <URL> <발행일>`, `[크롬] <시각> <URL>`, `[접촉] <시각> <URL> <사유>`. 집계 명령이 이 표시로 센다.
-2. `SKILL.md`의 리서치 체크리스트를 **순서대로** 수행한다. 뒤쪽 확장(역사·유래)과 앞쪽 확장(돈·정치·한국
-   각도)을 각각 멈춤 조건까지 간다. 희귀 출처 검색어 틀을 실제로 돌린다. "이전 글 자리"에는 저자 글 대신
-   다른 바탕 출처(위키·보고서·기사)를 찾는다.
-3. `research.md`를 쓴다. 맨 위에 단위 표: 행은 `| R01 | <이름> | <뒤쪽|본 주제|앞쪽|계기> | <한 줄 요약> | <출처 번호> |`.
-   표 아래에 단위마다 절(`### R01 <이름>`)을 두고 뒷받침 출처(URL, 발행일, 인용 ≤40단어, 라벨)를 적는다. 끝에
-   `## 못 찾은 것`(찾으려 했으나 못 찾은 연결고리와 시도한 검색어)과 `## 출처 목록` 표: 행은
-   `| S01 | <URL> | <발행일> | <1차|2차> | <어떻게 닿았는지> |`. 1차/2차 칸은 그 두 낱말로 시작해야 한다.
-4. `post.md`를 쓴다: `writing-structure.md`를 따라(선택 항목이면 기본 틀) 전개 단위를 담은 글. 이미지는
-   `![image: <무엇을 보여 줄지>]` 자리표시. **글 본문에는 라벨이나 근거 표시(`[observed…]`, `Rxx`, `Sxx`)를
-   달지 않는다.** 독자가 읽을 글 그대로 쓴다. 문장과 출처의 대응은 `research.md`에만 있다. **`post.md`의 모든 숫자·이름·날짜·사건은 `research.md`의 어떤
-   출처에 닿아야 한다.** 출처 없는 사실은 쓰지 않는다. 계산은 식을 `research.md`에 적는다.
-5. `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek repro-stats <repro 폴더>`를 돌려 그 출력을 `log.md` 끝의
-   `## 요약`에 그대로 붙인다(손으로 세지 않는다). `status.md`에 완료 줄을 쓴다.
+1. Write a start line in `status.md` (`runs/<id>/status.md`). Open `log.md` and record every later search term, opened URL, Chrome use, and forbidden contact in time order. Each line must start with one of these four markers: `[검색] <time> <query>` (search), `[열람] <time> <URL> <publication date>` (read), `[크롬] <time> <URL>` (Chrome), `[접촉] <time> <URL> <reason>` (contact). The aggregation command counts by these markers.
+2. Carry out the research checklist in `SKILL.md` **in order**. Go through the 뒤쪽 (back) expansion (history, origin) and the 앞쪽 (front) expansion (money, politics, Korean angle) each to its stop condition. Actually run the rare-source search-term templates. For a "prior-post slot", find a different base source (wiki, report, article) instead of the author's post.
+3. Write `research.md`. At the top, a unit table. Each row is `| R01 | <name> | <뒤쪽|본 주제|앞쪽|계기> | <one-line summary> | <source ids> |`. (Those four words are 뒤쪽 = back, 본 주제 = main topic, 앞쪽 = front, 계기 = trigger.) Below the table, give each unit a section (`### R01 <name>`) with its supporting sources (URL, publication date, quote of 40 words or fewer, label). At the end, add `## 못 찾은 것` (not found: the links you tried to find and could not, with the search terms you tried) and a `## 출처 목록` (source list) table. Each row is `| S01 | <URL> | <publication date> | <1차|2차> | <how you reached it> |`. The 1차/2차 (primary/secondary) cell must start with one of those two words.
+4. Write `post.md`: a post that carries the development units, following `writing-structure.md` (the default frame if it is optional). Write images as the placeholder `![image: <what it should show>]`. **Do not put labels or evidence marks (`[observed…]`, `Rxx`, `Sxx`) in the body of the post.** Write it as the post the reader will read. The mapping between sentences and sources lives only in `research.md`. **Every number, name, date, and event in `post.md` must reach some source in `research.md`.** Do not write a fact that has no source. For a calculation, write the formula in `research.md`.
+5. Run `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek repro-stats <repro folder>` and paste its output as is into `## Summary` at the end of `log.md` (do not count by hand). Write a done line in `status.md`.
 
-## 출력
+## Output
 
-`runs/<id>/repro/<n>/research.md`, `post.md`, `log.md`. 세 파일 외에는 쓰지 않는다. 한국어, 인용은 원문 언어.
-끝나면 세 파일 경로와 `rek repro-stats` 출력을 보고한다.
+`runs/<id>/repro/<n>/research.md`, `post.md`, `log.md`. Write nothing besides these three files. Write `research.md` and `log.md` in English, with quotes in their original language. Write `post.md` in the language given by the `language:` line. When you finish, report the three file paths and the `rek repro-stats` output.

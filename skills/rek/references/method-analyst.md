@@ -1,59 +1,34 @@
-# 브리프: rek-method-analyst
+# Brief: rek-method-analyst
 
-목표: 한 저자의 추적된 글 여러 편에서 **리서치 절차**를 뽑아, 그 저자의 글을 본 적 없는 에이전트가 새 주제로
-같은 방식의 조사를 할 수 있게 적는다. 글의 틀(문체·구조)은 결과를 담는 그릇으로만 적는다(부차). 먼저
-`evidence.md`를 읽는다(라벨, 상태 기록, 전개 단위·희귀·바탕의 정의).
+Goal: From several traced posts by one author, extract the **research procedure**, and write it so that an agent that has never seen the author's posts can run the same kind of investigation on a new topic. Record the form of the post (style and structure) only as the container for the results (secondary). First read `evidence.md` (labels, status records, definitions of development unit, rare source, and base source).
 
-입력: 그 저자의 모든 `runs/<id>/`(`post.md`, `meta.json`, `images/`, `claims.md`, `sources.md`(표시와
-`## 평범한 검색` 포함), `research-path.md`, `units.md`, `prior/`). 전부 읽은 뒤에 쓴다. 저자 고유의 내용은
-`profiles/<저자>/` 안에만 둔다. 상태 기록은 `profiles/<저자>/status.md`에 한다.
+Input: all of that author's `runs/<id>/` (`post.md`, `meta.json`, `images/`, `claims.md`, `sources.md` (including the `표시:` (mark) lines and the `## 평범한 검색` (ordinary search) section), `research-path.md`, `units.md`, `prior/`). Read all of it before you write. Keep author-specific content only inside `profiles/<author>/`. Write status records to `profiles/<author>/status.md`.
 
-형식 통계는 눈으로 세지 않고 `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek stats <post.md ...>`로 잰다
-(`## 작성 노트` 뒤는 세지 않는다).
+Measure form statistics with `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek stats <post.md ...>`. Do not count by eye. (The command does not count anything after `## 작성 노트` (writing notes).)
 
-## 출력 1 — profiles/<저자>/research-method.md (핵심)
+## Output 1: profiles/<author>/research-method.md (core)
 
-머리에 세 줄: `author:`(이름), `author_domains:`(저자의 블로그·계정 도메인과 경로를 쉼표로; 재현 워커의
-읽기 금지 목록이 된다), `built_from:`(run id 목록). 그다음 규칙 장부. 규칙마다 id, 에이전트가 따를 수 있는
-한 문장, 근거(글 id + 그 글의 전개 단위 번호 `Dxx` 또는 출처 번호 `Sxx` + 인용 ≤40단어), 예외, `[observed]`
-(글 2편 이상) 또는 `[inferred]`(1편). 층은 다음 일곱 개. 증거 없는 층은 "증거 없음"이라고 쓰고 비운다.
+Put three lines at the top: `author:` (the name), `excluded_domains:` (the author's blog and account domains and paths, separated by commas; this becomes the reproduction worker's read-forbidden list), `built_from:` (the list of run ids). Then the rule ledger. Each rule has an id, one sentence an agent can follow, evidence (post id + the unit number `Dxx` of that post or the source number `Sxx` + a quote of 40 words or fewer), exceptions, and `[observed]` (2 or more posts) or `[inferred]` (1 post). There are seven layers. For a layer with no evidence, write "no evidence" and leave it empty.
 
-1. **계기(T)** — 어떤 종류의 사건이, 어느 매체에 뜬 뒤, 몇 시간 안에 글이 되는가. 사건이 없는 글(연재·계절
-   소재)은 무엇이 계기인가. `research-path.md`의 Trigger와 Timeline, `meta.json`의 이미지 업로드 시각이 근거.
-2. **뒤쪽 확장(B)** — 본 주제에서 역사·유래·배경으로 어떻게 내려가는가: 어떤 질문을 던지고(예: "이 땅은
-   왜 이 나라 것이 되었나"), 어떤 출처 종류(위키·나무위키, 역사서, 저자 이전 글)로 가는가, 몇 단계까지
-   가는가. `units.md`에서 계기 앞에 놓인 단위들과 그 출처가 근거.
-3. **앞쪽 확장(F)** — 본 주제에서 돈·정치·공급망·한국 각도로 어떻게 올라가는가: 어떤 질문과 어떤 출처
-   종류(공시, 정부 자료, 통계, 선거 자료)로 가는가. 계기 뒤의 단위들이 근거.
-4. **희귀 출처가 나오는 곳(R)** — `표시: 희귀`인 출처들의 종류(업계지, 통계 페이지, 선박·기업 DB, 소셜
-   원문, 보고서 PDF, 외국어 매체)와 거기에 닿은 경로(어느 기사가 이름을 댔는지, 어떤 검색어가 통했는지).
-   재현 워커가 같은 종류를 찾도록 **검색어 틀**을 적는다(주제 자리에 괄호).
-5. **바탕 출처(U)** — `표시: 바탕`인 출처들의 종류와 쓰는 법(한 문서를 뼈대로 삼고 숫자만 최신 기사로
-   고치는지, 여러 문서를 잇는지). 저자 이전 글이 바탕일 때는 "이전 글 자리"라고만 적고, 재현 때는 그 자리에
-   다른 바탕 출처(위키·보고서)를 찾아야 함을 명시한다(재현 워커는 저자 글을 볼 수 없다).
-6. **저자가 더하는 것(A)** — 계산(비율·환산·절사), 비교(한국 수치와의 대조), 비유, 한 줄 결론. 출처에 없는
-   문장이 어떤 종류인지. `research-path.md`의 "What the author added"가 근거.
-7. **저자가 하지 않는 것(N)** — 일반 에이전트라면 했을 텐데 이 저자는 하지 않는 것(예: 출처 링크를 달지
-   않음, 요약 서두를 쓰지 않음, 영어 1차 자료를 직접 인용하지 않음). 재현 품질을 가르는 규칙이므로 상상한
-   일반 초안과 대조해 뽑는다.
+1. **계기 (trigger) (T)**: What kind of event, appearing in which medium, becomes a post within how many hours? For a post with no event (a series or a seasonal subject), what is the trigger? Evidence: the Trigger and Timeline sections of `research-path.md` and the image upload times in `meta.json`.
+2. **뒤쪽 (back) expansion (B)**: How does the author go down from the main topic into history, origin, and background? Which questions does the author ask (for example, "why did this land become this country's?")? Which kinds of sources does the author go to (wiki or Namuwiki, history books, the author's prior posts)? How many steps down? Evidence: the units placed before the trigger in `units.md` and their sources.
+3. **앞쪽 (front) expansion (F)**: How does the author go up from the main topic to money, politics, supply chains, and the Korean angle? Which questions and which kinds of sources (filings, government data, statistics, election data)? Evidence: the units after the trigger.
+4. **Where rare sources come from (R)**: The kinds of sources with `표시: 희귀` (mark: rare) (trade journals, statistics pages, ship and company databases, original social posts, report PDFs, foreign-language media) and the path that reached them (which article named them, which search terms worked). So that the reproduction worker finds the same kinds, write a **search-term template** (mark the topic slot with brackets).
+5. **Base sources (U)**: The kinds of sources with `표시: 바탕` (mark: base) and how the author uses them (one document as the skeleton with only the numbers updated from recent articles, or several documents chained). When the author's prior post is the base, write only "prior-post slot" and state that the reproduction must find a different base source (wiki, report) for that slot (the reproduction worker cannot see the author's posts).
+6. **What the author adds (A)**: Calculations (ratios, conversions, truncation), comparisons (contrast with Korean figures), analogies, the one-line conclusion. What kinds of sentences are not in the sources. Evidence: "What the author added" in `research-path.md`.
+7. **What the author does not do (N)**: Things a generic agent would have done but this author does not (for example: no source links, no summary opening, no direct quotes from English primary sources). These rules decide reproduction quality, so extract them by contrasting with an imagined generic draft.
 
-## 출력 2 — profiles/<저자>/writing-structure.md (부차, 선택 항목)
+## Output 2: profiles/<author>/writing-structure.md (secondary, optional)
 
-거시 구조(여는 말, 배경→현재→계기→결론의 배치, 마무리 한 줄), 문체의 종류와 결정 조건, 문장·숫자·이미지
-규칙. 규칙마다 근거 글 id와 `rek stats` 수치. 서로 어긋나는 규칙이 없게 정리한다. 특히 다음은 하나로 결정해
-적는다: 이미지 간격 대 이미지 총수·위치, 숫자와 단위의 띄어쓰기, 마무리 한 줄의 길이 범위(한 값), 바탕 문장을
-유지하는 규칙과 틀 문장의 관계, 새 자료가 바탕 글의 어디에 들어가는가. 머리에 `optional: true`라고 적는다.
+The macro structure (the opening, the placement of background → present → trigger → conclusion, the closing one-liner), the kinds of style and the conditions that decide them, and the rules for sentences, numbers, and images. For each rule, give the evidence post id and the `rek stats` figures. Resolve the rules so that none conflict. In particular, decide each of the following as a single choice and write it down: image spacing versus total image count and position, spacing between numbers and units, the length range of the closing one-liner (one value), the relation between the rule for keeping base sentences and the frame sentences, and where new material goes in the base post. Write `optional: true` at the top.
 
-## 출력 3 — profiles/<저자>/SKILL.md (실행 절차)
+## Output 3: profiles/<author>/SKILL.md (execution procedure)
 
-프런트매터 `name: <저자>-research`, `description:`(한 문장). 본문은 그 저자의 글을 본 적 없는 에이전트가
-**출발 정보(본 주제, 계기 한 문장, 날짜)** 만 받고 따를 수 있는 순서:
-1. 리서치 체크리스트 — T·B·F·R·U 규칙을 질문·검색어 틀·출처 종류·멈춤 조건으로 풀어 쓴다. 날짜 이후
-   자료와 저자 도메인은 읽지 않는다는 줄을 넣는다. "이전 글 자리"에는 다른 바탕 출처를 찾는다.
-2. 전개 단위 짜기 — 찾은 것을 뒤쪽 사슬 → 본 주제 → 앞쪽 사슬로 잇고, 단위마다 출처를 붙인다(research.md).
-3. 틀에 담기 — writing-structure.md를 따르되 선택 항목임을 밝힌다.
-4. 자기 점검 — N 규칙과 "research.md에 없는 사실 금지"로 끝낸다.
-300줄 이하. 예문은 괄호 틀만 쓰고 저자 글의 문장·숫자·이름을 옮기지 않는다.
+Frontmatter: `name: <author>-research`, `description:` (one sentence). The body is an order of steps that an agent that has never seen the author's posts can follow after receiving only the **starting info (main topic, one-sentence trigger, date)**:
+1. Research checklist: Expand the T, B, F, R, and U rules into questions, search-term templates, kinds of sources, and stop conditions. Include a line saying not to read material dated after the date or the author's domains. For a "prior-post slot", find a different base source.
+2. Build the development units: Connect what you found as back chain → main topic → front chain, and attach sources to each unit (research.md).
+3. Put it in the frame: Follow writing-structure.md, and state that it is optional.
+4. Self-check: End with the N rules and "no fact that is not in research.md".
+Keep it to 300 lines or fewer. For examples, use only bracketed templates. Do not copy sentences, numbers, or names from the author's posts.
 
-언어: 세 파일 모두 한국어, 인용은 원문 언어. 끝나면 파일 경로 세 개, 규칙 수(층별), 가장 강한 N 규칙 셋을
-보고한다.
+Language: Write all three files in English. Keep quotes in their original language. When you finish, report the three file paths, the number of rules (per layer), and the three strongest N rules.
