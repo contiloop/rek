@@ -49,8 +49,8 @@ def evaluate_own(d: dict, invalid: bool, stats: dict | None) -> "Result":
     return Result(verdict, checks, (", ".join(reasons) + "; " if reasons else "") + detail, reported, False)
 
 
-def parse_front_matter(text: str) -> dict:
-    """Reads `key: value` lines from the first fenced yaml block (or from a leading `---` block)."""
+def parse_front_matter(text: str, int_keys: tuple = _INT_KEYS) -> dict:
+    """Reads `key: value` lines from the first fenced yaml block (or from a leading `---` block); `int_keys` are cast to int."""
     lines = text.splitlines()
     start = next((i for i, l in enumerate(lines) if _FENCE.match(l) or l.strip() == "---"), None)
     if start is None:
@@ -63,7 +63,7 @@ def parse_front_matter(text: str) -> dict:
         if not m:
             continue
         key, value = m.group(1), m.group(2).strip("\"'")
-        if key in _INT_KEYS:
+        if key in int_keys:
             try:
                 out[key] = int(value)
             except ValueError:

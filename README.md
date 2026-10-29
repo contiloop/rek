@@ -28,11 +28,13 @@ finite list. See `skills/rek/SKILL.md` for the correspondence table.
 ```
 rek/                 Python, standard library only (hexagonal: core/ pure logic, ports/, adapters/)
   adapters/naver_blog.py   Naver mobile page → Post; post-list API; decodes image upload times from image URLs
-  cli.py                   fetch · prior · stats · repro-stats · profile-hash · source-sites · verify-summary
+  cli.py                   fetch · prior · stats · repro-stats · profile-hash · source-sites · verify-summary · research-init · research-summary
 tests/               pytest, fixture = one real Naver page
 .claude-plugin/      plugin manifest (the repository root is the plugin)
-skills/rek/          the agent loop; references/ holds one brief per worker
-agents/              rek (orchestrator) + worker agents (opus, effort max); scripts are reached via ${CLAUDE_PLUGIN_ROOT}
+skills/research/     the product entry: research a new topic with a profile and write the post
+skills/rek/          the learning loop; references/ holds one brief per worker (both skills)
+agents/              rek (orchestrator) + six worker agents (opus, effort max); scripts are reached via ${CLAUDE_PLUGIN_ROOT}
+research/<date>-<slug>/  topic.md, research.md, post.md, log.md, check.md of one new-topic research
 runs/<post_id>/      post.md, meta.json, images/, prior/<id>/ (author's earlier posts), claims.md, sources.md,
                      research-path.md, units.md (development units + start info), status.md,
                      repro/<n>/ (research.md, post.md, log.md, profile_hash.txt, verification.md)
@@ -50,8 +52,21 @@ claude plugin install rek@rek                              # user scope: every s
 For development without installing, load it for one session: `claude --plugin-dir <path-to-this-repo>`
 (after edits run `/reload-plugins`). Installed copies are refreshed with `claude plugin update rek@rek`.
 
-Plugin components are namespaced: the skill is `/rek:rek`, the orchestrator agent is `rek:rek`, and the
-workers are `rek:rek-source-tracer`, `rek:rek-method-analyst`, `rek:rek-researcher`, `rek:rek-verifier`.
+Plugin components are namespaced: the skills are `/rek:research` (the product use) and `/rek:rek` (learning a
+profile), the orchestrator agent is `rek:rek`, and the workers are `rek:rek-source-tracer`, `rek:rek-method-analyst`,
+`rek:rek-researcher`, `rek:rek-verifier`, `rek:rek-topic-researcher`, `rek:rek-topic-checker`.
+
+## Research a new topic (the product use)
+
+```
+/rek:research 알래스카 LNG 프로젝트. 계기: 미국 정부가 한국에 참여를 요청했다
+```
+
+The orchestrator creates `research/<date>-<slug>/`, one worker researches the topic with the learned procedure
+(`profiles/reference-a/SKILL.md`) and writes the post, a second worker checks that every fact in the post reaches a
+source, and `rek research-summary` prints the pass line: a chain in all three directions, at least 20 sources with 5
+primary, no fabricated fact, no source dated after the date. `/rek:rek <post url>` is the learning side: it traces an
+author's posts and (re)builds the profile the research side uses.
 
 ## Data
 

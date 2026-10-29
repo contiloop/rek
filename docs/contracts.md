@@ -14,6 +14,8 @@ Every command has the form `rek <subcommand> …`. On failure it exits with code
 - `profile-hash <dir>`: the first 12 characters of the sha256 of `SKILL.md` and `research-method.md` joined together. Exits with 2 if a file is missing.
 - `source-sites <runs_dir>`: a markdown table. Columns `도메인 | 글 수 | 출처 수 | 희귀 | 바탕 | 발행처 | 예시 URL`.
 - `verify-summary <runs_dir> [--criteria author|own]`: a table and `overall: pass|fail (n/m pass)`. Exits with 0 if all pass, otherwise 1.
+- `research-init <topic> --profile <dir> [--trigger S] [--date 'YYYY-MM-DD HH:MM KST'] [--language L] [--out DIR]`: creates `research/<YYYYMMDD>-<slug>/` with `topic.md` (lines `main_topic:`, `trigger:`, `date:`, `language:`, `profile:` in that order; `trigger: none` when absent; `date` defaults to now in KST; `profile` is the absolute folder) and `profile_hash.txt`. Prints the folder. Exits with 2 if the profile lacks `SKILL.md` or the folder already has a `topic.md`.
+- `research-summary <research_dir>`: one line `<dir>: pass|fail (<reasons>; chain b/m/f, sources n (p primary), fabricated x, late sources y) | checker: <opinion>`; `미실행/불완전` when `research.md` or `check.md` is missing. Exits with 0 on pass, otherwise 1.
 
 ## File contracts
 
@@ -21,7 +23,9 @@ Every command has the form `rek <subcommand> …`. On failure it exits with code
 - The three top lines of `units.md`, `main_topic:`, `trigger:`, and `date:`, pass unchanged to the reproduction worker. They must not contain a title, an outlet, or a URL.
 - The `excluded_domains:` line in the `units.md` header lists the author's domains and accounts; only the verifier reads it, and the orchestrator never passes it to the reproduction worker.
 - `status.md` line format: `<ISO time> | <worker> | <stage> | <one line>`.
+- `check.md` (new-topic research) must start with a ```yaml block holding `fabricated`, `late_sources`, `checker_verdict` in that order.
+- `research.md` and `log.md` of a research folder follow the same markers as a `repro/<n>/` folder (`R<nn> |`, `## 출처 목록`, `S<nn>`, `[검색] [열람] [크롬] [접촉]`).
 
 ## Plugin
 
-Skill `/rek:rek`. Agents `rek:rek` (orchestrator), `rek:rek-source-tracer`, `rek:rek-method-analyst`, `rek:rek-researcher`, `rek:rek-verifier`. A worker receives the brief path and the run (or profile) folder and writes only to that folder.
+Skills `/rek:rek` (learn a profile from an author's posts) and `/rek:research` (research a new topic with a profile). Agents `rek:rek` (orchestrator), `rek:rek-source-tracer`, `rek:rek-method-analyst`, `rek:rek-researcher`, `rek:rek-verifier`, `rek:rek-topic-researcher`, `rek:rek-topic-checker`. A worker receives the brief path and the run (or profile) folder and writes only to that folder.
