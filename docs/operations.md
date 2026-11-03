@@ -22,9 +22,10 @@ To use the plugin in one session without installing it, run `claude --plugin-dir
 | `uv run rek prior runs/<id> [--no-images]` | Fetch the author's prior posts into `prior/<id>/`. Results and rejection reasons go in `meta.json.prior_search`. |
 | `uv run rek stats <post.md> ...` | Sentence count, numbered items, ending ratios, image count, one-line comment length. |
 | `uv run rek repro-stats runs/<id>/repro/<n>` | Unit count (by direction), source count (primary/secondary), record mark count of a reproduction. |
-| `uv run rek profile-hash profiles/<author>` | Profile version identifier (first 12 characters of the sha256). |
+| `uv run rek profile-hash profiles/<author>` | Profile version identifier (first 12 characters of the sha256 of `SKILL.md`, `research-method.md`, `instances.md`). |
 | `uv run rek source-sites runs/` | A table of the sources of all traces, grouped by registered domain. |
 | `uv run rek verify-summary runs/ [--criteria author\|own]` | Pass table. Exit code 0 = all pass. |
+| `uv run rek compare-summary runs/` | One line per run from the latest `comparison.md` (units, facts, fabrications, depth, extra links, validity, profile hash). Copies the comparator's numbers; no verdict, exit code always 0. |
 | `uv run rek research-init "<topic>" --profile profiles/<author> [--trigger "..."] [--date "..."]` | Create `research/<date>-<slug>/` with the five start lines and the profile hash. |
 | `uv run rek research-summary research/<name>` | Pass line of one new-topic research. Exit code 0 = pass. |
 
@@ -43,8 +44,8 @@ In Claude Code, run `/rek:research <topic>` with the trigger sentence if there i
 ```
 runs/<post_id>/   post.md  meta.json  images/(excluded from git)  raw.html(excluded from git)  prior/<id>/  status.md
                 claims.md  sources.md  research-path.md  units.md
-                repro/<n>/  profile_hash.txt  research.md  post.md  log.md  verification.md
+                repro/<n>/  profile_hash.txt  research.md  post.md  log.md  verification.md  comparison.md
 research/<date>-<slug>/  topic.md  profile_hash.txt  research.md  post.md  log.md  check.md  status.md
-profiles/<author>/  research-method.md  writing-structure.md  SKILL.md  status.md  source-sites.raw.md
+profiles/<author>/  research-method.md  instances.md  writing-structure.md  SKILL.md  status.md  source-sites.raw.md
                   holdout/<post_id>/  (profile variant with that post's traces removed)
 ```
