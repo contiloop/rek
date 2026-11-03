@@ -18,7 +18,7 @@ REK/
 │   ├── SKILL.md                    → orchestrator procedure: the six stages (learning a profile from an author)
 │   ├── AGENTS.md                   → scope and invariants of the agent loop (briefs, markers, isolation)
 │   └── references/                 → one brief per worker + evidence.md (labels, Chrome lock, status lines, definitions)
-├── agents/                         → rek (orchestrator) and six workers, all `model: opus`, `effort: max`
+├── agents/                         → rek (orchestrator) and six workers; model and effort in each definition are defaults the orchestrator may override
 ├── rek/
 │   ├── AGENTS.md                   → scope and invariants of the Python package
 │   ├── core/                       → pure models, statistics, prior-post selection, pass/fail, hashes, site ledger
@@ -48,7 +48,7 @@ REK/
   pages published after `date:`; every fact in its post must trace to a source in its `research.md`.
 - `units.md` is fixed before a reproduction starts and never edited afterwards; it is the denominator of every score.
 - Pass/fail is computed by `rek verify-summary` (learning) or `rek research-summary` (new topic), never read from a worker's opinion; any deterministic count is code.
-- No author-specific name or rule outside `profiles/<author>/`; workers are `model: opus`, `effort: max`.
+- No author-specific name or rule outside `profiles/<author>/`.
 
 ## Before you work
 

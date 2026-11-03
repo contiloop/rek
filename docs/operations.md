@@ -32,7 +32,7 @@ Inside the plugin, workers use the form `uv run --project "${CLAUDE_PLUGIN_ROOT}
 
 ## Running the loop
 
-From any folder, in Claude Code, run `/rek:rek <url> [<url> ...]`, or start the `rek:rek` agent and pass it the URLs. The procedure is the six steps in `skills/rek/SKILL.md`. One worker run at Opus 5.5 max effort costs about 300,000 to 800,000 tokens and takes 30 to 70 minutes (per post: 1 source tracing, 1 reproduction, 1 verification; per author: 1 method extraction). If you run it inside this repository, `runs/` and `profiles/` carry over as they are.
+From any folder, in Claude Code, run `/rek:rek <url> [<url> ...]`, or start the `rek:rek` agent and pass it the URLs. The procedure is the six steps in `skills/rek/SKILL.md`. One worker run (Opus, effort high) costs roughly 200,000 to 600,000 tokens and takes 20 to 60 minutes (per post: 1 source tracing, 1 reproduction, 1 verification; per author: 1 method extraction); earlier rounds ran at maximum effort and cost more. If you run it inside this repository, `runs/` and `profiles/` carry over as they are.
 
 ## Researching a new topic (the product use)
 

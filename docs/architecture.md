@@ -30,7 +30,7 @@ The two layers connect only through files in the working folder (`runs/`, `profi
 | `rek/adapters/` | Naver Blog implementation (mobile page parsing, post list API), urllib HTTP | ports, core |
 | `rek/cli.py` | Wires the 7 commands to the adapters | All of the above |
 | `skills/rek/SKILL.md` | Orchestrator procedure. Briefs are in `references/` | Worker agents, `rek` commands |
-| `agents/*.md` | Orchestrator `rek` and 4 workers (all model opus, effort max) | Briefs |
+| `agents/*.md` | Orchestrator `rek` and 4 workers (model and effort are defaults the orchestrator may override) | Briefs |
 | `runs/`, `profiles/` | Data. They are created in the working folder where you run the tool, not in the plugin | — |
 
 Dependencies point only downward. `core` knows nothing about the network or site names, and touches files only in `run_dir.py`, `profile_hash.py` and `verify_summary.summarize`. To support a new site, add one more `PostSource` and `PostList` implementation under `adapters/`.
