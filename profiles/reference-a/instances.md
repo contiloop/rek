@@ -1,23 +1,24 @@
 This file is hints, not rules. The rules are research-method.md and SKILL.md.
 
 author: reference-a
-built_from: 224450743987, 224456106651, 224428298482
+built_from: 224450743987, 224456106651, 224428298482, 224314709934
 
 ## Sites
 
-Sites actually reached in the three traced posts. Domain, post-count and source-count columns are the output of `rek source-sites runs/` (run on 2026-11-04; `runs/` held only these three runs) [observed]. The kind column is my reading of each source entry in `sources.md` [inferred]; the access column comes from the `sources.md` entries [observed]. One row is left out: the domain that held only the author's own earlier posts, which a reproduction may not read [observed].
+Sites actually reached in the four traced posts. The domain, post-count and source-count columns are the output of `rek source-sites`, run on 2026-11-04 on `runs/` and again on a scratch folder holding only the four runs' `sources.md` files; the two outputs were identical, because the other run folders in `runs/` have no `sources.md` [observed]. The kind column is my reading of each source entry in `sources.md` [inferred]; the access column comes from the `sources.md` entries [observed]. The naver.com row also counts the author's own earlier posts; only one source on that domain is another person's page [observed].
 
 | domain | posts | sources | kind of source | paywalled or blocked | label |
 |---|---|---|---|---|---|
+| wikipedia.org | 3 | 8 | wiki | open; past revisions read through the wiki API | [observed] |
 | khan.co.kr | 3 | 4 | domestic daily newspaper | open | [observed] |
 | namu.wiki | 3 | 6 | wiki | open; history view needs scripts, older versions not reachable | [observed] |
-| wikipedia.org | 2 | 5 | wiki | open | [observed] |
+| ajunews.com | 3 | 3 | domestic daily newspaper | open | [observed] |
 | daum.net | 2 | 4 | portal reprint of domestic articles | open | [observed] |
 | hankyung.com | 2 | 4 | domestic business daily | open | [observed] |
-| ajunews.com | 2 | 2 | domestic daily newspaper | open | [observed] |
 | bairdmaritime.com | 2 | 2 | trade paper (reprints wire stories) | open | [observed] |
 | ekn.kr | 2 | 2 | domestic business daily | open | [observed] |
 | yahoo.com | 2 | 2 | finance portal reprint (press release, trade story) | open | [observed] |
+| naver.com | 2 | 10 | blog platform: one other user's personal blog post; the other sources on this domain are the author's own posts, which a reproduction may not read | open | [observed] |
 | hellenicshippingnews.com | 2 | 4 | trade paper (reprints data-provider reports) | open | [observed] |
 | nate.com | 2 | 3 | portal reprint of domestic articles | open | [observed] |
 | fnnews.com | 2 | 3 | domestic business daily | open | [observed] |
@@ -27,6 +28,7 @@ Sites actually reached in the three traced posts. Domain, post-count and source-
 | alaskapublic.org | 1 | 2 | local public broadcaster of the place | open | [observed] |
 | archive.org | 1 | 2 | web archive copy of a wiki page | open; some snapshots refused | [observed] |
 | fao.org | 1 | 2 | international organization report and news | open | [observed] |
+| hbs.edu | 1 | 2 | business-school publication (feature article on a founder) | open; the older archive address returned 403 | [observed] |
 | insight.co.kr | 1 | 2 | domestic online outlet (sponsored articles) | open | [observed] |
 | kmi.re.kr | 1 | 2 | domestic research institute foreign-news translation portal | open | [observed] |
 | mt.co.kr | 1 | 2 | domestic business daily | open | [observed] |
@@ -42,7 +44,11 @@ Sites actually reached in the three traced posts. Domain, post-count and source-
 | asiae.co.kr | 1 | 1 | domestic business daily | open | [observed] |
 | bluemarinefoundation.com | 1 | 1 | advocacy group release | open | [observed] |
 | brecorder.com | 1 | 1 | reprint of a wire story | open | [observed] |
+| businesspost.co.kr | 1 | 1 | domestic business daily (feature series on business history) | open | [observed] |
+| choicenews.co.kr | 1 | 1 | domestic economy outlet citing a data provider | open | [observed] |
+| clien.net | 1 | 1 | community board post with an old table | open | [observed] |
 | com.mx | 1 | 1 | foreign-language magazine edition (registered domain as the command printed it) | open | [observed] |
+| cyw.pe.kr | 1 | 1 | community board repost of an unattributed column | open; the column original not found | [observed] |
 | ddaily.co.kr | 1 | 1 | domestic business daily | open | [observed] |
 | edaily.co.kr | 1 | 1 | domestic business daily (consulate column) | open | [observed] |
 | energynow.ca | 1 | 1 | reprint of a wire story | open | [observed] |
@@ -57,8 +63,10 @@ Sites actually reached in the three traced posts. Domain, post-count and source-
 | hotplacehunter.co.kr | 1 | 1 | local listings magazine | open | [observed] |
 | isusanin.com | 1 | 1 | domestic trade paper | open | [observed] |
 | jkn.co.kr | 1 | 1 | domestic daily newspaper | open | [observed] |
+| joongdo.co.kr | 1 | 1 | regional daily newspaper (on-site report) | open | [observed] |
 | journalist.or.kr | 1 | 1 | association reprint of a newspaper column | open | [observed] |
 | kbmaeil.com | 1 | 1 | regional daily reprinting a wire story | open | [observed] |
+| kbs.co.kr | 1 | 1 | domestic public broadcaster | open | [observed] |
 | keei.re.kr | 1 | 1 | domestic research institute reprint of a wire story | open | [observed] |
 | korea.kr | 1 | 1 | government release | open; the ministry original page was deleted | [observed] |
 | koreadaily.com | 1 | 1 | overseas edition of a domestic daily | open | [observed] |
@@ -66,6 +74,8 @@ Sites actually reached in the three traced posts. Domain, post-count and source-
 | magicport.ai | 1 | 1 | database record | open; live record, screen dated after the post | [observed] |
 | maritime-executive.com | 1 | 1 | trade paper | open | [observed] |
 | metroseoul.co.kr | 1 | 1 | domestic daily newspaper | open | [observed] |
+| munhwa.com | 1 | 1 | domestic daily newspaper | open | [observed] |
+| newdaily.co.kr | 1 | 1 | domestic online outlet | open | [observed] |
 | newsfreezone.co.kr | 1 | 1 | domestic online outlet | open | [observed] |
 | newsis.com | 1 | 1 | domestic wire service | open | [observed] |
 | newspim.com | 1 | 1 | domestic wire service | open | [observed] |
@@ -73,6 +83,7 @@ Sites actually reached in the three traced posts. Domain, post-count and source-
 | norwegianchamber.com | 1 | 1 | business chamber statement (PDF) | open | [observed] |
 | oilprice.com | 1 | 1 | trade paper | open | [observed] |
 | onul.works | 1 | 1 | AI-generated wiki | open | [observed] |
+| opinionnews.co.kr | 1 | 1 | domestic online outlet (feature series on business history) | open | [observed] |
 | oregonstate.edu | 1 | 1 | conference paper repository (PDF) | open | [observed] |
 | pbs.org | 1 | 1 | foreign broadcaster (wire story) | open | [observed] |
 | ryukyushimpo.jp | 1 | 1 | local-language newspaper reprinting a wire story | open | [observed] |
@@ -88,6 +99,7 @@ Sites actually reached in the three traced posts. Domain, post-count and source-
 | wowtv.co.kr | 1 | 1 | domestic business broadcaster | open | [observed] |
 | xindemarinenews.com | 1 | 1 | trade paper | open | [observed] |
 | yna.co.kr | 1 | 1 | domestic wire service | open | [observed] |
+| youtube.com | 1 | 1 | broadcaster's explainer video (description and chapter titles) | open page; spoken content not readable (empty captions) | [observed] |
 | ytn.co.kr | 1 | 1 | domestic broadcaster | open | [observed] |
 | busan.com | 1 | 3 | regional daily newspaper | open | [observed] |
 | sbs.co.kr | 1 | 3 | domestic broadcaster | open | [observed] |
@@ -135,10 +147,15 @@ These are the tracer's queries recorded in the trace files, not the author's; th
 | 224456106651 | `Sinokor Strait of Hormuz tanker business` (plain search) | English | S19 (result 6, same article number, print page) | [observed] |
 | 224428298482 | `알래스카 LNG 프로젝트` (plain search) | Korean | no source URL | [observed] |
 | 224428298482 | `Alaska LNG project` (plain search) | English | no source URL; same registered domain as S08, S22 | [observed] |
+| 224314709934 | `맥린 120달러 트럭` (Naver news search, on the S07 "Probably reached via" line) | Korean | S07 (top Korean news hit) | [inferred] |
+| 224314709934 | `시랜드 2만7000개 컨테이너 36척` (S08 "Probably reached via" line) | Korean | S08 | [inferred] |
+| 224314709934 | `부산항 환적` limited to 2026-06-01 to 06-13 (S14 "Probably reached via" line) | Korean | S14 (top result) | [inferred] |
+| 224314709934 | `컨테이너 운송의 역사와 부산항의 환적 허브 역할` (plain search) | Korean | no source URL ("No observed source in S04–S19 has its registered domain in this set") | [observed] |
+| 224314709934 | `history of container shipping and Busan port's role as a transshipment hub` (plain search) | English | no source URL | [observed] |
 
 ## Measured numbers
 
-`uv run --project "${CLAUDE_PLUGIN_ROOT}" rek stats` on the three `post.md` files, pasted as is [observed]:
+`uv run --project "${CLAUDE_PLUGIN_ROOT}" rek stats` on the four `post.md` files, pasted as is [observed]:
 
 ```
 {
@@ -188,6 +205,20 @@ These are the tracer's queries recorded in the trace files, not the author's; th
   "has_one_liner": true,
   "one_liner_chars": 219,
   "first_line": "늘 그렇듯이, 돌아갑니다."
+ },
+ "runs/224314709934/post.md": {
+  "sentences": 101,
+  "numbered_items": 86,
+  "max_item_number": 86,
+  "numbering_gaps": [],
+  "mean_sentence_chars": 47.0,
+  "noun_ending_share": 0.78,
+  "da_ending_share": 0.02,
+  "sentences_with_number_share": 0.29,
+  "images": 24,
+  "has_one_liner": true,
+  "one_liner_chars": 139,
+  "first_line": "주말이라 가벼운 내용입니다."
  }
 }
 ```
@@ -202,23 +233,32 @@ Values copied from trace files (file and section given; nothing counted here):
 | 224456106651 | new images uploaded 02:59–04:21, published 11:00, "6시간 39분 뒤" | research-path.md §1 | [observed] |
 | 224428298482 | "발표 후 약 18시간 15분~20시간 41분 만에 게시"; from the preview article "약 40시간 40분" | research-path.md §1 | [observed] |
 | 224428298482 | Gemini images at 15:04:35 and 15:06:35, 7 minutes after the Money Today article; published 00:10 | research-path.md §1 | [observed] |
-| 224450743987 | back chain: units D01–D10 before the quota and price units D11–D14; no trigger unit | units.md | [observed] |
-| 224456106651 | back chain: units D01–D13 before the trigger unit D14 | units.md | [observed] |
-| 224428298482 | back chain: units D01–D10 (history, from the 2025 post), front units D11–D20, trigger in D18 and D20 | units.md | [observed] |
+| 224314709934 | published 2026-06-14 00:10; trigger none; possible prompt S13/S14 "4 days and about 5 hours before the post" | research-path.md §1 | [observed] |
+| 224314709934 | new uploads img_01–img_03, img_16, img_21, img_22 between 11:59 and 17:16, "7 to 12 hours before publication" | sources.md Images | [observed] |
+| 224450743987 | units D01–D18; trigger none; farthest backward unit D01 (herring era and its collapse), farthest forward units D13 (2027 advice, price "내년여름까지") and D18 (places to eat) | units.md | [observed] |
+| 224456106651 | units D01–D17; trigger unit D14; farthest backward unit D02 (joint-venture founding, name origin), farthest forward units D16 (1 November warning, 37% share) and D17 (oil price after 1 November) | units.md | [observed] |
+| 224428298482 | units D01–D20; back units D01–D10 from the 2025 post; farthest backward unit D01 (natives, Russian and Spanish arrival), farthest forward units D18 (November election, senator present) and D20 (final negotiation of the amount) | units.md | [observed] |
+| 224314709934 | units D01–D20; trigger none; farthest backward unit D01 (1934 trucking start, weight rules), farthest forward units D19 (terminal closure December 2024, move) and D20 (founder's firm inside a global carrier, hub comment) | units.md | [observed] |
+| 224314709934 | D01–D06 are new and lie before the reused chain, which starts at D07 ("The whole McLean opening (paras 1–15) is new") | research-path.md §3 | [observed] |
 | 224450743987 | claims 99 / observed 46 / inferred 13 / unknown 15 / self-reference 25 | research-path.md §7 | [observed] |
 | 224456106651 | claims 59 / observed 21 / inferred 1 / unknown 0 / self-reference 31 / opinion 6 | research-path.md §7 | [observed] |
 | 224428298482 | claims 109 / observed 30 / inferred 10 / unknown 4 / self-reference 55 / opinion 10 | research-path.md §7 | [observed] |
+| 224314709934 | claims 104: self-reference 64; of the other 40, observed 23, inferred 9, unknown 8 | research-path.md §7 | [observed] |
 | 224456106651 | "1~6문단 글자의 74%가 prior 글자와 겹친다"; paragraphs 7–8 all new | research-path.md §3 | [observed] |
 | 224428298482 | of the 62 sentences in #1–#65: unchanged 35, edited 24, new or replaced 3 | research-path.md §3-1 | [observed] |
+| 224314709934 | "Paras 16–86 follow S01 items 1–72 in the same order, mostly word for word" | research-path.md §3 | [observed] |
 | 224450743987 | rare 32, base 1 (S38) after back-tracing | sources.md 평범한 검색, 갱신 line | [observed] |
 | 224456106651 | rare 34 including the author's post (33 without), base 1 (the author's post); the orchestrator later removed `희귀` from S45 | sources.md §7 and 평범한 검색 | [observed] |
 | 224428298482 | rare 39, base 1 (S52) after back-tracing | sources.md §13 | [observed] |
-| all three | plain-search registered-domain sets of 11, 14 and 14 domains | each sources.md 평범한 검색 | [observed] |
+| 224314709934 | "표시: 희귀 15, 바탕 2(S05, S06), 바탕(저자 글) 3, - 1" | status.md, marks line | [observed] |
+| all four | plain-search registered-domain sets of 11, 14, 14 and 18 domains | each sources.md 평범한 검색 | [observed] |
 | 224450743987 | images: img_06–img_10 reused from earlier posts, img_01–img_05 and img_11–img_12 new | sources.md §4 | [observed] |
 | 224456106651 | images: img_01–img_05 reused, img_06–img_08 new | research-path.md §3 | [observed] |
 | 224428298482 | images: img_01–img_11 reused from the 2025 post, img_13 from a 2025-10 post, img_12 and img_14 new (Gemini) | research-path.md §3-1 | [observed] |
-| all three | `outbound_links` empty; block counts `quote: 0`, `link: 0` | each meta.json | [observed] |
+| 224314709934 | "Eighteen of the 24 images are files already uploaded"; img_02 and img_03 are Gemini files | research-path.md §3, §6 | [observed] |
+| all four | `outbound_links` empty; block counts `quote: 0`, `link: 0`, `rule: 0` | each meta.json | [observed] |
 | 224428298482 | numbering gaps 34, 42, 54 (and item 1 unnumbered) mark deleted sentences of the reused post | research-path.md §3-2; rek stats `numbering_gaps` | [observed] |
+| 224314709934 | number changed in the reused part: "5위" became "7위" (para 78) | research-path.md §3 | [observed] |
 
 ## Moves
 
@@ -287,6 +327,10 @@ Each block: what the trace files say was read or done (instance), the move behin
   move: most sources are reached outside the first page of an ordinary search on the topic [inferred]
   reason: defines what the reproduction must reach beyond the obvious results [inferred]
 
+- instance: 224450743987 D11, D17: research-path.md §3: the January post's L58 "16만5000톤중에서 7만5000톤이 한국으로 수입" and L49 "지금이 1월이다" are deleted, and its forecast "가격은 더 비싸질 것" becomes the observed doubling of the unit price [observed]
+  move: drop the skeleton's passages that belonged to its own date, and turn its old forecast into the outcome that followed [inferred]
+  reason: the base was written for another moment; only its explanatory chain carries over [inferred]
+
 ### 224456106651
 
 - instance: 224456106651 S20, S21, S22: FT report of the 31 August attack (not fetched, relayed by SBS Biz), Lloyd's List abstract naming Bahri and Sinokor as owners [observed]
@@ -349,6 +393,10 @@ Each block: what the trace files say was read or done (instance), the move behin
 - instance: 224456106651 S03, S19, S22, S24, S27, S29, S30, S32, S41 (plain search): the sources whose registered domain was in the plain-search set [observed]
   move: most other sources lie outside an ordinary search on the topic [inferred]
   reason: same as in 224450743987 [inferred]
+
+- instance: 224456106651 research-path.md §3 row 22–23: the prior's breaking-news passage (retaliation, sales restart, environmental damage, base attacks) is deleted and the one-line comment replaced [observed]
+  move: drop the skeleton's passages that served its own occasion and write a new close for the new one [inferred]
+  reason: the base was the report of an earlier incident; the new post is about the warning [inferred]
 
 ### 224428298482
 
@@ -424,3 +472,63 @@ Each block: what the trace files say was read or done (instance), the move behin
 - instance: 224428298482 S08, S22 (plain search): only these share a registered domain with the plain-search top results [observed]
   move: nearly all sources lie outside an ordinary search on the topic [inferred]
   reason: same as above [inferred]
+- instance: 224428298482 research-path.md §3-1 and §3-3: the Ishiba and JERA items, the Chaplin sentence, the China–Qatar pressure claim and the old one-line comment are deleted [observed]
+  move: drop the skeleton's passages that served its own occasion [inferred]
+  reason: the base was written around a different leader's visit; the new post is about the new announcement [inferred]
+
+### 224314709934
+
+- instance: 224314709934 S01, S02, S03: the author's own posts of 2025-04-05, 2023-02-21 and 2022-09-02; S01 items 1–72 map onto paras 16–86 in the same order, S02 is the upstream text of S01, and para 43 restores the private tender of S03 that the later two had dropped [observed]
+  move: pick one skeleton document that already tells most of the chain in order, and bring back a detail that an older telling of the same chain had and the newer one dropped [inferred]
+  reason: the post announces a revision of an earlier telling ("한번 언급한 내용이지만, 변화와 보완이 있습니다"); for a reproduction this is the skeleton slot, filled from outside documents [inferred]
+- instance: 224314709934 S04, S05, S06: Harvard Business School Working Knowledge (1934, USD 120 truck, state weight fees, 1937 wait at Hoboken, fifth-largest trucker, the ownership rule), the English Wikipedia biography revision in force on the date (1952 trailerships, wasted space, 26 April 1956, the union official's quote, Sea-Land sold to Maersk), and a community-board repost of a column (수십 명의 인부들, 미국 5위, 겸영 금지) [observed]
+  move: extend the chain backward past the skeleton's first item to how the person behind the subject's form began and what daily problem pushed them to look for it, from an English business-school feature and the English wiki biography [inferred]
+  reason: the whole opening (paras 1–15) is new, and it starts well before the point where the skeleton already explains the present [observed]
+- instance: 224314709934 D02, D03, D06: the post's "North Carolina 항구" and "강철로 보강" differ from every opened page (Hoboken; wooden decks), and no single page holds all the founder details [observed]
+  move: merge one person's story from several pages into one numbered sequence; keep one version and do not discuss the differences [inferred]
+  reason: the post follows one line; the conflicts are recorded in the trace, not in the post [observed]
+- instance: 224314709934 S07, S08: Business Post's "[경영어록의 연금술사들]" feature on McLean (reached with "맥린 120달러 트럭") and Opinion News' "[자본주의와 혁신기업]" series on Sea-Land (reached with "시랜드 2만7000개 컨테이너 36척") [observed]
+  move: search domestic outlets' feature series on business or economic history with the subject's own figures, to get the same facts in the post's language [inferred]
+  reason: gives the post-language wording of facts first published in English [inferred]
+- instance: 224314709934 S04, S05, S06, S07: the ownership rule that forbade one company to own both a trucking firm and a shipping line, and the sale of the trucking firm in 1955 [observed]
+  move: find the rule that forced the founder to give up the old business, and the sale that followed [inferred]
+  reason: explains how the founder came to own only the new business (the change of hands in the chain) [inferred]
+- instance: 224314709934 S09: English Wikipedia "Gulf of Tonkin Resolution" (revision 2026-05-22): Congress authorised force after the August 1964 incident; the post adds "의회는 직접 개입을 승인함" and softens "공격을 받자" to "공격을 받았다고 알려지자" [observed]
+  move: add the formal approval step that turned outside support into direct involvement, and soften an old sentence that an encyclopedia qualifies [inferred]
+  reason: the reused war passage gains the missing step and loses an overstatement [inferred]
+- instance: 224314709934 S10, S11: Munhwa (2005) and New Daily (2011) on the 50억 달러 total of foreign currency from the deployment; the post writes "50억달러가 넘었다고 함" and "베트남 특수라는 말이 나왔던 배경임" [observed]
+  move: add the total money the home country earned from the distant shock, from older domestic articles, marked as hearsay [inferred]
+  reason: the home-country money fact inside the back chain, next to the 1억 달러 export figure [inferred]
+- instance: 224314709934 S12: English Wikipedia "Cam Ranh Bay" (revision 2026-04-02) shows a Sea-Land pier in 1969; the caption under img_16 says a Sea-Land crane still stands, and the image looks generated [observed]
+  move: add a present-day trace of a past step under an illustrative picture [inferred]
+  reason: ties the past to the present; the caption's fact has no source, so it is a gap, not a move to copy [inferred]
+- instance: 224314709934 S01, S04, S05, S07, S08: Sea-Land's growth (27,000 containers, 36 ships) and the empty return voyages; McLean's plan to stop in Japan [observed]
+  move: find the cost that the new business could not avoid and the deal that turned it into a second business [inferred]
+  reason: the problem after the gain moves the chain from the war to Japan and then to the home country [inferred]
+- instance: 224314709934 S13, S14, S15, S16: KBS 크랩 video and its news page (2026-06-09), Joongdo and Aju on-site reports (January 2026): Busan seventh in container throughput and second in transshipment after Singapore [observed]
+  move: find the subject's present rank among all of its kind, and the measure on which it ranks higher, from recent domestic reports and a broadcaster's explainer video [inferred]
+  reason: gives the new closing passage (paras 78–82) and the comment [observed]
+- instance: 224314709934 S17: Choice Economy (2024-04-20) citing Alphaliner's top ten; the post's list swaps fourth and fifth and calls it 2025; "중국이 10위중 1위,3~6위, 8위를 차지" is the author's count [observed]
+  move: take a ranking list of all of the subject's kind from a domestic article that cites a data provider, and count how many places one rival holds [inferred]
+  reason: sets the subject against the whole field before turning to the measure where it does better [inferred]
+- instance: 224314709934 S18: a Clien community-board table (2017) with Kobe fourth to 57th and Busan 16th to fifth; the post updates "5위" to "7위" [observed]
+  move: take the before-and-after ranks of the subject and its fallen rival from an old table, and replace the old rank with the present one [inferred]
+  reason: shows how far the rival fell and the subject rose, at today's standing [inferred]
+- instance: 224314709934 S19, S13: another user's personal blog post on Busan's round-the-clock operation against Japanese ports' limited night and weekend work; the video's chapter titles; the holiday closure of 12/31–1/4 has no source found [observed]
+  move: compare the subject with its rival on the working practice that decides the customers' choice [inferred]
+  reason: explains why the shippers stayed after the rival recovered [inferred]
+- instance: 224314709934 S01, S05, S08: Sea-Land's international services sold to Maersk in 1999 ("머스크그룹(Maersk Group)의 디비전으로 남아있다"); S01 items on the closure of the old terminals in December 2024 and their move [observed]
+  move: give where each actor and place of the chain stands on the date [inferred]
+  reason: closes every thread the chain opened (para 83–86) [inferred]
+- instance: 224314709934 D01–D20 against S01: deleted the opening on the 43-port sale, the exchange ratios, the 1997 privatisation, the US-lease items and the consortium items [observed]
+  move: drop the skeleton's passages that served its own occasion and keep the explanatory chain [inferred]
+  reason: the new post has no news peg of its own, so the old one goes [inferred]
+- instance: 224314709934 C095: Busan likened to the parcel hubs of 쿠팡 덕평·칠곡 and CJ대한통운 [observed]
+  move: explain the subject's role with an analogy from a domestic everyday service the reader uses [inferred]
+  reason: makes "환적항" clear without a primer [inferred]
+- instance: 224314709934 trigger: none; "주말이라 가벼운 내용입니다"; the closest dated report on the closing topic is S13/S14, four days before [observed]
+  move: with no event, take a recent report on the subject's present standing as the occasion and spend the post on the back chain [inferred]
+  reason: a weekend post without news still ends on the present [inferred]
+- instance: 224314709934 plain search: "No observed source in S04–S19 has its registered domain in this set" [observed]
+  move: every source was reached outside an ordinary search on the topic [inferred]
+  reason: same as in the other posts [inferred]
