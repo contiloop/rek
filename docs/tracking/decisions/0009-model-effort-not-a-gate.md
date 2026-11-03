@@ -6,4 +6,4 @@
 
 **Rejected options.** Making "effort high" the new gate: the point is freedom to choose, not a different fixed value. Keeping the gate and overriding it per run: an overridden gate is noise.
 
-**Result.** The round-1 and round-2 scores in status were produced at maximum effort; the new test ran at high, so the two sets are not compared. The cost note in operations is an estimate for effort high.
+**Result.** The round-1 and round-2 scores in status were produced at maximum effort; the new test ran at high, so the two sets are not compared. The cost note in operations gives the times measured at effort high.
