@@ -16,13 +16,13 @@ late_sources: 0
 checker_verdict: pass
 ```
 
-- `fabricated` = the number of numbers, names, dates, events and image descriptions in `post.md` that reach no source in `research.md` (a quote or a document in the source list). A value that comes out correctly from a calculation whose formula is in `research.md` counts as reached; check the formula and count a wrong one as fabricated.
+- `fabricated` = the number of numbers, names, dates, events and image descriptions in `post.md` that reach no source in `research.md` (a quote or a document in the source list). A value that comes out correctly from a calculation whose formula is in `research.md` counts as reached; check the formula and count a wrong one as fabricated. Match each image placeholder `![image: <description>]` of `post.md` to the `image:` line in `research.md` whose description text is identical. Count a placeholder as fabricated when it has no `image:` line, or when an id on its line does not state the description (a name, place, number or event in the description that none of the line's sources states). A qualifier (first, largest, only, next after, the most, record, and Korean forms such as 최초, 최대, 유일, 다음가는, 가장, 역대) is part of the fact it qualifies: that fact reaches a source only when the source states the qualifier too.
 - `late_sources` = the number of rows in `## 출처 목록` whose publication date is after `date:` in `topic.md`, plus the facts in `research.md` or `post.md` that exist only on a page recorded as `[접촉]` in `log.md` after its body was read.
 - `checker_verdict`: `pass` or `fail`, your opinion. The verdict itself is computed by `rek research-summary` (chain in all three directions, at least 20 sources with 5 primary, `fabricated` 0, `late_sources` 0).
 
 ## The body after the block
 
-1. **Fabrication list**: for each item, the passage in `post.md`, what is missing (number, name, date, event, image description), and where in `research.md` you looked.
+1. **Fabrication list**: list image descriptions first, then qualifiers, then everything else. For each item, the passage in `post.md`, what is missing (image description, qualifier, number, name, date, event), and where in `research.md` you looked (for an image, its `image:` line or the note that it has none).
 2. **Late sources**: for each, the source id, its date, and `date:`.
 3. **Weak links**: units whose every source is `2차` (secondary) or `[inferred]`; directions (`뒤쪽`, `본 주제`, `앞쪽`) with no unit; the `## 못 찾은 것` items that the profile's rare-source templates should have reached, with the template id from `research-method.md`.
 4. **Status**: append a start line and a done line to `status.md`.

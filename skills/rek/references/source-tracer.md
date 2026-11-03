@@ -51,10 +51,10 @@ Write it in this order:
 
 ## Step 4: units.md and the rare and base marks
 
-**units.md**: The list of development units (the definition is in evidence.md). Read the body from the start and cut at each point where the topic changes. 8 to 20 units is typical (adjustable). Fix them before the reproduction runs, and do not change them after you see the reproduction result. Write only three fields in the file header. The orchestrator passes these three lines as they are to the reproduction worker, so do not put in the title, the outlet, source names, or URLs.
+**units.md**: The list of development units (the definition is in evidence.md). Read the body from the start and cut at each point where the topic changes. 8 to 20 units is typical (adjustable). Fix them before the reproduction runs, and do not change them after you see the reproduction result. Write only four fields in the file header. The orchestrator passes three of them (`main_topic`, `trigger`, `date`) as they are to the reproduction worker, so do not put in the title, the outlet, source names, or URLs. When a header-only `units.md` (the four header lines and nothing below them) already exists in the run, which is the test-only path, keep its four header values exactly as they are, character for character, and add only the unit table and the `## unknowns` section below them.
 
 - `main_topic:` One phrase for the post's topic. It is not the title (for example: "알래스카 LNG 프로젝트").
-- `excluded_domains:` The domains and paths of the post's author (the blog, its mobile address, any social account found in the trace), comma-separated. Only the verifier reads this line; the orchestrator never passes it to the reproduction worker, who is told nothing about the author.
+- `excluded_domains:` The domains and paths of the post's author (the blog, its mobile address, any social account found in the trace), comma-separated. Only the verifier and the comparator read this line; the orchestrator never passes it to the reproduction worker, who is told nothing about the author.
 - `trigger:` One sentence for the trigger event. No outlet, source name, or URL. `none` if there is no trigger.
 - `date:` The original's publication time (`published_at` in `meta.json`).
 
@@ -79,7 +79,7 @@ For the range, use the same para numbers as claims.md, and put the numbers of th
 ## Supplement mode
 
 When `claims.md`, `sources.md`, and `research-path.md` already exist. Read those three files and `post.md`. Do not redo the tracing. Keep the source numbers and claim numbers as they are. What you do:
-1. Write `units.md` anew (in the format above).
+1. Write `units.md` anew (in the format above). If a header-only `units.md` exists, keep its four header values and add only the unit table and `## unknowns` (step 4).
 2. Append a `## 평범한 검색` section to `sources.md`, and put a `표시:` line in every source entry (add the line to entries that lack one). Do not change anything else, not a single character. Edit in place. Do not create a new file.
 3. Append the start, `units`, `marks`, and done lines to `status.md`.
 

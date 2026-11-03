@@ -2,7 +2,7 @@
 
 ## Scope
 Fetching posts into run folders, finding the author's earlier posts, form statistics, reproduction counts, the pass/fail
-summary, profile hashes and the source-site ledger. Nothing that requires judgment: no claim extraction, no source
+summary, the comparison table (copied values plus the depth pass line), profile hashes and the source-site ledger. Nothing that requires judgment: no claim extraction, no source
 matching, no scoring decisions beyond the fixed thresholds.
 
 ## Not this package's job
@@ -19,7 +19,7 @@ Reading the web for research (workers do that), writing any file under `runs/<id
 - `core/stats.py` stops counting at a line equal to `## 작성 노트`; the closing one-liner is one unit.
 - Markers the counters parse are fixed strings: unit rows `R<nn> |`, the `## 출처 목록` section with `S<nn>` or URL rows,
   log lines starting `[검색] [열람] [크롬] [접촉]`, the `표시:` line with `희귀` / `바탕` / `바탕(저자 글)`, the `무효:` line in
-  verification.md. Changing one means changing the briefs, the tests and the existing data together.
+  verification.md and comparison.md. Changing one means changing the briefs, the tests and the existing data together.
 - `rek prior` confirms a date-route candidate only when the candidate's page contains one of the reused image files;
   title-route matches are whole title tokens, at most 10 most recent within 730 days; images uploaded less than 24 h before
   publication count as the post's own.
@@ -34,5 +34,5 @@ Reading the web for research (workers do that), writing any file under `runs/<id
 
 ## Tests
 `uv run pytest -q`. Fixtures are real saved pages (`tests/fixtures/naver_224456106651.html`, a post-list JSON page) and the
-canonical `verification_example.md` the verifier brief copies. Add a failing test before changing behaviour; cover the
+canonical `verification_example.md` and `comparison_example.md` the verifier and comparator briefs copy. Add a failing test before changing behaviour; cover the
 boundary cases named above (equality at thresholds, zero denominators, the notes marker, unnumbered source lists).

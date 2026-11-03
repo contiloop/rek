@@ -3,7 +3,7 @@
 A single-user local tool, packaged as a Claude Code plugin. Given the URL of a published post, it traces every claim to
 its sources, reconstructs how the author researched the piece, distills that into a research procedure another agent can
 run, and tests the procedure by giving a fresh agent only the topic, one trigger sentence and the date. Python does only
-the deterministic part (fetch, counts, pass/fail); every judgment runs in an Opus worker with a written brief. One reference
+the deterministic part (fetch, counts, pass/fail); every judgment runs in a worker with a written brief (model and effort are defaults in its definition). One reference
 author (a Korean economics blogger, profile `reference-a`) has been traced so far; the loop itself knows no author.
 The product use is `/rek:research`: a new topic, researched with that profile and written up, checked by the project's own criteria.
 
@@ -17,18 +17,18 @@ REK/
 ├── skills/rek/
 │   ├── SKILL.md                    → orchestrator procedure: the six stages (learning a profile from an author)
 │   ├── AGENTS.md                   → scope and invariants of the agent loop (briefs, markers, isolation)
-│   └── references/                 → one brief per worker + evidence.md (labels, Chrome lock, status lines, definitions)
-├── agents/                         → rek (orchestrator) and six workers, all `model: opus`, `effort: max`
+│   └── references/                 → one brief per worker (incl. comparator.md) + evidence.md (labels, Chrome lock, status lines, definitions)
+├── agents/                         → rek (orchestrator) and seven workers; model and effort in each definition are defaults the orchestrator may override
 ├── rek/
 │   ├── AGENTS.md                   → scope and invariants of the Python package
 │   ├── core/                       → pure models, statistics, prior-post selection, pass/fail, hashes, site ledger
 │   ├── ports/                      → PostSource, PostList, ImageStore protocols
 │   ├── adapters/                   → Naver blog (mobile page parser, post-list API), urllib HTTP
-│   └── cli.py                      → `rek fetch | prior | stats | repro-stats | profile-hash | source-sites | verify-summary | research-init | research-summary`
+│   └── cli.py                      → `rek fetch | prior | stats | repro-stats | profile-hash | source-sites | verify-summary | compare-summary | research-init | research-summary`
 ├── tests/                          → pytest; fixtures are real saved pages
 ├── runs/<post_id>/                 → data: post, trace files, units, repro/<n>/ attempts and their verification
 ├── research/<date>-<slug>/         → data: one new-topic research (topic.md, research.md, post.md, log.md, check.md)
-├── profiles/<author>/              → data: research-method, writing-structure, SKILL, holdout/<post_id>/ variants
+├── profiles/<author>/              → data: research-method, instances, writing-structure, SKILL, status; built only from runs/, never hand-edited
 └── docs/
     ├── architecture.md             → the two layers and how a post flows through the six stages
     ├── business-rules.md           → definitions, label rules, unit rules, reproduction rules, scoring rules
@@ -46,9 +46,9 @@ REK/
   source that was not opened and matched is never `[observed]`.
 - The reproduction worker is told nothing about the author; it never reads the original post, files of its run folder, or the content of
   pages published after `date:`; every fact in its post must trace to a source in its `research.md`.
-- `units.md` is fixed before a reproduction starts and never edited afterwards; it is the denominator of every score.
-- Pass/fail is computed by `rek verify-summary` (learning) or `rek research-summary` (new topic), never read from a worker's opinion; any deterministic count is code.
-- No author-specific name or rule outside `profiles/<author>/`; workers are `model: opus`, `effort: max`.
+- `units.md` is fixed before a reproduction starts and never edited afterwards, except when a header-only test file is replaced by a full trace before the post becomes material; it is the denominator of every `verify-summary` score.
+- Pass/fail is computed by `rek verify-summary` (learning), `rek research-summary` (new topic) or `rek compare-summary` (test of a new post), never read from a worker's opinion; any deterministic count is code. The comparison worker's numbers are its judgment, copied; only the pass line is computed from them.
+- No author-specific name or rule outside `profiles/<author>/`.
 
 ## Before you work
 
