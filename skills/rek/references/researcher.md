@@ -5,13 +5,13 @@ Goal: Without having seen the author's post, use only the starting info and that
 ## What you receive (only this)
 
 - Four starting-info lines: `main_topic:` (one phrase for the main topic), `trigger:` (one sentence for the trigger event, `none` if there is none), `date:` (the original's publication time = your "today"), `language:` (the language to write `post.md` in). You do not receive the title, sources, URLs, or development units.
-- `profiles/<author>/SKILL.md` (execution procedure), `research-method.md` (rule ledger), `writing-structure.md` (optional).
+- `profiles/<author>/SKILL.md` (execution procedure), `research-method.md` (rule ledger), `writing-structure.md` (optional), `instances.md` (hints). `instances.md` is hints. You may use the sites and queries in it or not. The rules are `SKILL.md`.
 - The folder to write in: `runs/<id>/repro/<n>/`. The orchestrator writes `profile_hash.txt` there in advance. Do not touch it.
 
 ## Forbidden reads (if you break one, this attempt is invalid)
 
 - The content of any page published after `date:`. Opening a page to check its date and then closing it is allowed. Record it in `log.md` as `[접촉]` (contact). If you did read the body, do not use any fact you saw there (the verification worker checks that every fact in the post reaches a source dated before the date). For a page with no date, judge by date clues in the body. If you cannot judge, do not use it.
-- Any other file under `runs/<id>/` (`post.md`, `claims.md`, `sources.md`, `research-path.md`, `units.md`, `images/`, `prior/`, `meta.json`) and any file in the profile folder other than `SKILL.md`, `research-method.md` and `writing-structure.md`.
+- Any other file under `runs/<id>/` (`post.md`, `claims.md`, `sources.md`, `research-path.md`, `units.md`, `images/`, `prior/`, `meta.json`) and any file in the profile folder other than `SKILL.md`, `research-method.md`, `writing-structure.md` and `instances.md`.
 - If you opened a forbidden item, record it in `log.md` as `[접촉]` immediately, and do not use a single character of what you saw there.
 
 ## Allowed
