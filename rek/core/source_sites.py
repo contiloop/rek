@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 _ENTRY = re.compile(r"^## (S\d{2,3}) — (.*?)(?:, |$)")
 _URL = re.compile(r"https?://[^\s)\]>\"']+")
 _SECOND_LEVEL = {"co.kr", "go.kr", "or.kr", "ne.kr", "re.kr", "ac.kr", "co.jp", "or.jp", "ne.jp", "go.jp", "ac.jp",
-                 "com.au", "co.uk", "org.uk", "gov.uk", "com.cn", "com.tw", "com.br", "com.vn", "co.in", "com.sg"}
+                 "pe.kr", "com.au", "co.uk", "org.uk", "gov.uk", "ac.uk", "com.cn", "com.tw", "com.br", "com.vn", "co.in", "com.sg"}
 
 
 def registered_domain(url: str) -> str | None:

@@ -31,3 +31,10 @@ def test_ledger():
     assert sites["naver.com"].upstream == 0  # author's own post is not an upstream site
     table = render(sites)
     assert table.splitlines()[0].startswith("| 도메인 |") and "khan.co.kr" in table
+
+
+def test_registered_domain_second_level_pe_kr_and_ac_uk():
+    from rek.core.source_sites import registered_domain
+
+    assert registered_domain("https://cyw.pe.kr/x") == "cyw.pe.kr"
+    assert registered_domain("https://www.cam.ac.uk/x") == "cam.ac.uk"
