@@ -1,4 +1,4 @@
-"""`rek fetch`, `rek stats`, `rek prior`, `rek verify-summary`, `rek profile-hash`, `rek research-init`, `rek research-summary`. Wiring only: adapters in, core logic called."""
+"""`rek fetch`, `rek stats`, `rek prior`, `rek verify-summary`, `rek compare-summary`, `rek profile-hash`, `rek research-init`, `rek research-summary`. Wiring only: adapters in, core logic called."""
 from __future__ import annotations
 
 import argparse
@@ -10,7 +10,7 @@ import sys
 
 from rek.adapters.http import UrllibImageStore
 from rek.adapters.naver_blog import NaverBlogSource, NaverPostList
-from rek.core import prior, research, verify_summary
+from rek.core import compare_summary, prior, research, verify_summary
 from rek.core.profile_hash import profile_hash
 from rek.core.run_dir import write_run
 from rek.core.repro_stats import as_dict as repro_as_dict, compute as repro_compute
@@ -126,6 +126,34 @@ def cmd_verify_summary(args) -> int:
     return 0 if all_pass else 1
 
 
+def _latest_repro_file(run_dir: str, name: str) -> str | None:
+    """`repro/<n>/<name>` with the largest n, or None (the method of verify_summary.latest_verification)."""
+    repro = os.path.join(run_dir, "repro")
+    if not os.path.isdir(repro):
+        return None
+    for n in sorted((n for n in os.listdir(repro) if n.isdigit()), key=int, reverse=True):
+        path = os.path.join(repro, n, name)
+        if os.path.isfile(path):
+            return path
+    return None
+
+
+def cmd_compare_summary(args) -> int:
+    runs = []
+    if os.path.isdir(args.runs_dir):
+        for name in sorted(os.listdir(args.runs_dir)):
+            run_dir = os.path.join(args.runs_dir, name)
+            if not os.path.isfile(os.path.join(run_dir, "meta.json")):
+                continue
+            path = _latest_repro_file(run_dir, compare_summary.FILE)
+            if path is None:
+                continue
+            with open(path, encoding="utf-8") as f:
+                runs.append((name, f.read()))
+    print(compare_summary.render(runs), end="")
+    return 0
+
+
 def cmd_repro_stats(args) -> int:
     import json
     import os
@@ -170,11 +198,16 @@ def cmd_research_init(args) -> int:
     if os.path.exists(os.path.join(out, "topic.md")):
         print(f"{out}/topic.md already exists", file=sys.stderr)
         return 2
+    try:
+        digest = profile_hash(args.profile)
+    except FileNotFoundError as e:
+        print(f"missing profile file: {e.filename}", file=sys.stderr)
+        return 2
     os.makedirs(out, exist_ok=True)
     with open(os.path.join(out, "topic.md"), "w", encoding="utf-8") as f:
         f.write(research.topic_lines(args.topic, args.trigger, args.date or research.default_date(now), args.language, os.path.abspath(args.profile)))
     with open(os.path.join(out, "profile_hash.txt"), "w", encoding="utf-8") as f:
-        f.write(profile_hash(args.profile) + "\n")
+        f.write(digest + "\n")
     print(out)
     return 0
 
@@ -207,10 +240,13 @@ def main(argv: list[str] | None = None) -> int:
     vs.add_argument("runs_dir")
     vs.add_argument("--criteria", choices=["author", "own"], default="author", help="author = reference-author thresholds (90/80/upstream/0); own = valid, no fabrication, full chain, enough sources")
     vs.set_defaults(func=cmd_verify_summary)
+    cs = sub.add_parser("compare-summary", help="one line per run from the latest repro/<n>/comparison.md; copies the worker's values, no verdict")
+    cs.add_argument("runs_dir")
+    cs.set_defaults(func=cmd_compare_summary)
     ss = sub.add_parser("source-sites", help="registered-domain ledger from every runs/<id>/sources.md")
     ss.add_argument("runs_dir")
     ss.set_defaults(func=cmd_source_sites)
-    ph = sub.add_parser("profile-hash", help="sha256[:12] of SKILL.md + research-method.md in a profile folder")
+    ph = sub.add_parser("profile-hash", help="sha256[:12] of SKILL.md + research-method.md + instances.md in a profile folder")
     ph.add_argument("profile_dir")
     ph.set_defaults(func=cmd_profile_hash)
     ri = sub.add_parser("research-init", help="create research/<date>-<slug>/ with topic.md (five start lines) and profile_hash.txt")
@@ -218,7 +254,7 @@ def main(argv: list[str] | None = None) -> int:
     ri.add_argument("--trigger", default="none", help="one sentence for the trigger event; default none")
     ri.add_argument("--date", help="'YYYY-MM-DD HH:MM KST'; default now")
     ri.add_argument("--language", default="Korean")
-    ri.add_argument("--profile", required=True, help="profile folder holding SKILL.md and research-method.md")
+    ri.add_argument("--profile", required=True, help="profile folder holding SKILL.md, research-method.md and instances.md")
     ri.add_argument("--out", help="output folder (default research/<YYYYMMDD>-<slug>)")
     ri.set_defaults(func=cmd_research_init)
     rsu = sub.add_parser("research-summary", help="pass line of one research folder (chain, sources, fabricated, late sources); exit 1 unless pass")

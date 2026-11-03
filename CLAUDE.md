@@ -17,18 +17,18 @@ REK/
 ├── skills/rek/
 │   ├── SKILL.md                    → orchestrator procedure: the six stages (learning a profile from an author)
 │   ├── AGENTS.md                   → scope and invariants of the agent loop (briefs, markers, isolation)
-│   └── references/                 → one brief per worker + evidence.md (labels, Chrome lock, status lines, definitions)
-├── agents/                         → rek (orchestrator) and six workers; model and effort in each definition are defaults the orchestrator may override
+│   └── references/                 → one brief per worker (incl. comparator.md) + evidence.md (labels, Chrome lock, status lines, definitions)
+├── agents/                         → rek (orchestrator) and seven workers; model and effort in each definition are defaults the orchestrator may override
 ├── rek/
 │   ├── AGENTS.md                   → scope and invariants of the Python package
 │   ├── core/                       → pure models, statistics, prior-post selection, pass/fail, hashes, site ledger
 │   ├── ports/                      → PostSource, PostList, ImageStore protocols
 │   ├── adapters/                   → Naver blog (mobile page parser, post-list API), urllib HTTP
-│   └── cli.py                      → `rek fetch | prior | stats | repro-stats | profile-hash | source-sites | verify-summary | research-init | research-summary`
+│   └── cli.py                      → `rek fetch | prior | stats | repro-stats | profile-hash | source-sites | verify-summary | compare-summary | research-init | research-summary`
 ├── tests/                          → pytest; fixtures are real saved pages
 ├── runs/<post_id>/                 → data: post, trace files, units, repro/<n>/ attempts and their verification
 ├── research/<date>-<slug>/         → data: one new-topic research (topic.md, research.md, post.md, log.md, check.md)
-├── profiles/<author>/              → data: research-method, writing-structure, SKILL, holdout/<post_id>/ variants
+├── profiles/<author>/              → data: research-method, instances, writing-structure, SKILL, holdout/<post_id>/ variants
 └── docs/
     ├── architecture.md             → the two layers and how a post flows through the six stages
     ├── business-rules.md           → definitions, label rules, unit rules, reproduction rules, scoring rules
@@ -46,7 +46,7 @@ REK/
   source that was not opened and matched is never `[observed]`.
 - The reproduction worker is told nothing about the author; it never reads the original post, files of its run folder, or the content of
   pages published after `date:`; every fact in its post must trace to a source in its `research.md`.
-- `units.md` is fixed before a reproduction starts and never edited afterwards; it is the denominator of every score.
+- `units.md` is fixed before a reproduction starts and never edited afterwards; it is the denominator of every `verify-summary` score.
 - Pass/fail is computed by `rek verify-summary` (learning) or `rek research-summary` (new topic), never read from a worker's opinion; any deterministic count is code.
 - No author-specific name or rule outside `profiles/<author>/`.
 

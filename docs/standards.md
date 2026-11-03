@@ -7,6 +7,7 @@ This file lists only what breaks tests, makes test results untrustworthy, or sto
 - Python uses only the standard library. To add a dependency, list it in `pyproject.toml` and record the reason in `docs/tracking/decisions/`.
 - `rek/core/` knows nothing about the network or site names; its file access is confined to `run_dir.py`, `profile_hash.py` and `verify_summary.summarize`, and everything else in it is pure functions over strings and dicts. Site access is done by `rek/adapters/` implementing the protocols in `rek/ports/`. Only `cli.py` joins the two. If core imports adapters, that is a violation.
 - Calculations with a single correct answer (format statistics, reproduction aggregation, pass verdicts, hashes, the domain ledger) are done by code. A brief that makes workers count by hand and report is a violation. Workers run the command and paste its output.
+- The comparison worker's numbers (`comparison.md`) are judgments and an exception to this rule; `rek compare-summary` only copies them and issues no verdict.
 - Write tests before new features (`tests/`). Use real saved pages as fixed data (`tests/fixtures/`). Do not add tests that use the network.
 - The `≥` in threshold comparisons includes equality. Text after `## 작성 노트` (the writing-notes heading) is not counted in format statistics.
 
