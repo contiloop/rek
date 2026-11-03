@@ -60,7 +60,7 @@ profile_hash: ab12cd34ef56
 
 1. **Development of the original**: one row per unit, in order. Columns: D01… | name | direction (`뒤쪽`, `본 주제`, `앞쪽` or `계기`) | paragraph range.
 2. **Correspondence table**: one row per original unit. Columns: original unit | the matching paragraph of the reproduced post or `-` | the direction of that reproduced unit or `-` | covered / not covered | one-line basis. Below it, the **extra units**: one row per link of the reproduced post that fills no original unit. Columns: paragraph | name | direction.
-3. **Facts table**: one row per fact; the facts carried by image descriptions and by qualifiers (first, largest, only, next after, the most, record, and their Korean forms such as 최초, 최대, 유일, 다음으로, 가장, 사상 최고) come first. Columns: original value | reproduced value or `-` | same / different / absent. Note a unit or rounding difference here.
+3. **Facts table**: one row per fact; the facts carried by image descriptions and by qualifiers (first, largest, only, next after, the most, record, and their Korean forms such as 최초, 최대, 유일, 다음가는, 가장, 역대) come first. Columns: original value | reproduced value or `-` | same / different / absent. Note a unit or rounding difference here.
 4. **Depth**: backward and forward, the original's count and the reproduction's, and where the reproduced post went further than the original and where it went less far.
 5. **Fabrication list**: image descriptions and qualifiers first; for each item, the reproduced sentence and where in `research.md` you looked.
 6. **Contact check**: the result of reading `log.md` for (a), (b) and (c), page by page for every contact.

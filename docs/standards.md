@@ -25,7 +25,7 @@ This file lists only what breaks tests, makes test results untrustworthy, or sto
 ## Data and git
 
 - Do not put `runs/**/images/` and `runs/**/raw.html` into git. Put the other run files and the profiles in.
-- Reproductions accumulate by number in `repro/<n>/` and are never overwritten. Do not change `units.md` after a reproduction, except the one case in business-rules (a header-only file replaced by a full trace).
+- Reproductions accumulate by number in `repro/<n>/` and are never overwritten. Do not change `units.md` after a reproduction, except when a test-only run's header-only `units.md` is replaced by a full trace before the post becomes material, recorded in the run's `status.md`.
 - End each commit message with the line `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>`.
 
 ## Verification gate

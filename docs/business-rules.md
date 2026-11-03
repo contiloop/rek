@@ -29,6 +29,7 @@
 - The reproduction worker is told nothing about the author. It may not read any other file in that post's run folder or any profile file beyond the three it is given. The verifier marks the attempt invalid if the log shows a page on the author's domains (the `excluded_domains:` line in the `units.md` header, plus mirrors, caches and reposts) or a page that quotes the original was read down to the body.
 - The **content** of pages dated after `date:` may not be used. Opening such a page to check its date and then closing it is allowed. Record it as `[접촉]` (contact).
 - Every number, name, date, and event in the reproduced post must reach a source in `research.md`. The same holds for the descriptions of image placeholders.
+- The same holds for a qualifier (first, largest, only, next after, the most, record), a phrase that adds a reason, a time relation or a label to a fact, and an attribution or specific (who said or did it, an office, the year of a figure, a place name): each is written only as a source states it. Every image placeholder has an `image: <description> ← S<nn>` line in `research.md` whose sources state what the image shows.
 - Do not put labels or evidence marks in the post body. The mapping from sentences to sources lives only in `research.md`.
 - Use Chrome normally only after a fetch has failed, read-only, and by one worker at a time (folder lock `runs/.chrome.lock`: wait up to 10 minutes, polling every 30 seconds; delete a lock older than 30 minutes; read one page and release the lock at once).
 
