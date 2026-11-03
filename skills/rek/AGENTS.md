@@ -28,8 +28,9 @@ Fetching or counting (the `rek` commands do that); storing knowledge about a spe
   statement, write only the named files, report paths and counts.
 - Workers for different posts run in parallel; two workers never work on the same run at the same time; the orchestrator
   reads `status.md` before launching.
-- Launch workers with `model: opus`, `effort: max`; when the plugin agent names are not available, launch a
-  general-purpose agent with the agent body pasted in and the brief path given.
+- The model and effort in a worker definition are defaults; the orchestrator may launch a worker with another model or
+  effort. When the plugin agent names are not available, launch a general-purpose agent with the model and effort of the
+  matching agent definition, the agent body pasted in and the brief path given.
 
 ## Tests
 No automated tests. Check a brief change by grepping for the strings the counters and the verifier depend on (see

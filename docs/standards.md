@@ -13,7 +13,7 @@ This file lists only what breaks tests, makes test results untrustworthy, or sto
 ## Briefs and agents
 
 - No brief or code may contain the name or rules of a specific author. Author-specific content goes only inside `profiles/<author>/`. To check, `grep -ril "<author name>" skills agents rek` must return nothing.
-- Every worker agent uses `model: opus` and `effort: max`. The orchestrator does not analyze.
+- The model and effort in a worker definition are defaults. The orchestrator may launch a worker with another model or effort. The orchestrator does not analyze.
 - Script paths inside briefs take the form `${CLAUDE_PLUGIN_ROOT}/skills/rek/references/<file>` and `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek …`. Paths relative to the working folder, or absolute paths, break in other folders.
 - Write the Chrome lock, status logging, and label definitions only in `skills/rek/references/evidence.md`. Other briefs refer to it.
 - `verification.md` **starts** with 11 yaml keys (`units_total, units_found, rare_total, rare_found, upstream_total, upstream_found,
