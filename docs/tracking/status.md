@@ -28,7 +28,7 @@ Failure responsibility (round 1 total): method extraction 54, reproduction 38, s
 
 ### Generalized profile (53 move-level rules; workers at effort high; two new posts, compared on the final post, no source matching)
 
-`uv run rek compare-summary runs/`:
+`uv run rek compare-summary runs/` as printed at that time (the command's line format changed in the depth cycle; these files now print as "old format, no verdict"):
 
 ```
 223137359486 | units 6/22 | facts 16/142 (conflict 7) | fabricated 5 | depth 17→12 | extra 11 | valid | cb903f4d4ad0
@@ -59,6 +59,8 @@ There is no pass line for these two. The reports are `runs/<id>/repro/1/comparis
 | 체코원전 시공계약이 깨진 비밀 (224458617394, 2026-10-31, energy) | 1 | 6→10 | 9→13 | 9/20 | 31/2 | 4 (a coin's other name, a trade route, a causal clause, an offer by a deadline) | researcher brief: connective phrases are facts |
 | | 2 | 6→12 | 11→13 | 12/21 | 28/4 | 1 (an image description, cooling towers, not stated by its source) | researcher brief: image sources must state what the image shows |
 | | 3 | 9→15 | 8→12 | 13/22 | 33/3 | 2 ("spa town"; a given name and a ministry) | budget exhausted |
+
+Researcher-brief version used by each attempt (commit on this branch): housing 1 and nuclear 1 — 5859c1c; housing 2 — cac0685; nuclear 2 — 7c76bee; housing 3 — 7c76bee (095398a landed minutes after it started); nuclear 3 — 095398a. Each post's later attempts therefore also carried the amendments made for the other post's routing. The comparator brief and the profile were unchanged throughout.
 
 Every attempt was valid (no author-domain contact, no post-date content used). Depth passed in both directions on all six attempts; the pass line failed each time on fabrication alone, and the routing named the reproduction stage every time (the profile was never routed for a pass-line condition). The `units_total` of the original differs between attempts because each comparison worker splits the original anew.
 
