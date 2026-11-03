@@ -2,7 +2,7 @@
 
 ## Scope
 Fetching posts into run folders, finding the author's earlier posts, form statistics, reproduction counts, the pass/fail
-summary, the comparison table (copied values, no verdict), profile hashes and the source-site ledger. Nothing that requires judgment: no claim extraction, no source
+summary, the comparison table (copied values plus the depth pass line), profile hashes and the source-site ledger. Nothing that requires judgment: no claim extraction, no source
 matching, no scoring decisions beyond the fixed thresholds.
 
 ## Not this package's job
