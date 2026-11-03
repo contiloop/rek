@@ -36,7 +36,8 @@ Rules are made only from `move:` and `reason:` lines. Instances go down into the
 A **rule sentence** is the heading line of a rule in `research-method.md`, any instruction sentence, and every line of `SKILL.md`. A rule sentence contains:
 
 - no proper noun: no person, company, institution, outlet, website, country, region, vessel, or product name;
-- no domain noun: no industry, commodity, or resource name (for example fishery, LNG, vessel, rare earth) and no domain unit (for example Mtpa, barrel, tonne).
+- no domain noun: no industry, commodity, or resource name (for example fishery, LNG, vessel, rare earth) and no domain unit (for example Mtpa, barrel, tonne);
+- no kind of endpoint: a stop condition does not name the kind of event, document or actor where a chain ends (not "a war", "a law", "a person"). State how far to go as a move: what to keep asking, until what kind of answer.
 
 These nouns are allowed only on evidence lines (`- evidence:`, `- why:`, `- try:`) and in `instances.md`.
 
@@ -74,6 +75,8 @@ If you cannot instantiate a rule on a test topic, the rule is still at the level
 Put two lines at the top: `author:` (the `<author>` name of the profile folder, as given in the prompt) and `built_from:` (the run ids, separated by commas). If you replaced a test topic, write that next. Then the rule ledger, in seven layers. For a layer with no evidence, write "no evidence" and leave it empty. The number of rules is not fixed.
 
 Stop conditions are meaning conditions only, for example "stop when the next step no longer explains the present state better" or "stop when you have one money figure, one home-country fact, and one next deadline". Never write a stop as a count or as a percentage of the unit count. Measured values (hours, depths, counts, shares) go on evidence lines or into `instances.md`, not into rule sentences.
+
+For the B and F layers, take the stop condition of each chain from the evidence of where the author actually stopped in every material post: the farthest backward unit and the farthest forward unit in each `units.md`. Write the stop as a general move that reaches at least that far in every post. A stop may not be weaker than the evidence: if the author goes past the point where the present is explained, the rule says to go past it, in general terms (for example "keep asking what came before that until the answer is a change that started the subject's present form, even when the present is already explained"). Put each post's farthest unit on an `- evidence:` line under the rule. The example stop above ("stop when the next step no longer explains the present state better") fits B or F only when the evidence shows the author stopped there.
 
 1. **계기 (trigger) (T)**: What kind of event, appearing in which kind of medium, becomes a post, and how fast? For a post with no event (a series or a seasonal subject), what is the trigger? Evidence: the Trigger and Timeline sections of `research-path.md` and the image upload times in `meta.json`.
 2. **뒤쪽 (back) expansion (B)**: How does the author go down from the main topic into history, origin, and background? Which questions does the author ask (for example, "how did the main subject come to have its present owner?")? Which kinds of sources does the author go to (wikis, history books, long features)? Where does the author stop? Evidence: the units placed before the trigger in `units.md` and their sources.
@@ -113,7 +116,7 @@ Frontmatter: `name: <author>-research`, `description:` (one sentence). The body 
 3. Put it in the frame: follow `writing-structure.md`, and state that it is optional.
 4. Self-check: end with the N rules and "no fact that is not in research.md".
 
-Every line of `SKILL.md` is a rule line, so Step 3 applies to every line: the questions, the templates, and the stop conditions. End each line with the label and the id of the rule it comes from (for example `[observed: B2]`). Examples are slot templates only. Do not copy sentences, numbers, or names from the author's posts. `SKILL.md` must be shorter than the `SKILL.md` you are replacing (run `wc -l` on it before you overwrite it; if there is none, keep it as short as the steps allow).
+Every line of `SKILL.md` is a rule line, so Step 3 applies to every line: the questions, the templates, and the stop conditions. End each line with the label and the id of the rule it comes from (for example `[observed: B2]`). Examples are slot templates only. Do not copy sentences, numbers, or names from the author's posts. `SKILL.md` must be no longer than 188 lines (the length of the first, instance-level profile); check it with `wc -l` after you write it.
 
 ## Language
 
@@ -125,12 +128,13 @@ Write all four files in English. Keep quotations in their original language.
 - [ ] Every rule heading in `research-method.md` has the form `### <id>: <one sentence> <label>`, and every line under it starts with `- evidence:`, `- why:`, or `- try:`.
 - [ ] Every rule has a `- try:` line for each of the two test topics.
 - [ ] Every rule heading and every `SKILL.md` line passed the noun check (Step 3), including the words outside template slots.
-- [ ] No stop condition is a count or a percentage; no rule assumes the author wrote about the topic before.
+- [ ] No stop condition is a count or a percentage, and none names a kind of endpoint (an event, document or actor kind); each states what to keep asking until what kind of answer. No rule assumes the author wrote about the topic before.
+- [ ] Every B and F stop reaches at least as far as the farthest backward and the farthest forward unit in every `units.md`.
 - [ ] A rule is `[observed]` only if every traced post supports it; otherwise `[inferred: <post ids>]`.
 - [ ] Quotations are 40 words or fewer, in the original language, only on evidence lines and in `instances.md`.
 - [ ] The first line of `instances.md` is the hints sentence; it has no author name and no blog address.
 - [ ] `writing-structure.md` starts with `optional: true` and holds no measured values.
-- [ ] `SKILL.md` is shorter than the one it replaced.
+- [ ] `SKILL.md` is no longer than 188 lines (`wc -l`).
 
 ## Completion report
 
