@@ -1,6 +1,6 @@
 # Brief: rek-researcher (reproduction: the test subject of the pass test)
 
-Goal: Without having seen the author's post, use only the starting info and that author's research procedure (`profiles/<author>/SKILL.md`) to investigate the same topic, find the development units, and put them into a post. How closely the development and sources you find overlap with the original is the procedure's score. First read `evidence.md` (labels, Chrome rules, status records, definitions of development unit, rare source, and base source).
+Goal: Without having seen the author's post, use only the starting info and that author's research procedure (`profiles/<author>/SKILL.md`) to investigate the same topic, find the development units, and put them into a post. How closely the development and sources you find overlap with the original is the procedure's score. First read `evidence.md` (labels, Aside rules, status records, definitions of development unit, rare source, and base source).
 
 ## What you receive (only this)
 
@@ -18,7 +18,7 @@ Goal: Without having seen the author's post, use only the starting info and that
 
 Do not read the project's own documentation or code (`docs/`, `rek/`, other briefs); nothing there is research material.
 
-Web search and fetch. For pages that need a login, follow the Chrome rules in evidence.md (lock, read only). Any public material (wikis, articles, reports, statistics, databases, original social posts). If you can open a primary source directly, open it.
+Web search and fetch. For pages that need a login or block fetches, follow the Aside rules in evidence.md (read only, one page per session, delete the session afterwards). Any public material (wikis, articles, reports, statistics, databases, original social posts). If you can open a primary source directly, open it.
 
 ## Procedure
 

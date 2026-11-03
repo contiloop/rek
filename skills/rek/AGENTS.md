@@ -9,7 +9,7 @@ Fetching or counting (the `rek` commands do that); storing knowledge about a spe
 `profiles/<author>/`); deciding pass/fail (computed by `rek verify-summary` and `rek research-summary`).
 
 ## Invariants
-- `references/evidence.md` is the single home of the three labels, the Chrome lock protocol, the status-line format and
+- `references/evidence.md` is the single home of the three labels, the Aside rules for login-walled pages, the status-line format and
   the definitions of development unit, rare source and upstream source. Other briefs refer to it; they do not restate it.
 - Every brief names exactly the files its worker may write and the folder it may write them in. A worker that writes
   elsewhere, reads a forbidden file or runs git is a brief defect, not a worker quirk.

@@ -77,4 +77,4 @@ Routing items outside the pass line (coverage of original units, reported only):
 
 ## Blocked
 
-None. The problem of the Chrome extension tools not being visible to subagents is in `findings.md`.
+None. Login-walled pages now go through Aside; whether workers reach them that way is untested (`findings.md`).

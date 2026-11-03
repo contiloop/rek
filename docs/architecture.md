@@ -40,5 +40,5 @@ Dependencies point only downward. `core` knows nothing about the network or site
 ## What crosses the boundary
 
 - Plugin → working folder: only `runs/` and `profiles/` files. The plugin folder never receives data.
-- Worker → web: search, fetch, and (if available) the user's logged-in Chrome. Read-only.
+- Worker → web: search, fetch, and Aside (the user's browser agent) for login-walled pages. Read-only.
 - The reproduction worker receives only the four lines of starting information, the profile folder, and the folder to write to. It does not receive the original post, the tracing files, or the author's blog.

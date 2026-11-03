@@ -31,7 +31,7 @@
 - Every number, name, date, and event in the reproduced post must reach a source in `research.md`. The same holds for the descriptions of image placeholders.
 - The same holds for a qualifier (first, largest, only, next after, the most, record), a phrase that adds a reason, a time relation or a label to a fact, and an attribution or specific (who said or did it, an office, the year of a figure, a place name): each is written only as a source states it. Every image placeholder has an `image: <description> ← S<nn>` line in `research.md` whose sources state what the image shows.
 - Do not put labels or evidence marks in the post body. The mapping from sentences to sources lives only in `research.md`.
-- Use Chrome normally only after a fetch has failed, read-only, and by one worker at a time (folder lock `runs/.chrome.lock`: wait up to 10 minutes, polling every 30 seconds; delete a lock older than 30 minutes; read one page and release the lock at once).
+- Use Aside only after a fetch has failed, read-only, one page per session, and delete the session when the work is done. The `[크롬]` log marker records an Aside use.
 
 ## Scoring rules
 

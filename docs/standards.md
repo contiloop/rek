@@ -17,7 +17,7 @@ This file lists only what breaks tests, makes test results untrustworthy, or sto
 - A profile rule sentence (a `### <id>: …` heading in `research-method.md`, any line of `SKILL.md`) carries no proper noun and no domain noun of the material posts; such nouns live only on `- evidence:` / `- why:` / `- try:` lines and in `instances.md`. The check is the method-extraction worker's self-check (the brief's closing checklist); no code enforces it. After a re-extraction the orchestrator greps the heading lines and `SKILL.md` for the material posts' nouns and must find none.
 - The model and effort in a worker definition are defaults. The orchestrator may launch a worker with another model or effort. The orchestrator does not analyze.
 - Script paths inside briefs take the form `${CLAUDE_PLUGIN_ROOT}/skills/rek/references/<file>` and `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek …`. Paths relative to the working folder, or absolute paths, break in other folders.
-- Write the Chrome lock, status logging, and label definitions only in `skills/rek/references/evidence.md`. Other briefs refer to it.
+- Write the Aside rules, status logging, and label definitions only in `skills/rek/references/evidence.md`. Other briefs refer to it.
 - `verification.md` **starts** with 11 yaml keys (`units_total, units_found, rare_total, rare_found, upstream_total, upstream_found,
   fabricated, numbers_total, numbers_exact, profile_hash, verifier_verdict`). The canonical example block is `tests/fixtures/verification_example.md`, and briefs copy it.
 - Do not put labels or evidence marks in the body of a reproduced post.

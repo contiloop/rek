@@ -10,7 +10,7 @@ Every command has the form `rek <subcommand> …`. On failure it exits with code
 - `stats <post.md>…`: JSON. Keys `sentences, numbered_items, max_item_number, numbering_gaps, mean_sentence_chars,
   noun_ending_share, da_ending_share, sentences_with_number_share, images, has_one_liner, one_liner_chars, first_line`.
 - `repro-stats <repro_dir>`: JSON. Keys `units, units_by_direction, sources, primary, secondary, searches, pages, chrome,
-  contacts`. A unit is an `R<nn> | …` line (the leading `|` is optional). A source is an `S<nn>` line or a list line that starts with a URL in the `## 출처 목록` (source list) section. Records are counted by the line prefixes `[검색] [열람] [크롬] [접촉]` (search, page read, Chrome use, contact).
+  contacts`. A unit is an `R<nn> | …` line (the leading `|` is optional). A source is an `S<nn>` line or a list line that starts with a URL in the `## 출처 목록` (source list) section. Records are counted by the line prefixes `[검색] [열람] [크롬] [접촉]` (search, page read, Aside use, contact).
 - `profile-hash <dir>`: the first 12 characters of the sha256 of `SKILL.md`, `research-method.md` and `instances.md` joined together in that order. Exits with 2 and `missing profile file: <path>` if one is missing.
 - `source-sites <runs_dir>`: a markdown table. Columns `도메인 | 글 수 | 출처 수 | 희귀 | 바탕 | 발행처 | 예시 URL`.
 - `verify-summary <runs_dir> [--criteria author|own]`: a table and `overall: pass|fail (n/m pass)`. Exits with 0 if all pass, otherwise 1.

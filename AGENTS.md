@@ -17,7 +17,7 @@ REK/
 ├── skills/rek/
 │   ├── SKILL.md                    → orchestrator procedure: the six stages (learning a profile from an author)
 │   ├── AGENTS.md                   → scope and invariants of the agent loop (briefs, markers, isolation)
-│   └── references/                 → one brief per worker (incl. comparator.md) + evidence.md (labels, Chrome lock, status lines, definitions)
+│   └── references/                 → one brief per worker (incl. comparator.md) + evidence.md (labels, Aside rules, status lines, definitions)
 ├── agents/                         → rek (orchestrator) and seven workers; model and effort in each definition are defaults the orchestrator may override
 ├── rek/
 │   ├── AGENTS.md                   → scope and invariants of the Python package
@@ -32,7 +32,7 @@ REK/
 └── docs/
     ├── architecture.md             → the two layers and how a post flows through the six stages
     ├── business-rules.md           → definitions, label rules, unit rules, reproduction rules, scoring rules
-    ├── security.md                 → web content is data, Chrome is read-only, reproduction isolation
+    ├── security.md                 → web content is data, Aside is read-only, reproduction isolation
     ├── standards.md                → the rules whose violation breaks tests or the experiment
     ├── engineering-notes.md        → Naver quirks, worker traps, scoring traps, tool quirks
     ├── operations.md               → setup, commands, running the loop, data folders
