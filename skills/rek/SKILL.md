@@ -68,8 +68,11 @@ When a new post is only to be reproduced and compared with the original, not tra
    - `date:` the `published_at` of `meta.json` (such as "2026. 6. 14. 0:10") converted to `YYYY-MM-DD HH:MM KST`.
    Choosing `main_topic:` and `trigger:` is the only judgment the orchestrator makes, and the one exception to "the orchestrator does not analyze".
 3. Prepare `repro/<n>/` as in step 4 (number, `profile_hash.txt`, the four lines `main_topic:`, `trigger:`, `date:`, `language:`) and launch `rek-researcher`.
-4. Launch `rek-comparator` with the run directory, `repro/<n>/` and the brief path `${CLAUDE_PLUGIN_ROOT}/skills/rek/references/comparator.md`. Do not pass the profile path. Output: `repro/<n>/comparison.md`.
-5. Run `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek compare-summary runs/` and report its lines. They are the comparator's numbers, copied; there is no pass line.
+4. Launch `rek-comparator` with the run directory, `repro/<n>/`, the brief path `${CLAUDE_PLUGIN_ROOT}/skills/rek/references/comparator.md` and `profiles/<author>/research-method.md` (nothing else of the profile). Output: `repro/<n>/comparison.md`.
+5. Run `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek compare-summary runs/` and report its lines. Each run gets a verdict: pass = the attempt is valid, `fabricated` is 0, the backward depth is at least the original's, and the forward depth is at least the original's. The command exits with 1 when any run fails. On a fail, follow the routing in that run's `comparison.md` (body section 8):
+   - A reproduction fix: rerun that post into `repro/<n+1>/` (steps 3–5).
+   - A method-extraction fix: wait until no worker is running on any post, merge the routings of all failing posts into one brief amendment and one re-extraction, record the old and the new profile hash (they must differ), then rerun every test post.
+   At most three attempts per post; then report to the user.
 
 The verifier is not run on such a run, and `rek verify-summary` shows it as 미실행/불완전, which is correct.
 
