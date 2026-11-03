@@ -47,5 +47,4 @@ runs/<post_id>/   post.md  meta.json  images/(excluded from git)  raw.html(exclu
                 repro/<n>/  profile_hash.txt  research.md  post.md  log.md  verification.md  comparison.md
 research/<date>-<slug>/  topic.md  profile_hash.txt  research.md  post.md  log.md  check.md  status.md
 profiles/<author>/  research-method.md  instances.md  writing-structure.md  SKILL.md  status.md  source-sites.raw.md
-                  holdout/<post_id>/  (profile variant with that post's traces removed)
 ```

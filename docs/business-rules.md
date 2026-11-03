@@ -49,4 +49,4 @@
 
 ## When a new post arrives
 
-Reproduce and score a new post first with the current profile (hold-out). Then trace it and feed it into profile re-extraction. The profile is rebuilt every time from all runs of that author. The profile used for scoring is recorded as `profile_hash` (the first 12 characters of the sha256 of SKILL.md + research-method.md). When testing a post with a profile built from that same post, use the variant `profiles/<author>/holdout/<post_id>/`, which has the traces of that post removed.
+Reproduce and score a new post first with the current profile, before it becomes profile material. Then trace it and feed it into profile re-extraction. The profile is rebuilt every time from all runs of that author. The profile used for scoring is recorded as `profile_hash` (the first 12 characters of the sha256 of SKILL.md + research-method.md + instances.md). Hold-out variants are no longer used: a new post is tested before it enters the material, so no variant with its traces removed is needed.
