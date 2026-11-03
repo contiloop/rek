@@ -5,3 +5,4 @@ __pycache__/
 runs/**/images/
 runs/**/raw.html
 .dryforge/
+.DS_Store
