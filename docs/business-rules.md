@@ -20,7 +20,7 @@
 
 ## Development unit rules
 
-- Fix `units.md` before starting reproduction, and do not change it after seeing the reproduction result. It is the denominator of the score.
+- Fix `units.md` before starting reproduction, and do not change it after seeing the reproduction result. It is the denominator of the score. The one exception: the header-only `units.md` of a test-only run may be replaced by a full trace when the post becomes profile material, and the replacement is recorded in the run's `status.md`. No other edit after a reproduction.
 - Units that came from a prior post by the author stay in the denominator. The reproduction cannot see the author's posts, so it must reach that link through other sources.
 - A unit whose source is `-` cannot be "found". If such a unit exists, strengthen the source tracing and attach an external source. (In all three posts, units that had relied only on prior posts by the author did get original sources such as 나무위키 (Namuwiki), op-eds, and company histories.)
 
@@ -50,8 +50,8 @@
 ## Comparison rules (test-only run of a new post)
 
 - A test-only run has a `units.md` with only the four header lines (`main_topic`, `excluded_domains`, `trigger`, `date`), written by the orchestrator; it is not a `verify-summary` denominator, and `rek verify-summary` shows such a run as 미실행/불완전.
-- The comparison worker reads the original post and the reproduction and writes `comparison.md`: it splits the original into development units itself, counts the units the reproduction covers by substance alone (same event, causation or contrast; a shared keyword is not covered; sources are not compared), counts the original's facts (numbers, names, dates, events) that the reproduction states with the same value and those it states with a different value, counts the reproduction's facts that reach no source in its `research.md` (fabrication, the same definition as the verifier's), measures depth as steps before plus steps after the main topic for both posts, and counts the reproduction's links the original lacks. Ambiguous cases count against the reproduction.
-- A comparison is not a verdict. There is no pass line; `rek compare-summary` copies the worker's values into one line per run and exits 0. The invalidity branches (author-domain contact, use of post-date content, a late source in the list) are the same as the verifier's and are checked by the comparison worker.
+- The comparison worker reads the original post and the reproduction and writes `comparison.md`: it splits the original into development units itself, counts the units the reproduction covers by substance alone (same event, causation or contrast; a shared keyword is not covered; sources are not compared), counts the original's facts (numbers, names, dates, events) that the reproduction states with the same value and those it states with a different value, counts the reproduction's facts that reach no source in its `research.md` (fabrication, the same definition as the verifier's), measures backward and forward depth separately for both posts, and counts the reproduction's links the original lacks. Ambiguous cases count against the reproduction.
+- Pass (`rek compare-summary`): the attempt is valid, `fabricated` is 0, the backward depth is at least the original's, and the forward depth is at least the original's (`≥` includes equality). Broader is allowed: units covered, facts and extra units are reported but never count against the reproduction. Depth is counted per direction from the worker's unit lists: the units marked `뒤쪽` and those marked `앞쪽`, every unit of a branching chain included. On a fail, the worker's failure routing names the stage to fix (method extraction or reproduction). The invalidity branches (author-domain contact, use of post-date content, a late source in the list) are the same as the verifier's and are checked by the comparison worker.
 
 ## When a new post arrives
 

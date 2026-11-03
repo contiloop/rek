@@ -46,8 +46,8 @@ REK/
   source that was not opened and matched is never `[observed]`.
 - The reproduction worker is told nothing about the author; it never reads the original post, files of its run folder, or the content of
   pages published after `date:`; every fact in its post must trace to a source in its `research.md`.
-- `units.md` is fixed before a reproduction starts and never edited afterwards; it is the denominator of every `verify-summary` score.
-- Pass/fail is computed by `rek verify-summary` (learning) or `rek research-summary` (new topic), never read from a worker's opinion; any deterministic count is code. A comparison of a reproduced post with its original (`rek compare-summary`) carries no verdict: its numbers are the comparison worker's judgment, copied, never computed.
+- `units.md` is fixed before a reproduction starts and never edited afterwards, except when a header-only test file is replaced by a full trace before the post becomes material; it is the denominator of every `verify-summary` score.
+- Pass/fail is computed by `rek verify-summary` (learning), `rek research-summary` (new topic) or `rek compare-summary` (test of a new post), never read from a worker's opinion; any deterministic count is code. The comparison worker's numbers are its judgment, copied; only the pass line is computed from them.
 - No author-specific name or rule outside `profiles/<author>/`.
 
 ## Before you work

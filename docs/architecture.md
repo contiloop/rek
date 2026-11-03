@@ -14,7 +14,7 @@ The two layers connect only through files in the working folder (`runs/`, `profi
 6. The verification worker (`rek-verifier`) compares `units.md` and `sources.md` with `repro/<n>/` and writes `verification.md` (11 yaml keys at the very top).
 7. `rek verify-summary runs/` reads the `verification.md` with the highest number and prints the table and the pass/fail result. Only code makes the verdict.
 
-A test-only run (a new post reproduced without tracing) skips 2–4 and 6: the orchestrator writes the four header lines of `units.md`, the reproduction runs as in 5, the comparison worker (`rek-comparator`) writes `comparison.md` (development, facts and depth against the original; 11 yaml keys at the very top), and `rek compare-summary runs/` copies its numbers into one line per run, with no verdict.
+A test-only run (a new post reproduced without tracing) skips 2–4 and 6: the orchestrator writes the four header lines of `units.md`, the reproduction runs as in 5, the comparison worker (`rek-comparator`, which also reads the profile's `research-method.md` to route failures) writes `comparison.md` (development, facts and backward and forward depth against the original; 13 yaml keys at the very top), and `rek compare-summary runs/` copies its numbers into one line per run with a verdict: pass when the attempt is valid, nothing is fabricated and both depths reach the original's.
 
 ## Flow (new topic, the product use)
 

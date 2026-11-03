@@ -138,8 +138,9 @@ def cmd_compare_summary(args) -> int:
                 continue
             with open(path, encoding="utf-8") as f:
                 runs.append((name, f.read()))
-    print(compare_summary.render(runs), end="")
-    return 0
+    text, all_pass = compare_summary.render(runs)
+    print(text, end="")
+    return 0 if all_pass else 1
 
 
 def cmd_repro_stats(args) -> int:
@@ -228,7 +229,7 @@ def main(argv: list[str] | None = None) -> int:
     vs.add_argument("runs_dir")
     vs.add_argument("--criteria", choices=["author", "own"], default="author", help="author = reference-author thresholds (90/80/upstream/0); own = valid, no fabrication, full chain, enough sources")
     vs.set_defaults(func=cmd_verify_summary)
-    cs = sub.add_parser("compare-summary", help="one line per run from the latest repro/<n>/comparison.md; copies the worker's values, no verdict")
+    cs = sub.add_parser("compare-summary", help="one line per run from the latest repro/<n>/comparison.md with its pass line; exit 1 if any run fails")
     cs.add_argument("runs_dir")
     cs.set_defaults(func=cmd_compare_summary)
     ss = sub.add_parser("source-sites", help="registered-domain ledger from every runs/<id>/sources.md")

@@ -25,7 +25,7 @@ To use the plugin in one session without installing it, run `claude --plugin-dir
 | `uv run rek profile-hash profiles/<author>` | Profile version identifier (first 12 characters of the sha256 of `SKILL.md`, `research-method.md`, `instances.md`). |
 | `uv run rek source-sites runs/` | A table of the sources of all traces, grouped by registered domain. |
 | `uv run rek verify-summary runs/ [--criteria author\|own]` | Pass table. Exit code 0 = all pass. A test-only run (header-only `units.md`, no verification.md) shows as 미실행/불완전 and makes the overall result fail; score such a run with `rek compare-summary` instead. |
-| `uv run rek compare-summary runs/` | One line per run from the latest `comparison.md` (units, facts, fabrications, depth, extra links, validity, profile hash). Copies the comparator's numbers; no verdict, exit code always 0. |
+| `uv run rek compare-summary runs/` | One line per run from the latest `comparison.md` (pass line, backward and forward depth, units, facts, fabrications, extra links, validity, profile hash). Copies the comparator's numbers and computes the pass line; exit 0 = all pass. An old 11-key file shows "old format, no verdict" and does not affect the exit code. |
 | `uv run rek research-init "<topic>" --profile profiles/<author> [--trigger "..."] [--date "..."]` | Create `research/<date>-<slug>/` with the five start lines and the profile hash. |
 | `uv run rek research-summary research/<name>` | Pass line of one new-topic research. Exit code 0 = pass. |
 
