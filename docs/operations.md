@@ -42,7 +42,8 @@ In Claude Code, run `/rek:research <topic>` with the trigger sentence if there i
 ## Data folders
 
 ```
-runs/<post_id>/   post.md  meta.json  images/(excluded from git)  raw.html(excluded from git)  prior/<id>/  status.md
+runs/<post_id>/   (the whole folder is local only, excluded from git)
+                post.md  meta.json  images/  raw.html  prior/<id>/  status.md
                 claims.md  sources.md  research-path.md  units.md
                 repro/<n>/  profile_hash.txt  research.md  post.md  log.md  verification.md  comparison.md
 research/<date>-<slug>/  topic.md  profile_hash.txt  research.md  post.md  log.md  check.md  status.md

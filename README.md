@@ -70,8 +70,7 @@ author's posts and (re)builds the profile the research side uses.
 
 ## Data
 
-`runs/` (the traced posts, their sources and the reproduction attempts) stays out of the public repository: it
-holds full copies of a third party's posts. Running the loop recreates it in your working folder. The profile
+`runs/` (the traced posts, their sources, the reproduction attempts and their comparisons) is excluded from git as a whole: it holds full copies of a third party's posts. Running the loop recreates it in your working folder; the scores are in `docs/tracking/status.md`. The profile
 under `profiles/reference-a/` keeps only short quotations as evidence.
 
 ## Run
