@@ -1,7 +1,7 @@
 # skills/rek/ and agents/ — the agent loop
 
 ## Scope
-The two orchestrator procedures (`SKILL.md` here for learning a profile; `../research/SKILL.md` for researching a new topic), the seven briefs under `references/` and the agent definitions under `../agents/`.
+The two orchestrator procedures (`SKILL.md` here for learning a profile; `../research/SKILL.md` for researching a new topic), the seven worker briefs and `evidence.md` under `references/` and the agent definitions under `../agents/`.
 These files are instructions; they contain no author name, no run data and no results.
 
 ## Not this part's job

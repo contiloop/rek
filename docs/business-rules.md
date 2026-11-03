@@ -47,6 +47,12 @@
 - Pass (`rek research-summary`): at least one unit in each of `뒤쪽`, `본 주제`, `앞쪽`; at least 20 sources with at least 5 primary; `fabricated` 0; `late_sources` 0. The checker's opinion is shown next to it and never decides.
 - Fabrication and late-source failures go back to the researcher on the same folder; chain and source failures are profile gaps and go back to `/rek:rek` (method extraction).
 
+## Comparison rules (test-only run of a new post)
+
+- A test-only run has a `units.md` with only the four header lines (`main_topic`, `excluded_domains`, `trigger`, `date`), written by the orchestrator; it is not a `verify-summary` denominator, and `rek verify-summary` shows such a run as 미실행/불완전.
+- The comparison worker reads the original post and the reproduction and writes `comparison.md`: it splits the original into development units itself, counts the units the reproduction covers by substance alone (same event, causation or contrast; a shared keyword is not covered; sources are not compared), counts the original's facts (numbers, names, dates, events) that the reproduction states with the same value and those it states with a different value, counts the reproduction's facts that reach no source in its `research.md` (fabrication, the same definition as the verifier's), measures depth as steps before plus steps after the main topic for both posts, and counts the reproduction's links the original lacks. Ambiguous cases count against the reproduction.
+- A comparison is not a verdict. There is no pass line; `rek compare-summary` copies the worker's values into one line per run and exits 0. The invalidity branches (author-domain contact, use of post-date content, a late source in the list) are the same as the verifier's and are checked by the comparison worker.
+
 ## When a new post arrives
 
 Reproduce and score a new post first with the current profile, before it becomes profile material. Then trace it and feed it into profile re-extraction. The profile is rebuilt every time from all runs of that author. The profile used for scoring is recorded as `profile_hash` (the first 12 characters of the sha256 of SKILL.md + research-method.md + instances.md). Hold-out variants are no longer used: a new post is tested before it enters the material, so no variant with its traces removed is needed.

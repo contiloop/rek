@@ -3,7 +3,7 @@
 A single-user local tool, packaged as a Claude Code plugin. Given the URL of a published post, it traces every claim to
 its sources, reconstructs how the author researched the piece, distills that into a research procedure another agent can
 run, and tests the procedure by giving a fresh agent only the topic, one trigger sentence and the date. Python does only
-the deterministic part (fetch, counts, pass/fail); every judgment runs in an Opus worker with a written brief. One reference
+the deterministic part (fetch, counts, pass/fail); every judgment runs in a worker with a written brief (model and effort are defaults in its definition). One reference
 author (a Korean economics blogger, profile `reference-a`) has been traced so far; the loop itself knows no author.
 The product use is `/rek:research`: a new topic, researched with that profile and written up, checked by the project's own criteria.
 
@@ -47,7 +47,7 @@ REK/
 - The reproduction worker is told nothing about the author; it never reads the original post, files of its run folder, or the content of
   pages published after `date:`; every fact in its post must trace to a source in its `research.md`.
 - `units.md` is fixed before a reproduction starts and never edited afterwards; it is the denominator of every `verify-summary` score.
-- Pass/fail is computed by `rek verify-summary` (learning) or `rek research-summary` (new topic), never read from a worker's opinion; any deterministic count is code.
+- Pass/fail is computed by `rek verify-summary` (learning) or `rek research-summary` (new topic), never read from a worker's opinion; any deterministic count is code. A comparison of a reproduced post with its original (`rek compare-summary`) carries no verdict: its numbers are the comparison worker's judgment, copied, never computed.
 - No author-specific name or rule outside `profiles/<author>/`.
 
 ## Before you work

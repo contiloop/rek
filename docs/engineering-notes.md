@@ -19,6 +19,10 @@
 - If you test a post with a profile built from that same post, the quotes and source names inside the profile give away the answer. In the round 1 test, almost all the units that were found had been exposed in the profile. You must strip that post's traces with a hold-out variant.
 
 ## Scoring
+- The method-extraction worker, told to write a 40-word quotation under every rule, writes rules at the level of the quotation (the posts' own nouns and ratios). Separating instance / move / reason lines and forbidding nouns in rule sentences brought 64 instance rules down to 53 move rules in one run; the worker itself replaced a test topic that was too close to a material post. The noun grep after a run (material nouns against `^### ` lines and `SKILL.md`) is the cheap check.
+- A reproduction worker given a 2023 date works: it reads Wikipedia revisions before the date through the MediaWiki API and Wayback snapshots for wikis, and records post-date search results as contacts without opening them. The cost is contacts, not invalid attempts (5 contacts, 0 invalid on the 2023 post).
+- The comparison worker splits an original into more units than a tracer does (22 and 24 against the tracer's 17–20) because it cuts at every topic change inside a long passage; `units_total` from different workers is not comparable across runs.
+- Fabrications in reproduced posts are mostly image-caption names and qualifiers ("first", "largest", "next after") that no source states; the researcher brief forbids unsourced facts but the worker treats captions and qualifiers as framing.
 
 - A development unit that relied only on a prior post by the author cannot meet the "same primary source" condition, so it can never be found. In the tracing reinforcement, find and attach the original source of that old post (a 나무위키 (Namuwiki) document, an op-ed, a company history). Only then is the denominator fair.
 - The descriptions of image placeholders are also subject to the fabrication check. Both fabrications in the first reproduction of the 고등어 (Godeungeo) post were invented events inside image descriptions.
