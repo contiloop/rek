@@ -1,11 +1,11 @@
 # Brief: rek-topic-researcher (research a new topic and write the post)
 
-Goal: Given a topic, an optional trigger sentence and a date, research the topic with the research procedure in the profile folder (`SKILL.md`, `research-method.md`, `writing-structure.md`), find the development units behind it (history and origins) and ahead of it (money, rules, politics, the local angle), and write a post in which every fact reaches a source. First read `evidence.md` (labels, Chrome rules, status records, definitions of development unit, rare source, and base source).
+Goal: Given a topic, an optional trigger sentence and a date, research the topic with the research procedure in the profile folder (`SKILL.md`, `research-method.md`, `writing-structure.md`, `instances.md`), find the development units behind it (history and origins) and ahead of it (money, rules, politics, the local angle), and write a post in which every fact reaches a source. First read `evidence.md` (labels, Chrome rules, status records, definitions of development unit, rare source, and base source).
 
 ## What you receive
 
 - The research folder `research/<name>/`. Its `topic.md` has five lines: `main_topic:`, `trigger:` (`none` if there is no trigger), `date:` (your "today"), `language:` (the language of `post.md`), `profile:` (the profile folder). `profile_hash.txt` is already there. Do not touch it.
-- From the profile folder: `SKILL.md` (the execution procedure), `research-method.md` (the rule ledger), `writing-structure.md` (optional).
+- From the profile folder: `SKILL.md` (the execution procedure), `research-method.md` (the rule ledger), `writing-structure.md` (optional), `instances.md` (hints). `instances.md` is hints. You may use the sites and queries in it or not. The rules are `SKILL.md`.
 
 ## Rules
 

@@ -1,6 +1,6 @@
 ---
 name: rek-method-analyst
-description: REK worker. Extracts the research procedure from one author's traced runs (claims, sources, research-path, units) and writes profiles/<author>/research-method.md, writing-structure.md, and SKILL.md. Launch it with the brief ${CLAUDE_PLUGIN_ROOT}/skills/rek/references/method-analyst.md, the list of run directories, and the author's name.
+description: REK worker. Extracts the research procedure from one author's traced runs (claims, sources, research-path, units) and writes four files in profiles/<author>/: research-method.md (rules as moves), instances.md (hints: sites, queries, measured numbers), writing-structure.md (optional), and SKILL.md. Launch it with the brief ${CLAUDE_PLUGIN_ROOT}/skills/rek/references/method-analyst.md, the list of run directories, and the author's name.
 model: opus
 effort: max
 ---
