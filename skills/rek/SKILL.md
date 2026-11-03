@@ -35,7 +35,7 @@ Before launching, the orchestrator prepares the following:
 2. Write the output of `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek profile-hash profiles/<author>` to `repro/<n>/profile_hash.txt`.
 3. Copy the three lines `main_topic:`, `trigger:`, `date:` from the header of `units.md` exactly as they are, and add a fourth line `language:` with the language of the original post (read it from `post.md`; e.g. `language: Korean`). Do not pass the title, sources, URLs, or units.
 
-Put only these in the prompt: the four lines, the profile folder path, the `repro/<n>/` path, and the brief path. The worker is told nothing about the author; the verifier checks its log against the `excluded_domains:` line of `units.md`. It does not read any material dated after `date:`, or any other file in the run. Outputs: `research.md`, `post.md`, `log.md`.
+Put only these in the prompt: the four lines, the profile folder path, the `repro/<n>/` path, and the brief path. The worker is told nothing about the author; the verifier (or, on the test-only path, the comparator) checks its log against the `excluded_domains:` line of `units.md`. It does not read any material dated after `date:`, or any other file in the run. Outputs: `research.md`, `post.md`, `log.md`.
 
 ## 5. Verify (parallel per post): `rek-verifier`, brief `references/verifier.md`
 

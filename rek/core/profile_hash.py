@@ -1,4 +1,4 @@
-"""Identifies the exact profile a verification was scored against."""
+"""Identifies the exact profile a verification or a comparison was made against."""
 from __future__ import annotations
 
 import hashlib

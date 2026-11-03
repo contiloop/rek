@@ -28,7 +28,7 @@ REK/
 ├── tests/                          → pytest; fixtures are real saved pages
 ├── runs/<post_id>/                 → data: post, trace files, units, repro/<n>/ attempts and their verification
 ├── research/<date>-<slug>/         → data: one new-topic research (topic.md, research.md, post.md, log.md, check.md)
-├── profiles/<author>/              → data: research-method, instances, writing-structure, SKILL, holdout/<post_id>/ variants
+├── profiles/<author>/              → data: research-method, instances, writing-structure, SKILL, status; built only from runs/, never hand-edited
 └── docs/
     ├── architecture.md             → the two layers and how a post flows through the six stages
     ├── business-rules.md           → definitions, label rules, unit rules, reproduction rules, scoring rules

@@ -38,7 +38,7 @@ research/<date>-<slug>/  topic.md, research.md, post.md, log.md, check.md of one
 runs/<post_id>/      post.md, meta.json, images/, prior/<id>/ (author's earlier posts), claims.md, sources.md,
                      research-path.md, units.md (development units + start info), status.md,
                      repro/<n>/ (research.md, post.md, log.md, profile_hash.txt, verification.md)
-profiles/<author>/   research-method.md (rule ledger with evidence), writing-structure.md (optional), SKILL.md
+profiles/<author>/   research-method.md (rule ledger with evidence), instances.md (hints), writing-structure.md (optional), SKILL.md
 ```
 
 ## Install (the repository is both the plugin and its marketplace)

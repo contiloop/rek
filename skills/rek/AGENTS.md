@@ -19,7 +19,8 @@ Fetching or counting (the `rek` commands do that); storing knowledge about a spe
   forbids the author's domains, the original post, the run's other files and the content of pages after `date:`.
 - The verifier brief's example yaml block is byte-identical to `tests/fixtures/verification_example.md`. The topic-checker brief's yaml keys are `fabricated`, `late_sources`, `checker_verdict`, read by `rek research-summary`.
 - The topic-researcher brief receives only `topic.md` and the profile folder; its `research.md` and `log.md` use the same markers as the reproduction brief so `rek repro-stats` counts both.
-- Counts come from `rek stats` / `rek repro-stats`; a brief never asks a worker to count by hand.
+- Counts come from `rek stats` / `rek repro-stats`; a brief never asks a worker to count by hand. The one exception is the comparator brief: its eleven numbers are judgments (units covered by substance, facts matched, depth) that no code can compute, and `rek compare-summary` only copies them.
+- The comparator brief's example yaml block is byte-identical to `tests/fixtures/comparison_example.md`. The comparator and the verifier are the only briefs that read `excluded_domains:`; the reproduction brief never sees it.
 - File markers prescribed by the briefs (`R<nn> |`, `## 출처 목록`, `S<nn>`, `[검색]`, `표시:`, `무효:`, the three header
   lines `main_topic:` / `trigger:` / `date:`) are parsed by code and stay as written.
 

@@ -24,7 +24,7 @@ To use the plugin in one session without installing it, run `claude --plugin-dir
 | `uv run rek repro-stats runs/<id>/repro/<n>` | Unit count (by direction), source count (primary/secondary), record mark count of a reproduction. |
 | `uv run rek profile-hash profiles/<author>` | Profile version identifier (first 12 characters of the sha256 of `SKILL.md`, `research-method.md`, `instances.md`). |
 | `uv run rek source-sites runs/` | A table of the sources of all traces, grouped by registered domain. |
-| `uv run rek verify-summary runs/ [--criteria author\|own]` | Pass table. Exit code 0 = all pass. |
+| `uv run rek verify-summary runs/ [--criteria author\|own]` | Pass table. Exit code 0 = all pass. A test-only run (header-only `units.md`, no verification.md) shows as 미실행/불완전 and makes the overall result fail; score such a run with `rek compare-summary` instead. |
 | `uv run rek compare-summary runs/` | One line per run from the latest `comparison.md` (units, facts, fabrications, depth, extra links, validity, profile hash). Copies the comparator's numbers; no verdict, exit code always 0. |
 | `uv run rek research-init "<topic>" --profile profiles/<author> [--trigger "..."] [--date "..."]` | Create `research/<date>-<slug>/` with the five start lines and the profile hash. |
 | `uv run rek research-summary research/<name>` | Pass line of one new-topic research. Exit code 0 = pass. |
@@ -33,7 +33,7 @@ Inside the plugin, workers use the form `uv run --project "${CLAUDE_PLUGIN_ROOT}
 
 ## Running the loop
 
-From any folder, in Claude Code, run `/rek:rek <url> [<url> ...]`, or start the `rek:rek` agent and pass it the URLs. The procedure is the six steps in `skills/rek/SKILL.md`. One worker run (Opus, effort high) costs roughly 200,000 to 600,000 tokens and takes 20 to 60 minutes (per post: 1 source tracing, 1 reproduction, 1 verification; per author: 1 method extraction); earlier rounds ran at maximum effort and cost more. If you run it inside this repository, `runs/` and `profiles/` carry over as they are.
+From any folder, in Claude Code, run `/rek:rek <url> [<url> ...]`, or start the `rek:rek` agent and pass it the URLs. The procedure is the six steps in `skills/rek/SKILL.md`. One worker run (Opus, effort high) took 17 minutes for a re-extraction, 25 to 27 minutes for a reproduction and 6 to 9 minutes for a comparison in the November 2026 test; token counts were not measured (per post: 1 source tracing, 1 reproduction, 1 verification; per author: 1 method extraction); earlier rounds ran at maximum effort and cost more. If you run it inside this repository, `runs/` and `profiles/` carry over as they are.
 
 ## Researching a new topic (the product use)
 

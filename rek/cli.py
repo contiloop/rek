@@ -126,18 +126,6 @@ def cmd_verify_summary(args) -> int:
     return 0 if all_pass else 1
 
 
-def _latest_repro_file(run_dir: str, name: str) -> str | None:
-    """`repro/<n>/<name>` with the largest n, or None (the method of verify_summary.latest_verification)."""
-    repro = os.path.join(run_dir, "repro")
-    if not os.path.isdir(repro):
-        return None
-    for n in sorted((n for n in os.listdir(repro) if n.isdigit()), key=int, reverse=True):
-        path = os.path.join(repro, n, name)
-        if os.path.isfile(path):
-            return path
-    return None
-
-
 def cmd_compare_summary(args) -> int:
     runs = []
     if os.path.isdir(args.runs_dir):
@@ -145,7 +133,7 @@ def cmd_compare_summary(args) -> int:
             run_dir = os.path.join(args.runs_dir, name)
             if not os.path.isfile(os.path.join(run_dir, "meta.json")):
                 continue
-            path = _latest_repro_file(run_dir, compare_summary.FILE)
+            path = verify_summary.latest_verification(run_dir, compare_summary.FILE)
             if path is None:
                 continue
             with open(path, encoding="utf-8") as f:

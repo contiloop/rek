@@ -16,6 +16,8 @@ Goal: Without having seen the author's post, use only the starting info and that
 
 ## Allowed
 
+Do not read the project's own documentation or code (`docs/`, `rek/`, other briefs); nothing there is research material.
+
 Web search and fetch. For pages that need a login, follow the Chrome rules in evidence.md (lock, read only). Any public material (wikis, articles, reports, statistics, databases, original social posts). If you can open a primary source directly, open it.
 
 ## Procedure
