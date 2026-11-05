@@ -33,12 +33,12 @@ tests/               pytest, fixture = one real Naver page
 .claude-plugin/      plugin manifest (the repository root is the plugin)
 skills/research/     the product entry: research a new topic with a profile and write the post
 skills/rek/          the learning loop; references/ holds one brief per worker (both skills)
-agents/              rek (orchestrator) + six worker agents (opus, effort max); scripts are reached via ${CLAUDE_PLUGIN_ROOT}
+agents/              rek (orchestrator) + seven worker agents (model and effort are defaults); scripts are reached via ${CLAUDE_PLUGIN_ROOT}
 research/<date>-<slug>/  topic.md, research.md, post.md, log.md, check.md of one new-topic research
 runs/<post_id>/      post.md, meta.json, images/, prior/<id>/ (author's earlier posts), claims.md, sources.md,
                      research-path.md, units.md (development units + start info), status.md,
                      repro/<n>/ (research.md, post.md, log.md, profile_hash.txt, verification.md)
-profiles/<author>/   research-method.md (rule ledger with evidence), writing-structure.md (optional), SKILL.md
+profiles/<author>/   research-method.md (rule ledger with evidence), instances.md (hints), writing-structure.md (optional), SKILL.md
 ```
 
 ## Install (the repository is both the plugin and its marketplace)
@@ -70,8 +70,7 @@ author's posts and (re)builds the profile the research side uses.
 
 ## Data
 
-`runs/` (the traced posts, their sources and the reproduction attempts) stays out of the public repository: it
-holds full copies of a third party's posts. Running the loop recreates it in your working folder. The profile
+`runs/` (the traced posts, their sources, the reproduction attempts and their comparisons) is excluded from git as a whole: it holds full copies of a third party's posts. Running the loop recreates it in your working folder; the scores are in `docs/tracking/status.md`. The profile
 under `profiles/reference-a/` keeps only short quotations as evidence.
 
 ## Run

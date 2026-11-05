@@ -64,6 +64,7 @@ def test_research_init_creates_topic_and_hash(tmp_path, capsys):
     profile.mkdir(parents=True)
     (profile / "SKILL.md").write_text("s", encoding="utf-8")
     (profile / "research-method.md").write_text("m", encoding="utf-8")
+    (profile / "instances.md").write_text("i", encoding="utf-8")
     out = tmp_path / "research" / "x"
     assert main(["research-init", "알래스카 LNG", "--trigger", "미국이 참여를 요청했다", "--profile", str(profile), "--out", str(out)]) == 0
     assert capsys.readouterr().out.strip() == str(out)
@@ -74,3 +75,13 @@ def test_research_init_creates_topic_and_hash(tmp_path, capsys):
     assert len((out / "profile_hash.txt").read_text().strip()) == 12
     assert main(["research-init", "x", "--profile", str(profile), "--out", str(out)]) == 2
     assert main(["research-init", "x", "--profile", str(tmp_path / "nope"), "--out", str(out)]) == 2
+
+
+def test_research_init_profile_without_instances(tmp_path, capsys):
+    profile = tmp_path / "p"
+    profile.mkdir()
+    (profile / "SKILL.md").write_text("s", encoding="utf-8")
+    (profile / "research-method.md").write_text("m", encoding="utf-8")
+    assert main(["research-init", "x", "--profile", str(profile), "--out", str(tmp_path / "out")]) == 2
+    err = capsys.readouterr().err
+    assert "missing profile file" in err and "instances.md" in err

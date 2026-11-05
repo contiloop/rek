@@ -1,146 +1,96 @@
 optional: true
+author: reference-a
+built_from: 224450743987, 224456106651, 224428298482, 224314709934
 
-# The shape of posts by the reference author: the container for research results (rek-method-analyst, 2026-10-29)
+The form is only the container for the research. Measured values (lengths, shares, counts, times) are in instances.md, `## Measured numbers`. Each rule is a move; its evidence names the posts.
 
-- This file is optional. The replication scoring (verifier.md) does not look at style or structure. It counts only development units, 희귀 (rare), 바탕 (base), and fabrication [observed].
-- The figures were measured with `uv run --project "${CLAUDE_PLUGIN_ROOT}" rek stats` (3 tracked posts + 22 prior posts, 2026-10-29) [observed]. Things that rek stats does not measure (spacing between numbers and units, image position) were measured with a temporary script of this analysis and are marked as such [observed].
-- The materials are the post.md and units.md of the three runs, the 22 prior posts, the old ledger writing-method.md (66 rules), and the old SKILL.md [observed]. The two old files were replaced by this file, research-method.md, and the new SKILL.md, and were deleted from the folder. They can be restored from git commit 19dcd6a, and references such as "writing-method.md F1" below point to that commit's version [observed]. A few figures in the old ledger (for example, 223755523008 with 71 sentences and a 한줄 코멘트 (one-line comment) of 71 characters) differ from the current tool values (69 sentences and 273 characters), so I replaced them with the current values [observed].
-- The rule ids are W1–W18. The research rule ids (T·B·F·R·U·A·N) are in research-method.md [observed]. Examples use only bracket templates [observed].
+## Macro structure
 
-## 0. Measurement table (rek stats)
+### W1: Open with at most a brief framing remark about the post itself, then the first fact of the back chain or the event itself [observed]
+- evidence: 224450743987 "불금이라 가벼운 내용입니다." then "1. 노르웨이는 청어의 나라였음." [observed]
+- evidence: 224428298482 "늘 그렇듯이, 돌아갑니다." then the first item [observed]
+- evidence: 224456106651 opens directly with the earlier incident "2026년 8월 31일, …" [observed]
+- evidence: 224314709934 "주말이라 가벼운 내용입니다." and "한번 언급한 내용이지만, 변화와 보완이 있습니다." then item 1 [observed]
 
-| id | kind | published (KST) | style | sentences | numbered_items | mean_sentence_chars | noun_ending_share | da_ending_share | sentences_with_number_share | images | one_liner_chars |
-|---|---|---|---|---|---|---|---|---|---|---|---|
-| 223714326525 | prior | 2025-01-05 00:10 | A | 71 | 63 | 53.2 | 0.85 | 0.03 | 0.44 | 8 | 333 |
-| 223737564971 | prior | 2025-01-24 23:46 | B (diary) | 36 | 0 | 39.4 | 0.0 | 0.94 | 0.36 | 4 | 0 |
-| 223755523008 | prior | 2025-02-11 00:10 | A | 69 | 64 | 55.7 | 0.86 | 0.04 | 0.39 | 12 | 273 |
-| 223784816464 | prior | 2025-03-06 00:10 | mixed | 71 | 28 | 47.0 | 0.37 | 0.58 | 0.32 | 4 | 145 |
-| 223840861084 | prior | 2025-04-21 07:38 | B | 62 | 0 | 57.0 | 0.0 | 0.87 | 0.55 | 13 | 152 |
-| 224058494349 | prior | 2025-10-30 08:39 | B (list) | 22 | 12 | 45.5 | 0.0 | 0.27 | 0.59 | 1 | 135 |
-| 224059473094 | prior | 2025-10-31 00:17 | B | 89 | 18 | 45.4 | 0.06 | 0.64 | 0.65 | 8 | 205 |
-| 224140130757 | prior | 2026-01-09 11:00 | B | 40 | 0 | 40.6 | 0.0 | 0.93 | 0.42 | 4 | 67 |
-| 224207962250 | prior | 2026-03-08 00:10 | A | 72 | 58 | 45.4 | 0.81 | 0.03 | 0.33 | 12 | 115 |
-| 224223174613 | prior | 2026-03-20 11:00 | B | 35 | 0 | 55.5 | 0.0 | 0.91 | 0.46 | 4 | 169 |
-| 224249713244 | prior | 2026-04-13 00:10 | A | 72 | 65 | 53.7 | 0.86 | 0.04 | 0.33 | 9 | 150 |
-| 224256222982 | prior | 2026-04-17 22:43 | B | 26 | 0 | 50.0 | 0.0 | 0.96 | 0.27 | 6 | 155 |
-| 224257587679 | prior | 2026-04-20 00:12 | A | 77 | 74 | 52.2 | 0.86 | 0.01 | 0.43 | 6 | 167 |
-| 224258306390 | prior | 2026-04-20 08:25 | B | 31 | 0 | 54.0 | 0.0 | 0.9 | 0.29 | 6 | 99 |
-| 224272172681 | prior | 2026-05-02 09:20 | B (diary) | 59 | 0 | 38.1 | 0.0 | 0.95 | 0.39 | 20 | 26 |
-| 224276829265 | prior | 2026-05-07 00:10 | A | 67 | 61 | 51.6 | 0.84 | 0.04 | 0.22 | 6 | 284 |
-| 224278535448 | prior | 2026-05-08 08:48 | B | 36 | 0 | 56.8 | 0.0 | 0.89 | 0.22 | 3 | 119 |
-| 224313465740 | prior | 2026-06-12 05:50 | B | 25 | 0 | 48.6 | 0.0 | 0.88 | 0.08 | 3 | 189 |
-| 224316120615 | prior | 2026-06-15 09:02 | B | 25 | 0 | 55.3 | 0.0 | 1.0 | 0.48 | 3 | 136 |
-| 224319486464 | prior | 2026-06-18 08:15 | B | 62 | 0 | 51.0 | 0.0 | 0.76 | 0.48 | 4 | 175 |
-| 224345852124 | prior | 2026-07-14 06:42 | B | 45 | 0 | 53.2 | 0.0 | 0.64 | 0.18 | 5 | 135 |
-| 224398051587 | prior | 2026-09-02 06:38 | B | 44 | 0 | 50.9 | 0.0 | 1.0 | 0.45 | 7 | 168 |
-| 224428298482 | tracked | 2026-10-02 00:10 | A | 103 | 96 | 54.3 | 0.86 | 0.04 | 0.49 | 14 | 219 |
-| 224450743987 | tracked | 2026-10-24 00:10 | A | 68 | 64 | 47.0 | 0.87 | 0.01 | 0.5 | 12 | 120 |
-| 224456106651 | tracked | 2026-10-28 11:00 | B | 46 | 0 | 52.3 | 0.0 | 0.96 | 0.46 | 8 | 137 |
+### W2: Order the body in time: back chain, then present state, then the trigger if there is one, then the one-line comment; the newest development comes last [observed]
+- evidence: 224428298482 research-path.md §4: "가장 새로운 뉴스(10-01)가 글 맨 끝에 놓임." [observed]
+- evidence: 224456106651 research-path.md §4: "본문은 배경부터 쌓아 7문단에서 트리거에 닿는다" [observed]
+- evidence: 224450743987 (no trigger): history, consumption, trade, quota and price, home-country counterpart, places to eat, then the comment [observed]
+- evidence: 224314709934 (no trigger): founder 1934 → war logistics → Japanese ports → Busan → present ranking and the fate of each actor, then the comment [observed]
 
-- Every value in the table is rek stats output, except the "style" column, which this analysis derived from noun_ending_share (0.8 or above is A, 0.1 or below is B) [observed].
-- Style A = a ~임 style (noun-form endings) with "N. " typed by hand on each line. Style B = an unnumbered ~다 style [observed].
+### W3: Title the post with the question the trigger raises, or, for an explainer, with "let's learn about [subject]" or "[subject] story", optionally followed by a parenthesised "feat" of the second subject [observed]
+- evidence: 224456106651 "이란이 한국 장금상선에 조치를 취하겠다고 경고한 이유" [observed]
+- evidence: 224428298482 "알래스카 LNG 프로젝트에 대해 알아보자" [observed]
+- evidence: 224450743987 "고등어 이야기 (feat 노르웨이 고등어 vs 국산 고등어)" [observed]
+- evidence: 224314709934 "컨테이너가 바꾼 역사와 부산항 이야기" [observed]
 
-## 1. Conditions for choosing the style
+### W4: End with the fixed one-line-comment label followed by a few sentences: a takeaway, a judgement about the home country or the next point to watch, ending on a new fact or a comparison, never on a summary [observed]
+- evidence: all four posts end with a line that starts "한줄 코멘트." or "한 줄 코멘트." (rek stats `has_one_liner`) [observed]
+- evidence: 224428298482 ends on the comparison "전체 사업비 545억달러와 거의 같은 금액" [observed]
+- evidence: 224314709934 ends "한국인의 급한 성격이 가끔은 장점이 되기도 함." [observed]
 
-### W1: The publication time sets the style. If the time in `date:` is around 00:10 (00:10 to 00:12), write Style A. At any other time, write Style B [observed]
-- Of the 9 posts published from 00:10 to 00:12, 8 are A (noun_ending_share 0.81–0.87): 223714326525, 223755523008, 224207962250, 224249713244, 224257587679, 224276829265, 224428298482, 224450743987 [observed].
-- All 16 posts published at other times are B (noun_ending_share 0.00–0.06). Examples: 224456106651 (11:00), 224398051587 (06:38), 224059473094 (00:17) [observed].
-- Exception: 223784816464 (00:10) is a reaction post to an event, so it is a mix: an old numbered list inserted into a B body (noun 0.37, da 0.58) [observed]. A short reaction that takes up a 계기 (trigger event) directly becomes B regardless of the time [inferred].
-- I kept the old ledger's "slot rule" (writing-method.md F1) as it was and added only this exception [observed].
+## Style and the condition that decides it
 
-## 2. Macro structure
+### W5: Choose one sentence style for the whole post: numbered short sentences in the noun-ending style when the post opens with a long back chain; unnumbered plain declarative sentences when it opens with the incident itself [observed]
+- evidence: 224450743987, 224428298482 and 224314709934 open with background and are numbered, noun-ending (rek stats `numbered_items`, `noun_ending_share`) [observed]
+- evidence: 224456106651 opens with the incident and is unnumbered, "~다" ending (rek stats `da_ending_share`) [observed]
 
-### W2: Opening. Style A opens with one polite-register meta line. Style B opens with a dated event sentence [observed]
-- In 7 of the 8 Style A posts, the first line is a polite-register meta sentence (for example, the first_line of 224428298482, 224450743987, 224207962250, 224257587679) [observed]. Template: `[왜 이 글인가 또는 '늘 그렇듯이' 배경 예고], [~합니다/~입니다].` [observed]
-- In 9 of the 14 Style B posts (diaries excluded), the first line is an event sentence (for example, 224456106651, 224398051587, 224223174613) [observed]. Template: `[연·월·일], [주체]가 [사건]했다.` [observed]
-- Exception: follow-up and supplement posts put the title of their own earlier post on the first line (224140130757, 223840861084) [observed]. The replication does not use this form (N10) [inferred].
+### W6: One fact per sentence, one sentence per line; causal links are their own sentences that end in "that is why" or "that means" [observed]
+- evidence: 224450743987 "노르웨이 고등어가 EU로 수출되는 비중이 6%밖에 되지 않는 이유임." [observed]
+- evidence: 224428298482 "나이팅 게일이 나온 배경임." [observed]
+- evidence: 224456106651 "SPC(특수목적법인)를 만들었다는 의미다." [observed]
+- evidence: 224314709934 "베트남 특수라는 말이 나왔던 배경임." [observed]
 
-### W3: Unit placement. 뒤쪽 (backward) chain (oldest first) → 본 주제 (main topic) → 앞쪽 (forward) chain → 계기 and the answer to the title (last quarter) → 한줄 코멘트 (one-line comment) [observed]
-- 224428298482: the 뒤쪽 units sit at 2% to 45% of the sentences, the midterm-election unit starts at 84%, and the 계기 sentence "100. …" is at 99% [observed: position measured with rek's sentence splitting].
-- 224456106651: the company history is at 7% to 30%, the sentence turning to the 계기 is at 76%, and the answer to the title is at the 98% sentence [observed: same method].
-- 224450743987 (no 계기): the herring history starts at 3%, the newest news (D13) is at 56%, domestic mackerel at 60%, and the individual restaurants start at 91% [observed: same method].
-- Exception: in an everyday-topic post with no 계기, put an everyday unit (the current season, where to eat) in the 계기 slot [inferred: 224450743987].
+### W7: A paragraph is one development unit; place a short turn sentence at the start of a unit when the topic changes (research-method.md A7) [observed]
+- evidence: 224456106651 units.md: unit boundaries follow the author's blank lines ("작성자의 빈 줄 두 개 … 에서 끊었다") [observed]
+- evidence: 224450743987 "국산 고등어는 양보다 크기가 문제임." opens D14 [observed]
+- evidence: 224428298482 "트럼프가 대통령에 취임하면서 상황이 바뀜." opens the policy part of D06 [observed]
+- evidence: 224314709934 "맥린은 포기하지 않았음." opens D04 [observed]
 
-### W4: Transition sentence. When moving from background to the present, use one short sentence [observed]
-- Forms: `[사건]하면서 상황이 바뀜.` (224428298482 #43, at the 42% point) / `문제는 [X]임.` (224428298482 #53, 224450743987 #29·#40) / `[행위자]가 가만히 있지 않았다.` (224456106651, at the 76% point) [observed]
+## Numbers
 
-### W5: Where new material enters the 바탕 post (decision 5). A new value that corrects a number in a 바탕 document is changed inside that unit. A new unit is inserted in its proper place on the chain (whichever of 뒤쪽, 본 주제, 앞쪽 the topic belongs to). Only the 계기 and the answer to the title go at the very end [observed]
-- Changed inside the unit: 224450743987 D11 changed the January post's "29만9000톤" to "29만9,010톤" and added 48% [observed: research-path §3]. 224428298482 D08 changed P1's 440억달러 to 545억달러 [observed: research-path §3-1].
-- Inserted in place: 224456106651 D08 (Korean crew and government) and D11 (insurance premium) are new units inserted after the ownership structure and after the freight rates respectively [observed: units.md reuse column].
-- At the very end: 224428298482 appended new units D11–D20 after P1's D01–D10 and put the 계기 last. 224456106651 put the 계기 units D14–D16 last [observed].
-- The old SKILL.md's "append new content after the last number" fits only the 계기 and new events. I changed it so that topics that belong to the 바탕 chain are inserted in place [inferred: decision].
+### W8: Single notation: Arabic digits with the post language's large-number units, thousands separators, the unit word attached to the number, years as four digits; round to the precision a reader keeps [observed]
+- evidence: 224450743987 "17만4,357톤", "2.6달러" [observed]
+- evidence: 224428298482 "545억달러", "4천700만톤" [observed]
+- evidence: 224456106651 "1억560만 배럴", and "59억 달러" for USD 5,925 mil (research-path.md §5 "59억2500만의 절사") [observed]
+- evidence: 224314709934 "50억달러", "27,000개의 컨테이너", "1억달러" [observed]
 
-### W6: Closing line (decision 3). The last paragraph is 1 to 4 sentences starting with "한줄 코멘트.", 110 to 220 characters [observed]
-- Across the 23 posts that have a 한줄 코멘트 (diaries excluded), the median one_liner_chars is 152, and 18 fall within 110 to 220 [observed: count from the table in section 0].
-- The three tracked posts are 120, 137, and 219 characters, all within this range [observed].
-- Template: `한줄 코멘트. [본문에 없던 사실 하나 또는 비교]. [단서 붙은 전망·조언·지켜볼 점].` [observed] The content rule is research-method.md A7 [observed].
-- I replaced the old ledger's "67–219 characters", the old SKILL's "70–220 characters", and "71–219 / 67–168" with this single range [observed].
+### W9: Put percentages, ratios and ranks right after the figure or name they belong to, in the same sentence [observed]
+- evidence: 224428298482 "연간 2천만톤은 43% 수준임." [observed]
+- evidence: 224456106651 "45척 중 35척(78%)" [observed]
+- evidence: 224450743987 "2025년 권고치보다 70% 줄어든 수준임." [observed]
+- evidence: 224314709934 "부산항은 세계16위 항만에서 7위로 올라섰고" [observed]
 
-## 3. Sentences
+## Images
 
-### W7: Style A. One line is "N. " plus one sentence, and numbered items are 81% to 96% of sentences [observed]
-- numbered_items/sentences: 224428298482 96/103, 224450743987 64/68, 223755523008 64/69, 224257587679 74/77, 224207962250 58/72 [observed].
-- Endings: noun_ending_share 0.81–0.87, da_ending_share 0.01–0.04 [observed]. Use `~하게 됨/~했음/~였음` for past events, `~임/~있음` for present facts, `~것임/~라는 말임/~이유임` for explanations, and `~전망임/~수 있음` for outlooks [observed: writing-method.md F3 reconfirmed].
-- The author numbers by hand and tends not to renumber after deleting a line (224428298482 numbering_gaps [1, 34, 42, 54]) [observed]. The replication numbers from 1 with no gaps [inferred].
+### W10: Place each image right after the sentence that names what it shows (the place, the actor, the object or the event), never before it [observed]
+- evidence: 224456106651 sources.md §1: img_07 (a live map) sits right under C41 "오만만에서 원유를 일반 유조선에 넘겨주고 있다" [observed]
+- evidence: 224428298482 sources.md §9: img_11 (a map with an arrow) after #51, the distance to the home port [observed]
+- evidence: 224450743987 post.md: img_02 (a map of Europe) after para 5 "노르웨이는 1960년대 중반부터 북해에서 고등어를 잡기 시작함." [observed]
+- evidence: 224314709934 post.md: img_19 (the collapsed expressway) right after "1995년 고베 대지진이 발생함." [observed]
 
-### W8: Style B. No numbers, one sentence per line, ending in ~다 [observed]
-- In news-reaction posts, da_ending_share is 0.64–1.00 and noun_ending_share is 0.00 (224456106651 0.96, 224398051587 1.0, 224223174613 0.91) [observed]. The low value (0.64) belongs to a post with long quotations and translations of original text (224345852124) [observed].
-- Write explanations with `~것이다/~의미다/~구조다/~이유다` and estimates with `~것으로 보인다/~예상된다` [observed: 224456106651 body].
+### W11: Use a live map or a record screen with a hand-drawn mark for a route or a place; a capture of the original post for a statement; stock or generated pictures for scenes that no capture shows; never a chart the author made [observed]
+- evidence: 224456106651 img_07 MarineTraffic map "작성자가 빨간 선을 그었다"; img_06 and img_08 generated [observed]
+- evidence: 224428298482 img_11 map with a red arrow; img_13 Truth Social capture; img_12 and img_14 Gemini [observed]
+- evidence: 224450743987 img_01–img_05 stock pictures; img_07 a species drawing; no chart [observed]
+- evidence: 224314709934 img_24 a map with red circles joined by an arrow; img_02 and img_03 Gemini scenes; no chart [observed]
 
-### W9: Sentence length. An average of 45 to 57 characters, with one main point per sentence [observed]
-- mean_sentence_chars: Style A 45.4–55.7, Style B (diaries excluded) 40.6–57.0 [observed]. Diaries are shorter, at 38–39 characters (224272172681, 223737564971) [observed].
+## Decisions where rules could conflict
 
-### W10: Template sentences and 바탕 sentences (decision 4). Write every sentence of the replication post fresh in this file's template. Do not copy sentences from a 바탕 document (wiki, article, column); take only the facts. Only quoted passages keep the domestic article's translation as it is [inferred]
-- The old ledger's "keep the base post's sentences and fix only numbers, place names, and years" (writing-method.md E1·A10) is about the author reviving his own earlier post [observed]. The replication's 바탕 is someone else's writing, so that rule does not apply [inferred: decision].
-- Basis for the quotation rule: the quotations in 224456106651 differ from the 경향신문 (Kyunghyang Shinmun) article (S01) in only one place of spacing [observed: S01 judgment].
+### W12: Base sentences against frame sentences: the frame wins; sentences taken from a base source are rewritten into the post's sentence style (W5), while their order is kept (research-method.md U1) [observed]
+- evidence: 224450743987 research-path.md §3: 서술형 "~다"를 개조식 "~임"으로 바꿈 [observed]
+- evidence: 224428298482 research-path.md §3-1: the reused sentences keep the 2025 order with edits [observed]
+- evidence: 224456106651 research-path.md §3: the sentence table of paragraphs 1–6 follows the prior post line by line, with edits, in the same order [observed]
+- evidence: 224314709934 research-path.md §3: "Paras 16–86 follow S01 items 1–72 in the same order" [observed]
 
-### W11: Spell out abbreviations and foreign institution names in parentheses on first use (research-method.md A8). For a long original text (a social post, a statement), point to it with "아래와 같은" (as below), then give a capture slot and an unnumbered Korean translation [observed]
-- In 224428298482, after #82 come img_13 (a capture) and two unnumbered translation paragraphs [observed]. 224249713244 and 224345852124 also put long remarks in unnumbered quoted paragraphs [observed].
+### W13: New material in the base goes at its own place in the chain's time order: earlier history before the base's first item, the trigger and the newest facts after its last (research-method.md U3) [observed]
+- evidence: 224428298482 "새 내용(#66–#100)은 옛 초안의 끝 번호에 이어 붙임" [observed]
+- evidence: 224450743987 the ICES 2026 advice (para 31–32) is inserted inside the reused quota part [observed]
+- evidence: 224456106651 new crew and insurance sentences (C28–C29, C35–C36) are inserted inside reused paragraphs 5–6 [observed]
+- evidence: 224314709934 the new opening paras 1–15 come before the reused chain, the 2025 ranking after its rank sentence [observed]
 
-## 4. Numbers
-
-### W12: Number notation (decision 2). Write large numbers by mixing Arabic numerals with the 만 and 억 units (commas below 만), write units in Hangul, and close up the number and unit with no space [observed]
-- Of 384 "number + unit" occurrences (톤·달러·배럴·원·km·kg·척·명·석·cm·㎥·불) in 25 posts, measured with a temporary script, 316 (82%) were closed up [observed: auxiliary measurement].
-- All 153 numbers ending in Arabic numerals were closed up (for example `[8,765톤]`, `[0.12kg]`, `[12척]`) [observed: auxiliary measurement].
-- Of 231 numbers ending in 천·만·억, 163 (71%) were closed up. The 68 spaced ones are mostly in translated quotations or carried-over sentences (for example, all 3 spaced ones in 224428298482 are translations or lists from the earlier post) [observed: auxiliary measurement].
-- In the three tracked posts alone, 91 of 102 (89%) were closed up [observed: auxiliary measurement].
-- The old ledger's F9 ("close up") and the spaced examples in N1 (such as "21만5천 톤") disagreed. I settled on the majority, "close up" [observed].
-- Do not use '$', 'USD', or 'billion' [observed: 0 occurrences in the body of the three posts, writing-method.md N1].
-
-### W13: Give the numbers that support the argument a comparison base (the earlier value, the share in %, the same value for Korea) (research-method.md A1), and add the year to dates [observed]
-- The first sentence of 224456106651 added "2026년" to the earlier post's "8월 31일" [observed: research-path §3 table 1]. 224428298482 #60 also added "2025년" [observed: research-path §3-1].
-
-## 5. Images
-
-### W14: Image position and count (decision 1). Place images only at the boundaries of development units: in Style A right after the topic sentence that opens a new unit, in Style B at the end of a paragraph that groups units. The total is then one half to two thirds of the unit count. Do not use interval rules such as "one image every N items" [observed]
-- Images per unit: 224450743987 12/18, 224456106651 8/17, 224428298482 14/20 [observed: rek stats images, units.md].
-- In Style A a new image comes after the topic sentence. In 224428298482, img_12 comes after #69 (the first sentence of D12) and img_14 after #85 (the first sentence of D16) [observed: post.md]. In 224450743987, img_05 comes after #40 (the first sentence of D14) [observed].
-- In Style B images come at the end of a paragraph: all 8 images of 224456106651 are at the ends of paragraphs (para 1–7) [observed: post.md].
-- Long units and personal units with several photos get more images inside the unit (224450743987 D18 has 4, 224428298482 D02 has 4) [observed].
-- Result range (rek stats images): Style A 6 to 14, Style B news posts 3 to 8 [observed]. The exceptions are the Style B planning post 223840861084 (13 images) and the diary 224272172681 (20 images) [observed].
-- The old ledger's "one image per 4 to 8 items" and "A 12–14 images" do not fit each other (96 items would need 12 to 24 images), so I replaced them with a single position rule [observed].
-
-### W15: There are five kinds of images: mood stock photos; maps or screen captures with a red circle or arrow drawn on them; captures of original text to be quoted; generated pictures for new parts that have no photos; and photos the author took himself for personal parts [observed]
-- 224456106651 img_01·img_07 (MarineTraffic capture with a red line), img_04·img_05 (Gemini) [observed]; 224428298482 img_08·img_11 (map with a red arrow), img_13 (Truth Social capture), img_12·img_14 (Gemini) [observed]; 224450743987 img_01–img_06·img_08 (OGQ stock), img_09–img_12 (restaurant photos) [observed: viewed the images].
-- The replication uses only the placeholder `![image: [무엇을 보여 줄지]]` (researcher.md) [observed].
-
-### W16: Do not describe the pictures in the body (no figure numbers or caption sentences) [observed]
-- Of the 8 images in 224456106651, the body refers to none [observed: post.md]. Only when quoting a captured post does it point to it with "아래와 같은" (224428298482 #82) [observed].
-
-## 6. Voice and format
-
-### W17: State facts flatly and mark only estimates (research-method.md A6). Put one or two slangy spoken words in each post between the dry facts [observed]
-- Form of the spoken words: investor and internet slang such as `[가치가 크게 오름]을 '떡상', [크게 성공]을 '초대박'` ('떡상' = skyrocketing, '초대박' = a huge hit) (224428298482 #35, 224456106651 paragraph 6) [observed].
-
-### W18: Do not use subheadings, bold text, bullet marks, tables, links, exclamation marks, or emoji (research-method.md N4·N9) [observed]
-- The block_counts of the three posts contain only text and image, with quote, link, and rule at 0 [observed: meta.json].
-
-## 7. The five contradictions I decided
-
-| Contradiction | How the old material disagreed | What I decided | Rule |
-|---|---|---|---|
-| Image interval vs. total and position | "every 4 to 8 items" (interval) and "A 12–14 images" (total) do not fit in a 96-item post [observed] | Place images at unit boundaries; the total is one half to two thirds of the unit count [observed] | W14 |
-| Spacing between number and unit | F9 "close up" vs. the spaced notation in the N1 examples [observed] | Close up (measured 82%) [observed] | W12 |
-| Length of the closing line | 67–219 characters, 70–220 characters, 71–219 / 67–168 [observed] | One range, 110–220 characters (median 152) [observed] | W6 |
-| Template sentences vs. keeping base sentences | "keep the base post's sentences as they are" vs. "write in template sentences" [observed] | The replication writes fresh in the template and does not copy base sentences [inferred] | W10 |
-| Where new material goes | "append after the last number" vs. "the 계기 goes in the last quarter" vs. "in an everyday post the new news goes in the middle" [observed] | Fix numbers in place, insert new units in place on the chain, and put only the 계기 and the answer at the end [observed] | W5 |
+### W14: The closing line does one thing: a takeaway, a judgement or a watch point (W4); a guess in it is marked as a guess (research-method.md A5) [observed]
+- evidence: 224428298482 "트럼프식의 과장이겠지만" [observed]
+- evidence: 224450743987 "괜찮은 방법 같음" [observed]
+- evidence: 224456106651 "지켜 볼 지점이다" [observed]
+- evidence: 224314709934 "가끔은 장점이 되기도 함" [observed]

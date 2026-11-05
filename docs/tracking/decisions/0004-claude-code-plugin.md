@@ -1,6 +1,6 @@
 # 0004 A Claude Code plugin (skill + subagents), with no direct API calls
 
-**Situation.** Workers had to run on Opus 5.5 at max effort, and the user wanted to start one REK agent and hand work to it even while working in another project. There was no API key.
+**Situation.** Workers had to run on Opus 5.5 at maximum effort, and the user wanted to start one REK agent and hand work to it even while working in another project. There was no API key.
 
 **Decision.** Make the repository root a Claude Code plugin (and marketplace). The skill `rek:rek` is the orchestrator procedure. The agent `rek:rek` runs the same procedure as a subagent, and the 4 worker types start as subagents inside it (session → rek → worker, 2 levels). Python handles only fetching and aggregation, and all judgment lives in the briefs.
 

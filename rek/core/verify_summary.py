@@ -116,14 +116,14 @@ class Row:
     path: str | None
 
 
-def latest_verification(run_dir: str) -> str | None:
-    """`repro/<n>/verification.md` with the largest n, or None."""
+def latest_verification(run_dir: str, name: str = "verification.md") -> str | None:
+    """`repro/<n>/<name>` with the largest n, or None. The comparison table reads `comparison.md` the same way."""
     repro = os.path.join(run_dir, "repro")
     if not os.path.isdir(repro):
         return None
     numbered = [(int(n), n) for n in os.listdir(repro) if n.isdigit()]
     for _, n in sorted(numbered, reverse=True):
-        path = os.path.join(repro, n, "verification.md")
+        path = os.path.join(repro, n, name)
         if os.path.isfile(path):
             return path
     return None
